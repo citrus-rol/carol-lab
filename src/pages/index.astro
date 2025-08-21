@@ -1,0 +1,205 @@
+---
+// index.astro
+import Navbar from '../components/Navbar.astro';
+import BaseLayout from '../layouts/BaseLayout.astro';
+import ServiceCategory from '../components/ServiceCategory.astro';
+import BackToTop from '../components/BackToTop.astro';
+import Footer from '../components/Footer.astro';
+
+const base: string = import.meta.env.BASE_URL || '/';
+---
+
+<BaseLayout title="Carol Lab">
+  <Navbar slot="navbar" />
+
+  <main>
+    <!-- About 區塊 -->
+    <section class="about-section">
+      <h2>關於Carol Lab</h2>
+      <p>｜ 個人設計實驗室，專注於字體設計、品牌視覺以及小動畫創作。｜</p>
+      <p>｜ 將創意轉化為可視化的作品，探索簡約且帶有溫度的設計表現。｜</p>
+    </section>
+
+    <div class="divider-line"></div>
+
+    <!-- Service 區塊 -->
+    <section class="service-title-section">
+      <h2>服務內容</h2>
+    </section>
+    <ServiceCategory />
+
+    <div class="divider-line"></div>
+
+    <!-- Works & Contact Grid 區塊 -->
+    <section class="else-title-section">
+      <h2>ELSE</h2>
+    </section>
+    <section class="grid-section">
+      <a href={`${base}works/`} class="grid-card">
+        <h2>作品展示</h2>
+        <p>--- 點擊此處 ---</p>
+      </a>
+      <a href={`${base}contact/`} class="grid-card">
+        <h2>聯絡資訊</h2>
+        <p>--- 點擊此處 ---</p>
+      </a>
+    </section>
+
+    <BackToTop />
+  </main>
+
+  <Footer slot="footer" />
+</BaseLayout>
+
+<style>
+main {
+  max-width: 90%;
+  margin: 0 auto;
+  font-family: "Noto Sans TC","Noto Sans","Microsoft JhengHei","PingFang TC","Heiti TC",Arial,sans-serif;
+}
+
+.about-section {
+  margin: 80px auto;
+}
+.about-section h2 {
+  color: #243640;
+  font-size: clamp(1rem, 1vw, 1.2rem);
+  letter-spacing: 0.05em;
+  margin: 40px auto;
+  text-align: left;
+}
+.about-section p {
+  font-size: clamp(0.8rem, 1vw, 1rem);
+  letter-spacing: 0.2em;
+  text-align: right;
+  white-space: nowrap;
+  overflow: hidden;
+  text-overflow: ellipsis;
+  opacity: 0;
+  transform: translateY(60px);
+  background: linear-gradient(
+    to right,
+    #d3d7d9 0%, 
+    #d3d7d9 50%,  
+    #24364080 60%,  
+    #E5AF3A 70% 
+  );
+  background-size: 200% 100%;
+  background-position: 100% 0;
+  -webkit-background-clip: text;
+  -webkit-text-fill-color: transparent;
+  display: block;
+  margin: 1em 0;
+}
+.about-section p:nth-of-type(1) {
+  animation: fadeInMove 3s forwards 0.5s, sweep 5s forwards 8s;
+}
+.about-section p:nth-of-type(2) {
+  animation: fadeInMove 3s forwards 3.5s, sweep 5s forwards 8s; 
+}
+@keyframes fadeInMove {
+  to {
+    opacity: 1;
+    transform: translateY(0);
+  }
+}
+@keyframes sweep {
+  to {
+    background-position: 0% 0;
+  }
+}
+
+.service-title-section {
+  margin: 40px auto ;
+}
+.service-title-section h2 {
+  color: #243640;
+  font-size: clamp(1rem, 1vw, 1.2rem);
+  text-align: left;
+  letter-spacing: 0.05em;
+  margin-bottom: 20px;
+}
+
+.divider-line {
+  height: 2px;
+  margin: 80px auto;
+  background: linear-gradient(to right, #505e66, #e5af3a33, #505e66);
+}
+
+.else-title-section {
+  text-align: center;
+  margin: 40px auto ;
+}
+.else-title-section h2 {
+  letter-spacing: 0.05em;
+  text-align: left;
+  color: #243640;
+  font-size: clamp(1rem, 1vw, 1.2rem);
+  margin-bottom: 20px;
+}
+.grid-section {
+  margin: 40px auto 120px;
+  display: grid;
+  grid-template-columns: repeat(auto-fit, minmax(200px, 1fr));
+  gap: 24px;
+}
+.grid-card {
+  background: linear-gradient(to left, #24364080, #d3d7d980, #24364080);
+  box-shadow: 0 0 16px 4px #243640;
+  border-radius: 12px;
+  text-align: center;
+  cursor: pointer;
+  text-decoration: none;
+  color: inherit;
+  opacity: 0;
+  transform: translateY(40px);
+  transition: all 0.8s ease;
+}
+.grid-card.visible {
+    /* 進入畫面時淡入 */
+    opacity: 1;
+    transform: translateY(0);
+  }
+.grid-card:hover {
+  transform: scale(1.05);
+  background-color: #505e66;
+  box-shadow: inset 0 0 24px 12px #d3d7d980;
+}
+.grid-card h2 {
+  font-size: clamp(0.8rem, 1vw, 1rem);
+  letter-spacing: 0.05em;
+  color:#243640;
+}
+.grid-card p {
+  font-size: clamp(0.6rem, 1vw, 0.8rem);
+  letter-spacing: 0.05em;
+  color: #243640;
+}
+
+@media (max-width: 480px) {
+  .about-section p { 
+    font-size: clamp(0.4rem, 1vw, 0.6rem);
+  }
+}
+</style>
+
+<script>
+  document.addEventListener("DOMContentLoaded", () => {
+    const cards = document.querySelectorAll(".grid-card");
+
+    const observer = new IntersectionObserver(
+      (entries) => {
+        entries.forEach((entry) => {
+          if (entry.isIntersecting) {
+            entry.target.classList.add("visible");
+          } else {
+            entry.target.classList.remove("visible");
+          }
+        });
+      },
+      { threshold: 0.3 }
+    );
+
+    cards.forEach((card) => observer.observe(card));
+  });
+</script>

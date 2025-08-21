@@ -1,0 +1,152 @@
+---
+const { title, date, image, isAboveFold = false } = Astro.props;
+const base = import.meta.env.BASE_URL || '/';
+
+// 如果 image 是 "placeholder"，不用處理，直接用 data URI 傳進來
+const imgSrc =
+  image && image.startsWith('data:image/svg') // 直接是 data URI
+    ? image
+    : !image || image === 'placeholder'
+      ? '' // 可以選擇給一個 fallback
+      : image.startsWith(base)
+        ? image
+        : `${base}${image.replace(/^\//, '')}`;
+
+
+---
+
+<div class="card" role="article" aria-label={title}>
+  <div class="img-wrapper">
+    <img
+      class="inner-img"
+      src={imgSrc}
+      alt={title}
+      loading={isAboveFold ? "eager" : "lazy"}
+      oncontextmenu="return false;"
+      draggable="false"
+    />
+    <div class="img-overlay"></div>
+  </div>
+  <div class="text-container">
+    <div class="title">{title}</div>
+    <div class="date">{date}</div>
+  </div>
+</div>
+
+<style>
+.card {
+  position: relative;
+  border-radius: 12px;
+  padding: 24px;
+  box-sizing: border-box;
+  cursor: pointer;
+  width: 100%;
+  background-color: #d3d7d933;
+  box-shadow: 0 0 16px 4px #24364080;
+  transition: background-color 0.3s ease, box-shadow 0.3s ease, transform 0.3s ease;
+  z-index: 1;
+}
+
+.card:hover {
+  transform: scale(1.05);
+  background-color: #d3d7d980;
+  box-shadow: inset 0 0 24px 12px #24364080;
+}
+
+.img-wrapper {
+  aspect-ratio: 1/1;
+  width: 100%;
+  border-radius: 12px;
+  overflow: hidden;
+  margin-bottom: 12px;
+  position: relative;
+}
+
+.inner-img {
+  width: 100%;
+  height: 100%;
+  object-fit: cover;
+  display: block;
+  opacity: 0.6;
+  transition: box-shadow 0.3s ease, opacity 0.3s ease;
+  border-radius: inherit;
+}
+
+.inner-img::after {
+  content: "";
+  position: absolute;
+  top:0; left:0; right:0; bottom:0;
+  border-radius:12px;
+  background-color:#505e66;
+  pointer-events:none;
+  z-index:3;
+  transition: background-color 0.3s ease;
+}
+
+.img-overlay {
+  position: absolute;
+  inset: 0;
+  border-radius: 12px;
+  background: transparent;
+  pointer-events: auto; /* 阻擋右鍵 */
+}
+
+.card:hover .inner-img { 
+  box-shadow:none; 
+  opacity:0.8; 
+}
+
+.card:hover .inner-img::after { 
+  background-color:transparent; 
+}
+
+.text-container {
+  position: relative;
+  display: flex;
+  flex-direction: column;
+  align-items: flex-end;
+  padding: 12px;
+  text-align: right;
+  border-radius: 12px 2px 2px 12px;
+}
+
+.text-container::after {
+  content: "";
+  position: absolute;
+  top: 0;
+  bottom: 0;
+  right: 0px;
+  width: 2px;
+  background-color: #E5AF3A33;
+  border-radius: 2px;
+}
+.card:hover .text-container::after {
+  background-color: #E5AF3A80; /* 顏色變亮 */
+}
+
+.title {
+  font-size: clamp(1rem, 1vw, 1.2rem);
+  letter-spacing: 0.05em; /* 段落文字間距 */
+  font-weight: bold;
+  color: #505e66;
+  margin-bottom: 4px;
+  white-space: nowrap;
+  overflow: hidden;
+  text-overflow: ellipsis;
+  transition: color 0.3s ease; /* 顏色變化滑順 */
+}
+
+.date {
+  font-size: clamp(0.8rem, 1vw, 1rem);
+  letter-spacing: 0.05em; /* 段落文字間距 */
+  color: #24364080;
+  white-space: nowrap;
+  overflow: hidden;
+  text-overflow: ellipsis;
+}
+
+.card:hover .title {
+  color: #505e66;
+}
+
+</style>

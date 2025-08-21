@@ -1,0 +1,167 @@
+---
+const base = import.meta.env.BASE_URL;
+---
+
+<nav id="main-nav">
+  <div class="logo">
+    <img src={`${base}navbar_logo.svg`} alt="Carol Lab logo" class="logo-img" />
+  </div>
+
+  <ul class="nav-links">
+    <li><a href={`${base}`} class={`nav-link ${Astro.url.pathname === base || Astro.url.pathname === base + '/' ? 'active' : ''}`}>首頁</a></li>
+    <li><a href={`${base}works`} class={`nav-link ${Astro.url.pathname === base + 'works' ? 'active' : ''}`}>作品展示</a></li>
+    <li><a href={`${base}contact`} class={`nav-link ${Astro.url.pathname === base + 'contact' ? 'active' : ''}`}>聯絡資訊</a></li>
+  </ul>
+
+  <div class="hamburger">
+    <span></span>
+    <span></span>
+    <span></span>
+  </div>
+</nav>
+
+<style>
+nav {
+  position: fixed;
+  top: 0;
+  left: 0;
+  right: 0;
+  padding: 8px 24px;       /* navbar 高度由 padding 決定 */
+  background-color: #505e66;
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  font-weight: 500;
+  font-family: "Noto Sans TC","Noto Sans","Microsoft JhengHei","PingFang TC","Heiti TC",Arial,sans-serif;
+  transition: background-color 0.3s ease, padding 0.3s ease;
+  z-index: 1000;
+}
+
+nav.scrolled {
+  background-color: #24364033;
+  backdrop-filter: blur(6px);
+  padding: 4px 24px;   /* scroll 後 navbar 高度縮小 */
+}
+
+/* Logo */
+.logo img {
+  height: 48px;             /* 基礎高度 */
+  width: auto;
+  display: block;
+  transition: transform 0.3s ease;
+  transform-origin: center;
+  transform: scale(1.5) translateY(2px);  /* 放大 logo，不改 navbar 高度 */
+}
+
+nav.scrolled .logo img {
+  transform: scale(1.2) translateY(0);    /* scroll 後縮小 logo */
+}
+
+/* 平板 */
+@media (min-width: 480px) {
+  .logo img {
+    height: 60px;
+    transform: scale(1.3) translateY(1px);
+  }
+  nav.scrolled .logo img {
+    transform: scale(1.1);
+  }
+}
+
+/* 桌機 */
+@media (min-width: 768px) {
+  .logo img {
+    height: 80px;
+    transform: scale(1.2);
+  }
+  nav.scrolled .logo img {
+    transform: scale(1);
+  }
+}
+
+/* nav-links */
+.nav-links {
+  display: flex;
+  gap: 24px;
+  list-style: none;
+  flex-wrap: nowrap;        /* 防止換行 */
+}
+.nav-links li a {
+  white-space: nowrap;      /* 防止文字換行 */
+}
+
+.nav-link {
+  text-decoration: none;
+  color: #243640;
+  padding: 8px 8px;
+  border-radius: 6px;
+  transition: color 0.3s ease;
+  letter-spacing: 0.05em;
+}
+.nav-link:hover { color: #E5AF3A80; }
+.nav-link.active { color: #d3d7d9; font-weight: 700; }
+
+/* 漢堡 */
+.hamburger {
+  display: none;
+  flex-direction: column;
+  cursor: pointer;
+  gap: 5px;
+  width: 24px;
+  height: 20px;
+  justify-content: space-between;
+}
+.hamburger span {
+  display: block;
+  width: 100%;
+  height: 3px;
+  background-color: #d3d7d9;
+  border-radius: 2px;
+  transition: all 0.3s ease;
+}
+.hamburger.active span:nth-child(1) { transform: rotate(45deg) translateY(8px); }
+.hamburger.active span:nth-child(2) { opacity: 0; }
+.hamburger.active span:nth-child(3) { transform: rotate(-45deg) translateY(-8px); }
+
+/* 手機響應式 */
+@media (max-width: 480px) {
+  .nav-links {
+    display: none;
+    position: absolute;
+    top: 40px;
+    right: 16px;
+    flex-direction: column;
+    align-items: flex-end;
+    background-color: #24364080;
+    padding: 12px 16px;
+    border-radius: 8px;
+    gap: 8px;
+  }
+  .nav-links.active { display: flex; }
+  .hamburger { display: flex; }
+  .nav-links .nav-link { color: #d3d7d9; max-width: 100%; word-break: keep-all; }
+  .nav-links .nav-link:hover { color: #E5AF3A; }
+}
+</style>
+
+<script>
+document.addEventListener('DOMContentLoaded', () => {
+  const nav = document.getElementById('main-nav');
+  if (!nav) return;
+
+  const hamburger = nav.querySelector('.hamburger');
+  const navLinks = nav.querySelector('.nav-links');
+
+  if (hamburger && navLinks) {
+    window.addEventListener('scroll', () => {
+      if (window.scrollY > 50) nav.classList.add('scrolled');
+      else nav.classList.remove('scrolled');
+    });
+
+    hamburger.addEventListener('click', () => {
+      hamburger.classList.toggle('active');
+      navLinks.classList.toggle('active');
+    });
+  }
+});
+</script>

@@ -1,0 +1,93 @@
+---
+// WorksCardVariant.astro
+const { title, date, media, type = 'image', variant = 'grid', width = '100%' } = Astro.props;
+---
+
+<div class={`works-card-variant ${variant}`} style={`width: ${width}; aspect-ratio: 1 / 1;`}>
+  {type === 'video' ? (
+    <video 
+      src={media} 
+      class="card-media"
+      controls 
+      controlslist="nodownload noremoteplayback" 
+      disablepictureinpicture 
+      oncontextmenu="return false;" 
+    >
+    </video>
+  ) : (
+    <div class="image-wrapper">
+      <img 
+        src={media} 
+        alt={title} 
+        class="card-media" 
+        oncontextmenu="return false;" 
+        draggable="false"
+      />
+      <div class="overlay"></div>
+    </div>
+  )}
+
+  {variant !== 'small' && (
+    <div class="works-info">
+      <h3>{title}</h3>
+      <p>{date}</p>
+    </div>
+  )}
+</div>
+
+
+<style>
+.works-card-variant {
+  border-radius: 12px;
+  overflow: hidden;
+  cursor: pointer;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  transition: box-shadow 0.4s ease, transform 0.3s ease;
+}
+
+.works-card-variant:active {
+  transform: scale(1.05); /* 點擊時再放大 */
+  box-shadow: 0 0 16px 8px #d3d7d980;
+}
+
+.card-media {
+  width: 100%;
+  height: 100%;
+  object-fit: cover;
+  transition: transform 0.3s ease;
+  border-radius: inherit;
+  -webkit-user-drag: none; /* 禁止拖曳 */
+  user-drag: none;
+}
+
+/* Hover 縮放效果 */
+.works-card-variant:hover .card-media {
+  transform: scale(1.08);
+}
+
+.works-info {
+  text-align: center;
+  margin-top: 8px;
+}
+
+.works-info h3, .works-info p {
+  margin: 4px 0;
+  font-size: clamp(0.6rem, 1vw, 0.8rem);
+}
+
+/* 防止圖片右鍵另存 (透明覆蓋層) */
+.image-wrapper {
+  position: relative;
+  width: 100%;
+  height: 100%;
+}
+
+.image-wrapper .overlay {
+  position: absolute;
+  inset: 0;
+  background: transparent;
+  pointer-events: auto; /* 擋住右鍵 */
+}
+</style>

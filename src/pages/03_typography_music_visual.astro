@@ -1,0 +1,374 @@
+---
+import Navbar from '../components/Navbar.astro';
+import WorksCardVariant from '../components/WorksCardVariant.astro';
+import BaseLayout from '../layouts/BaseLayout.astro';
+import BackToTop from '../components/BackToTop.astro';
+import Footer from '../components/Footer.astro';
+
+const base = import.meta.env.BASE_URL || '/';
+
+const worksList = [
+  { title: '字體設計｜音樂視覺', date: '2025-03-26', media: 'images/works_09_a.svg', type: 'image' },
+  { title: '字體設計｜音樂視覺', date: '2025-03-26', media: 'images/works_09_b.svg', type: 'image' },
+  { title: '字體設計｜音樂視覺', date: '2025-03-26', media: 'images/works_09_c.svg', type: 'image' },
+  { title: '字體設計｜音樂視覺', date: '2025-03-26', media: 'images/works_09_d.svg', type: 'image' },
+  { title: '字體設計｜音樂視覺', date: '2025-03-26', media: 'video/works_09_video.mp4', type: 'video' },
+];
+---
+
+<BaseLayout title="03_typography_music_visual">
+  <Navbar slot="navbar" />
+
+  <div class="back-link">
+    <a href={`${base}works`}>
+      <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24" width="20" height="20"
+        fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round">
+        <polyline points="15 18 9 12 15 6" />
+      </svg>
+      返回 Works
+    </a>
+  </div>
+
+  <main class="works-container">
+    <section class="top-section">
+      <div class="media-wrapper">
+        <WorksCardVariant 
+          media={`${base}${worksList[0].media}`} 
+          type={worksList[0].type} 
+          variant="grid" 
+          width="80%" 
+        />
+      </div>
+
+      <div class="right-wrapper">
+        <div class="right-text">
+          <h2 class="work-title">Six Degrees</h2>
+          <p class="work-category">字體設計｜音樂視覺｜2025-02-19</p>
+
+          <div class="work-concept">
+            <h3><span class="symbol">✦</span>概念 Concept</h3>
+            <p>✦ 距離與連結，存在六度之間交錯</p>
+            <p>✦ 未知的交點，牽引著熟悉與陌生</p>
+            <p>✦ 潛在的連結，悄然交織著命運軌跡</p>
+          </div>
+
+          <div class="work-idea">
+            <h3><span class="symbol">✦</span>理念 Philosophy</h3>
+            <p>冷、暖光般的線條，帶來科技感與未來感，彷彿資訊流動的痕跡，也暗示著人際關係的交織與連結。</p>
+          </div>
+
+          <div class="hashtags">
+            <p>#SixDegrees #人際連結 #命運交錯 #科技感設計 #視覺藝術</p>
+          </div>
+
+          <div class="youtube-link">
+            靈感來源影片 — 
+            <a href="https://youtu.be/s__iJysWkCY" target="_blank" rel="noopener noreferrer">
+              <svg viewBox="0 0 24 24" fill="none" width="16" height="16">
+                <path class="play" d="M10 15l5-3-5-3v6z" stroke="currentColor"
+                  stroke-width="1.2" stroke-linecap="round" stroke-linejoin="round"/>
+                <path class="frame" d="M21 3H3a2 2 0 0 0-2 2v14a2 2 0 0 0 2 2h18a2 2 0 0 0 2-2V5a2 2 0 0 0-2-2zm-1 14H4V7h16v10z"
+                  stroke="currentColor" stroke-width="1.2" stroke-linecap="round" stroke-linejoin="round"/>
+              </svg>
+            </a>
+            — 點此前往 YouTube
+          </div>
+        </div>
+      </div>
+    </section>
+
+    <div class="section-divider"></div>
+
+    <section class="bottom-section">
+      <div class="bottom-text">
+        <p><span class="symbo2">✦</span> 系列作品 <span class="symbo2">✦</span></p>
+      </div>
+      <div class="works-grid">
+        {worksList.slice(1).map((work) => (
+          <WorksCardVariant 
+            media={`${base}${work.media}`} 
+            type={work.type} 
+            variant="small" 
+          />
+        ))}
+      </div>
+    </section>
+
+    <BackToTop />
+  </main>
+
+  <Footer slot="footer" />
+
+  <style>
+    /* 容器 */
+    .works-container { 
+      max-width: 100%; 
+      margin: 40px auto; 
+      padding: 60px 40px; 
+      border-radius: 12px; 
+      box-shadow: 0 0 16px 8px #24364080; 
+      background: radial-gradient(circle, #d3d7d933, #24364033 80%); 
+      font-family: "Noto Sans TC","Noto Sans","Microsoft JhengHei","PingFang TC","Heiti TC",Arial,sans-serif; 
+      min-height:100vh; 
+    }
+
+    /* 上方區塊 */
+    .top-section { 
+      display: grid;  
+      grid-template-columns: 2fr 3fr; 
+      align-items: center; 
+      gap:20px; 
+    }
+
+    .media-wrapper { 
+      display:flex; 
+      justify-content:center; 
+      align-items:stretch; 
+      border-radius:12px; 
+    }
+
+    .right-wrapper { 
+      display:flex; 
+      justify-content:center; 
+      align-items:center; 
+      border-radius:12px; 
+    }
+
+    .right-text { 
+      display:flex; 
+      flex-direction:column; 
+      justify-content:center; 
+      color:#d3d7d9; 
+      margin:0 auto; 
+      text-align:center; 
+      padding-right: 10%; 
+    }
+
+    /* 標題與類別 */
+    .work-title { 
+      white-space: normal;
+      overflow: hidden;
+      text-overflow: ellipsis;
+      font-size:clamp(1.2rem, 2vw, 1.4rem);
+      font-weight:700; 
+      text-align:end; 
+      color:#e5af3a; 
+      margin:4px 0 4px; 
+      letter-spacing:0.05rem; 
+      text-shadow: 0 0 8px #243640; /* 文字光暈 */
+    }
+
+    .work-category { 
+      font-size:clamp(0.8rem,1vw,1rem); 
+      color:#d3d7d980; 
+      text-align:end; 
+      margin:0 0 8px; 
+    }
+
+    /* 小標題 h3 + 符號 */
+    .right-text h3 { 
+      font-size:clamp(1rem,1vw,1.2rem); 
+      margin:1em 0 0.4em; 
+      color:#E5AF3A80; 
+      text-align:start; 
+    }
+
+    .symbol { 
+      display:inline-block; 
+      margin:0 0.4em; 
+      transition: transform 0.3s ease; 
+    }
+
+    .symbol:hover { 
+      transform:rotate(90deg) scale(0.5); 
+      transition: transform 0.3s ease; 
+    }
+
+    /* 段落 */
+    .work-concept p, .work-idea p { 
+      font-size:clamp(0.6rem,1vw,0.8rem); 
+      line-height:1.8; 
+      text-align:start; 
+      margin:4px 0; 
+      padding-left: 1.6rem;
+      white-space: normal;
+      overflow-wrap: break-word;
+      text-align: justify;
+    }
+
+    /* Hashtags */
+    .hashtags p { 
+      font-size:clamp(0.4rem,1vw,0.6rem); 
+      color:#d3d7d980; 
+      text-align:end; 
+      letter-spacing:0.05em; 
+      padding-left: 1.6rem;
+      text-align: justify;
+      word-break: break-word; /* 自動換行 */
+    }
+
+    /* YouTube */
+    .youtube-link { 
+      font-size:clamp(0.4rem,1vw,0.6rem); 
+      color:#d3d7d980; 
+      display:flex; 
+      justify-content:end; 
+      gap:4px; 
+      letter-spacing:0.05em; 
+      line-height:1.5; 
+      padding-left: 1.6rem;
+    }
+
+    .youtube-link a { 
+      display:inline-flex; 
+      align-items:center; 
+      text-decoration:none; 
+      color:#E5AF3A80; 
+    }
+
+    .youtube-link svg { 
+      width:1.5em; 
+      height:1.5em; 
+      flex-shrink:0; 
+      transition:transform 0.3s ease; 
+    }
+
+    .youtube-link svg .play { 
+      stroke:#E5AF3A; 
+    }
+
+    .youtube-link svg .frame { 
+      stroke:#d3d7d980; 
+    }
+
+    .youtube-link a:hover svg { 
+      transform:scale(1.2); 
+    }
+
+    .youtube-link a:hover svg .frame { 
+      stroke:#d3d7d9; 
+    }
+
+    /* 分隔線 */
+    .section-divider { 
+      height:4px; 
+      background:linear-gradient(to right,#24364000,#e5af3a33,#24364000); 
+      margin:40px auto 20px; 
+    }
+
+    /* 下方作品區 */
+    .bottom-section { 
+      display:flex; 
+      flex-direction:column; 
+      gap:8px; 
+      border-radius:12px; 
+      width:90%; 
+      margin:0 auto; 
+    }
+
+    .bottom-text { 
+      font-size:clamp(1rem,1vw,1.2rem); 
+      color:#d3d7d980; 
+      text-align:end; 
+      border-radius:12px; 
+    }
+
+    .symbo2 { 
+      display:inline-block; 
+      transition:transform 0.3s ease; 
+    }
+
+    .symbo2:hover { 
+      transform:rotate(90deg) scale(0.5); 
+      transition: transform 0.3s ease; 
+    }
+
+    /* 作品格子 */
+    .works-grid { 
+      display:grid; 
+      grid-template-columns:repeat(auto-fit,minmax(40px,1fr)); 
+      gap:24px; 
+      justify-content:center; 
+      justify-items:center; 
+      max-width:100%; 
+      margin:0 auto; 
+    }
+
+    .works-grid > * { 
+      width:100%; 
+      max-width: clamp(40px, 10vw, 80px);
+    }
+
+    /* 響應式 */
+    @media(max-width:1024px) { 
+      .works-grid { 
+        grid-template-columns:repeat(3,1fr); 
+        gap:20px; 
+      } 
+    }
+
+    @media(max-width:768px) {
+      .top-section { 
+        grid-template-columns:1fr; 
+        gap:16px; 
+      }
+      .right-text { 
+        width:100%; 
+        text-align:center; 
+        margin:0 auto; 
+        padding:0 5%; 
+      }
+      .works-container { 
+        padding:30px; 
+        min-height:50vh; 
+      }
+      .works-grid { 
+        grid-template-columns:repeat(2,1fr); 
+        gap:16px; 
+      }
+    }
+
+    @media(max-width:480px) {
+      .works-container { 
+        padding:20px; 
+        min-height:40vh; 
+      }
+      .works-grid { 
+        grid-template-columns:1fr; 
+        gap:14px; 
+      }
+      .right-text h2 { 
+        font-size:clamp(1rem,4vw,1.4rem); 
+      }
+      .right-text p { 
+        font-size:clamp(0.4rem,2vw,0.6rem); 
+      }
+    }
+
+    /* 返回 Works 連結 */
+    .back-link { 
+      max-width:100%; 
+      margin:20px auto 0; 
+      padding:0 5%; 
+      font-size:1rem; 
+    }
+
+    .back-link a { 
+      display:inline-flex; 
+      align-items:center; 
+      gap:6px; 
+      text-decoration:none; 
+      color:#d3d7d9; 
+      transition:color 0.2s; 
+    }
+
+    .back-link a:hover { 
+      color:#E5AF3A80; 
+    }
+
+    .back-link svg { 
+      flex-shrink:0; 
+    }
+
+  </style>
+</BaseLayout>

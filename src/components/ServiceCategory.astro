@@ -1,0 +1,342 @@
+---
+// categories.ts
+type Item = {
+  title: string;       // 中文 / 英文
+  description: string; // 中文描述
+  descriptionEn?: string; // 英文描述 (可選)
+};
+
+type Category = {
+  title: string;       // 中文 / 英文
+  items: Item[];
+};
+
+export const categories: Category[] = [
+  {
+    title: '品牌與識別設計 / Brand & Identity',
+    
+    items: [
+      { title: '品牌識別系統 / Visual Identity System (VIS)', description: '建立完整品牌視覺語言，統一應用於各種媒介。', descriptionEn: 'Build a complete visual identity system across media.' },
+      { title: 'Logo 設計 / Logo Design', description: '為品牌創建專屬標誌，提升辨識度與專業形象。', descriptionEn: 'Create a unique brand logo.' },
+      { title: '標準字 / Logotype Design', description: '設計專屬字體，增強品牌特色與識別力。', descriptionEn: 'Design a custom logotype to enhance brand identity.' },
+    ],
+  },
+  {
+    title: '字體與文字設計 / Typography & Lettering',
+    items: [
+      { title: '專屬字體 / Custom Typeface', description: '創造品牌或專案專屬字型，呈現獨特風格。', descriptionEn: 'Create a custom typeface for unique style.' },
+      { title: '主題字體 / Event & Thematic Lettering', description: '為活動或特定主題設計字體，提升視覺吸引力。', descriptionEn: 'Design thematic lettering for events.' },
+    ],
+  },
+  {
+    title: '插畫與角色設計 / Illustration & Character Design',
+    items: [
+      { title: '插畫應用 / Illustration Application', description: '將插畫元素應用於商品、周邊或社群貼圖。', descriptionEn: 'Apply illustrations to products, merch, or stickers.' },
+      { title: '角色設計 / IP & Character Design', description: '打造品牌專屬角色，增加親和力與故事感。', descriptionEn: 'Create brand characters for affinity and storytelling.' },
+    ],
+  },
+  {
+    title: '視覺與影像內容設計 / Visual & Motion Content',
+    items: [
+      { title: '影像剪輯 / Video Editing', description: '將素材剪輯成故事化影像，呈現品牌訊息。', descriptionEn: 'Edit footage into storytelling videos.' },
+      { title: '動態圖像 / Motion Graphics', description: '透過動畫呈現品牌或產品特色，提升吸引力。', descriptionEn: 'Create animations to showcase brand or product features.' },
+      { title: '社群短影片 / Social Media & Shorts', description: '為社群平台製作短影片，增強互動與傳播效果。', descriptionEn: 'Produce short social media videos to boost engagement.' },
+    ],
+  },
+];
+---
+
+<section class="service-category-grid">
+  {categories.map((cat) => (
+    <div class="category-card">
+      <button class="category-btn">
+        <span class="title-zh">{cat.title.split(' / ')[0]}</span>
+        <span class="title-en">{cat.title.split(' / ')[1]}</span>
+      </button>
+      <div class="category-items">
+        {cat.items.map((item) => (
+          <div class="item-card">
+            {/* 左側小線條 */}
+            <div class="decor-line line1"></div>
+            <div class="item-left">
+              <span class="item-title-zh">{item.title.split(' / ')[0]}</span>
+            </div>
+            <div class="item-right">
+              <span class="item-desc-zh">{item.description}</span>
+            </div>
+            <div class="item-left">
+              <span class="item-title-en">{item.title.split(' / ')[1]}</span>
+            </div>
+            <div class="item-right">
+              {item.descriptionEn && <span class="item-desc-en">{item.descriptionEn}</span>}
+            </div>
+          </div>
+        ))}
+      </div>
+    </div>
+  ))}
+</section>
+
+<style>
+.service-category-grid {
+  display: grid;
+  grid-template-columns: repeat(2, 1fr);
+  gap: 24px;
+}
+
+.category-card {
+  perspective: 1000px;
+  opacity: 0;
+  transform: translateY(20px);
+}
+@keyframes fadeInUp {
+  to {
+    opacity: 1;
+    transform: translateY(0);
+  }
+}
+
+/* 延遲設定：如果 category-card 數量固定，可手動設定 */
+.category-card:nth-child(1),
+.category-card:nth-child(2),
+.category-card:nth-child(3),
+.category-card:nth-child(4) { 
+  animation-delay: 0; 
+}
+
+/* 大標 */
+.category-btn {
+  width: 100%;
+  padding: 20px;
+  font-weight: 500;
+  background: linear-gradient(to left, #24364080, #e5af3a80, #24364080);
+  color: #d3d7d9;
+  box-shadow: 0 0 16px 4px #24364080;
+  border: none;
+  border-radius: 12px;
+  text-align: center;
+  cursor: pointer;
+  transition: transform 0.25s, box-shadow 0.25s;
+  position: relative;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+}
+
+.category-btn::after {
+  content: '▼';
+  position: absolute;
+  top: 40%;
+  right: 24px;
+  transition: transform 0.25s;
+}
+
+.category-btn.active::after {
+  transform: rotate(-180deg);
+}
+
+.category-btn:hover {
+  transform: scale(1.02);
+  box-shadow: 0 0 12px 4px #d3d7d980;
+}
+
+/* 大標中英文 */
+.title-zh { display: block; font-size: clamp(0.6rem, 2vw, 0.8rem); letter-spacing: 0.05em; /* 段落文字間距 */ }
+.title-en { display: block; font-size: clamp(0.6rem, 2vw, 0.8rem); letter-spacing: 0.05em; /* 段落文字間距 */ }
+
+/* 展開動畫 */
+.category-items {
+  max-height: 0;
+  overflow: hidden;
+  opacity: 0;
+  transition: max-height 0.5s ease, opacity 0.5s ease;
+  margin-top: 16px;
+}
+
+.category-btn.active + .category-items {
+  max-height: 1000px;
+  opacity: 1;
+}
+
+/* 小標卡片 */
+.item-card {
+  background: #24364080;
+  backdrop-filter: blur(4px);
+  margin-bottom: 10px;
+  border-radius: 12px;
+  cursor: pointer;
+  transition: transform 0.25s, box-shadow 0.25s, all 0.3s ease;
+  display: grid;
+  grid-template-columns: 1.2fr 2.8fr;
+  gap: 16px;
+  align-items: center;
+  padding: 16px;
+}
+
+.item-card:hover {
+  transform: translateY(-3px);
+  box-shadow: 0 8px 8px #d3d7d980;
+}
+
+/* 左欄中標 */
+.item-left {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  
+}
+.item-left span { 
+  text-align: center;
+  color: #d3d7d9; 
+}
+.item-title-zh { 
+  font-size: 0.6rem; 
+  line-height: 1.3; 
+}
+.item-title-en { 
+  font-size: 0.6rem; 
+  line-height: 1.2; 
+}
+
+/* 右欄內容 */
+.item-right {
+  display: flex;
+  flex-direction: column;
+  justify-content: center;
+  gap: 4px;
+  transition: all 0.3s ease;
+}
+
+.item-right span {
+  text-align: left;
+  color: #d3d7d9;
+}
+.item-desc-zh { font-size: 0.6rem; }
+.item-desc-en { font-size: 0.6rem; }
+
+/* 左側小線條 */
+.decor-line {
+  position:absolute;
+  width:4px;
+  height:80%;
+  border-radius:1px;
+  pointer-events:none;
+  animation: float 5s ease-in-out infinite alternate;
+}
+.line1 { 
+  left: 8px;  
+  background:linear-gradient(to top, #24364080, #e5af3a80, #24364080); 
+}
+
+/* 漂浮動畫 */
+@keyframes float {
+  0% { transform: translateY(0); }
+  50% { transform: translateY(-2px); }
+  100% { transform: translateY(0); }
+}
+
+.category-card:hover .category-btn {
+  animation: float 1.5s ease-in-out infinite alternate;
+}
+
+/* 響應式 */
+@media (max-width: 768px) {
+  .service-category-grid { grid-template-columns: 1fr; }
+  .item-card {
+    grid-template-columns: 1fr;
+    gap: 12px;
+    display: flex;
+    flex-direction: column;
+    justify-content: center;
+    align-items: stretch;
+    padding: 16px 12px; /* 新增左右內距 */
+    transition: all 0.3s ease;
+  }
+
+  .item-left {
+    align-items: center;
+    display: flex;
+    flex-direction: column;
+  }
+
+  .item-right {
+    align-items: center;
+    display: flex;
+    flex-direction: column;
+  }
+}
+
+</style>
+
+<script>
+document.addEventListener('DOMContentLoaded', () => {
+  const cards = Array.from(document.querySelectorAll('.category-card'));
+  const groupSize = 2;    // 每組幾個大卡片一起出現       
+  const delayBetweenGroups = 500;   // 每組之間延遲
+
+  const observerOptions = {
+    root: null,
+    rootMargin: '0px',
+    threshold: 0.3,   //30% 進入視窗就觸發
+  };
+
+  const observer = new IntersectionObserver((entries, obs) => {
+    entries.forEach((entry) => {
+      if (entry.isIntersecting) {
+        const cardIndex = cards.indexOf(entry.target);
+        const groupStart = Math.floor(cardIndex / groupSize) * groupSize;
+        const group = cards.slice(groupStart, groupStart + groupSize);
+
+        group.forEach((card) => {
+          if (!(card instanceof HTMLElement)) return; // 確保 card 有 style
+          card.style.opacity = '0';
+          card.style.transform = 'translateY(40px)';
+          card.style.transition = 'opacity 0.5s ease, transform 0.5s ease';
+          setTimeout(() => {
+            card.style.opacity = '1';
+            card.style.transform = 'translateY(0)';
+          }, 0);
+        });
+
+        obs.unobserve(entry.target);
+      }
+    });
+  }, observerOptions);
+
+  cards.forEach((card) => observer.observe(card));
+
+  // 點擊展開小卡片
+  document.querySelectorAll('.category-btn').forEach((btn) => {
+    btn.addEventListener('click', () => {
+      btn.classList.toggle('active');
+      const itemsContainer = btn.nextElementSibling;
+      if (!(itemsContainer instanceof HTMLElement)) return;
+
+      const itemCards = Array.from(itemsContainer.querySelectorAll('.item-card'));
+      itemCards.forEach((card, i) => {
+        if (!(card instanceof HTMLElement)) return;
+        card.style.transition = `opacity 0.4s ease ${i * 0.15}s, transform 0.4s ease ${i * 0.15}s`;
+        if (btn.classList.contains('active')) {
+          card.style.opacity = '0';
+          card.style.transform = 'translateY(10px)';
+          setTimeout(() => {
+            card.style.opacity = '1';
+            card.style.transform = 'translateY(0)';
+          }, 50);
+        } else {
+          card.style.opacity = '0';
+          card.style.transform = 'translateY(10px)';
+        }
+      });
+
+      if (btn.classList.contains('active')) {
+        itemsContainer.style.maxHeight = itemsContainer.scrollHeight + 'px';
+        itemsContainer.style.opacity = '1';
+      } else {
+        itemsContainer.style.maxHeight = '0';
+        itemsContainer.style.opacity = '0';
+      }
+    });
+  });
+});
+</script>
