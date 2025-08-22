@@ -14,16 +14,26 @@ const { title, padded = true, mainClass = '' } = Astro.props;
         -webkit-user-select: none;
         -moz-user-select: none;
         -ms-user-select: none;
+
+        overflow-y: scroll;              /* 整頁滾動 */
+        -webkit-overflow-scrolling: touch;
+
+        /* 隱藏所有瀏覽器的滾輪 */
+        scrollbar-width: none;           /* Firefox */
+        -ms-overflow-style: none;        /* IE / 舊 Edge */
+      }
+
+      html::-webkit-scrollbar,
+      body::-webkit-scrollbar {
+        width: 0px;                      /* Chrome / Safari */
+        background: transparent;
       }
 
       body {
-        display: flex;
-        flex-direction: column;
-        min-height: 100vh;
+        min-height: 100dvh; /* ✅ 新單位，確保手機高度正確 */
         background-color: #505e66;
         font-family: "Noto Sans TC","Noto Sans","Microsoft JhengHei","PingFang TC","Heiti TC",Arial,sans-serif;
         padding-top: 60px; /* navbar 高度 */
-        overflow: hidden; /* 避免整體滾動 */
       }
 
       body::before {
@@ -40,11 +50,8 @@ const { title, padded = true, mainClass = '' } = Astro.props;
       }
 
       main {
-        flex: 1;
         padding: 20px 96px;
         background-color: transparent;
-        overflow-y: auto; /* 內部滾動 */
-        -webkit-overflow-scrolling: touch;
       }
 
       main.no-padding { padding: 0; }
@@ -56,11 +63,8 @@ const { title, padded = true, mainClass = '' } = Astro.props;
       @media (max-width: 480px) {
         main {
           padding: 0 16px;
-          flex: 1;
-          min-height: calc(100vh - 60px);
-          overflow-y: auto;
+          min-height: auto; /* ✅ 交給 body 控制高度 */
         }
-        main::-webkit-scrollbar { display: none; }
       }
     </style>
   </head>
