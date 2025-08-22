@@ -74,24 +74,15 @@ const { title, padded = true, mainClass = '' } = Astro.props;
           overflow-y: scroll;
           -webkit-overflow-scrolling: touch; /* 手機滑動更順 */
         }
-        /* 首頁 main 高度 */
-        main.home-main {
-          height: 35vh; 
-          overflow-y: auto;     /* 可以滾動看下方內容 */
-          -webkit-overflow-scrolling: touch;
-        }
-        /* Contact main 高度 */
-        main.contact-main {
-          height: 50vh;
-          overflow-y: auto;     /* 可以滾動看下方內容 */
-          -webkit-overflow-scrolling: touch;
-        }
-        /* 作品頁 main 高度 */
+        main.home-main,
+        main.contact-main,
         main.works-main {
-          max-height: 35vh;
+          height: auto;        /* 不用固定高度 */
+          max-height: none;    /* 移除 max-height 限制 */
         }
+
         main::-webkit-scrollbar {
-          display: none; 
+          display: none;
         }
       }
         

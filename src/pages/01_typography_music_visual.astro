@@ -108,9 +108,11 @@ const worksList = [
       background: radial-gradient(circle, #d3d7d933, #24364033 80%); 
       font-family: "Noto Sans TC","Noto Sans","Microsoft JhengHei","PingFang TC","Heiti TC",Arial,sans-serif; 
       
-      min-height: calc(100vh - 60px); /* 減掉 navbar 高度 */
+      /* 高度自適應 */
+      min-height: auto; 
+      height: auto;
       box-sizing: border-box;
-      overflow-y: auto; /* 手機版滾動 */
+      overflow-y: visible; /* 取消強制滾動 */
     }
 
     /* 上方區塊 */
@@ -331,10 +333,9 @@ const worksList = [
 
     @media(max-width:480px) {
       .works-container { 
-        min-height: auto;          /* 高度自動 */
-        height: 50vh;              /* 初始顯示 50% */
-        overflow-y: auto;          /* 可以滾動看下方內容 */
-        -webkit-overflow-scrolling: touch;
+        min-height: auto; 
+        height: auto; 
+        overflow-y: visible; 
         padding: 20px;
       }
       .works-container::-webkit-scrollbar {

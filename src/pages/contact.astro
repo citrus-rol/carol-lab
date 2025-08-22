@@ -68,7 +68,7 @@ import BackToTop from '../components/BackToTop.astro';
     /* 手機響應式 */
     @media (max-width: 480px) {
       main.contact-main {
-        height: 50vh;               /* 初始只顯示上半部 */
+        min-height: calc(100vh - 60px); /* 保證手機版填滿整個可視區 */
         overflow-y: auto;           
         -webkit-overflow-scrolling: touch;
       }
