@@ -8,7 +8,7 @@ const { title, padded = true, mainClass = '' } = Astro.props;
     <title>{title}</title>
     <style>
       html, body {
-        height: auto;   /* 不強迫滿版，隨內容自然長 */
+        height: auto;
         margin: 0;
         user-select: none;
         -webkit-user-select: none;
@@ -19,7 +19,7 @@ const { title, padded = true, mainClass = '' } = Astro.props;
       body {
         display: flex;
         flex-direction: column;
-        min-height: 100dvh; /* 避免手機瀏覽器空白問題 */
+        min-height: 100vh;   /* ✅ 用 100vh，避免空白 */
         background-color: #505e66;
         font-family: "Noto Sans TC","Noto Sans","Microsoft JhengHei","PingFang TC","Heiti TC",Arial,sans-serif;
       }
@@ -38,21 +38,21 @@ const { title, padded = true, mainClass = '' } = Astro.props;
       }
 
       main {
-        flex: 1;
+        flex: 1 0 auto;  /* ✅ 讓 main 填滿，不要額外撐開 */
         padding: 20px 96px;
         background-color: transparent;
-        overflow-y: auto;               /* 內容可滾動 */
+        overflow-y: auto;
         -webkit-overflow-scrolling: touch;
-        scrollbar-width: none;          /* Firefox 隱藏滾輪 */
-        -ms-overflow-style: none;       /* IE / 舊 Edge 隱藏滾輪 */
+        scrollbar-width: none;
+        -ms-overflow-style: none;
       }
 
-      /* Chrome / Safari 隱藏滾輪 */
-      main::-webkit-scrollbar { 
-        display: none; 
-      }
-
+      main::-webkit-scrollbar { display: none; }
       main.no-padding { padding: 0; }
+
+      footer {
+        flex-shrink: 0; /* ✅ Footer 保持在最底 */
+      }
 
       @media (max-width: 768px) {
         main { padding: 0 20px; }
@@ -61,17 +61,15 @@ const { title, padded = true, mainClass = '' } = Astro.props;
       @media (max-width: 480px) {
         main {
           padding: 0 16px;
-          flex: 1;
-          min-height: auto; /* 避免 100vh 計算錯誤 */
+          min-height: auto;
           overflow-y: auto;
         }
       }
     </style>
   </head>
   <body>
-    <slot name="navbar" />   <!-- 這裡會塞 Navbar.astro -->
+    <slot name="navbar" />
     <main id="page-content" class={`${padded ? '' : 'no-padding'} ${mainClass}`}>
- 
       <slot />
     </main>
     <slot name="footer" />

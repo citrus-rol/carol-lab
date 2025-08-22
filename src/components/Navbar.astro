@@ -7,7 +7,7 @@ const base = import.meta.env.BASE_URL;
     <img src={`${base}navbar_logo.svg`} alt="Carol Lab Logo" />
   </a>
 
-  <!-- 漢堡選單按鈕 -->
+  <!-- 漢堡按鈕 -->
   <button class="menu-btn" aria-label="Menu">
     <span></span>
     <span></span>
@@ -23,7 +23,6 @@ const base = import.meta.env.BASE_URL;
 </nav>
 
 <style>
-/* Navbar 基本 */
 .navbar {
   position: fixed;
   top: 0; left: 0; right: 0;
@@ -36,19 +35,16 @@ const base = import.meta.env.BASE_URL;
   transition: background-color 0.3s ease, box-shadow 0.3s ease;
 }
 
-/* 滾動變色 */
 .navbar.scrolled {
   background: #505e6680;
   box-shadow: 0 2px 6px rgba(0,0,0,0.2);
   backdrop-filter: blur(6px);
 }
 
-/* Logo */
 .logo img {
   height: 72px;
 }
 
-/* Menu */
 .menu {
   display: flex;
   gap: 24px;
@@ -65,9 +61,8 @@ const base = import.meta.env.BASE_URL;
 }
 .menu a:hover { color: #E5AF3A; }
 
-/* 漢堡按鈕 */
 .menu-btn {
-  display: none;                /* 桌面版隱藏 */
+  display: none;
   flex-direction: column;
   justify-content: space-between;
   width: 40px;
@@ -75,7 +70,7 @@ const base = import.meta.env.BASE_URL;
   background: none;
   border: none;
   cursor: pointer;
-  z-index: 1100;                /* 確保蓋過選單 */
+  z-index: 1100;
 }
 
 .menu-btn span {
@@ -87,27 +82,24 @@ const base = import.meta.env.BASE_URL;
   transition: all 0.3s ease;
 }
 
-/* 漢堡動畫 → X */
 .menu-btn.active span:nth-child(1) {
-  transform: rotate(45deg) translateY(16px);
+  transform: rotate(45deg) translateY(12px);
 }
-.menu-btn.active span:nth-child(2) {
-  opacity: 0;
-}
+.menu-btn.active span:nth-child(2) { opacity: 0; }
 .menu-btn.active span:nth-child(3) {
-  transform: rotate(-45deg) translateY(-16px);
+  transform: rotate(-45deg) translateY(-12px);
 }
 
-/* 手機版選單 */
-@media (max-width: 768px) {
+/* ✅ 改 max-width: 900px，確保手機一定會觸發 */
+@media (max-width: 900px) {
   .menu {
     display: none;
     position: absolute;
     top: 60px;
     right: 0;
     flex-direction: column;
-    background: #505e6680;
-    width: 180px;
+    background: rgba(80,94,102,0.9);
+    width: 200px;
     padding: 16px;
     border-radius: 8px 0 0 8px;
   }
@@ -121,35 +113,24 @@ document.addEventListener("DOMContentLoaded", () => {
   const btn = document.querySelector(".menu-btn");
   const menu = document.getElementById("menu");
   const navbar = document.getElementById("navbar");
-  const main = document.querySelector("page-content"); // 👈 抓 main，不用 id
+  const main = document.getElementById("page-content");
 
-  // 手機選單開關
   btn?.addEventListener("click", () => {
     btn.classList.toggle("active");
     menu?.classList.toggle("active");
   });
 
-  // 判斷滾動的函式
-  function checkScroll(scrollTop) {
-    if (scrollTop > 20) {
-      navbar?.classList.add("scrolled");
-    } else {
-      navbar?.classList.remove("scrolled");
-    }
-  }
+  const checkScroll = (scrollTop) => {
+    if (scrollTop > 20) navbar?.classList.add("scrolled");
+    else navbar?.classList.remove("scrolled");
+  };
 
-  // 監聽 main 滾動（如果 main 本身可滾動）
   if (main && getComputedStyle(main).overflowY !== "visible") {
-    main.addEventListener("scroll", () => {
-      checkScroll(main.scrollTop);
-    });
-    checkScroll(main.scrollTop); // 初始化
+    main.addEventListener("scroll", () => checkScroll(main.scrollTop));
+    checkScroll(main.scrollTop);
   } else {
-    // 否則監聽 window
-    window.addEventListener("scroll", () => {
-      checkScroll(window.scrollY);
-    });
-    checkScroll(window.scrollY); // 初始化
+    window.addEventListener("scroll", () => checkScroll(window.scrollY));
+    checkScroll(window.scrollY);
   }
 });
 </script>
