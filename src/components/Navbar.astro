@@ -1,136 +1,120 @@
 ---
-const base = import.meta.env.BASE_URL;
 ---
 
-<nav id="navbar" class="navbar">
-  <a href={`${base}`} class="logo">
-    <img src={`${base}navbar_logo.svg`} alt="Carol Lab Logo" />
-  </a>
+<nav id="navbar">
+  <div class="nav-container">
+    <a href="/" class="logo">Carol Lab</a>
 
-  <!-- 漢堡按鈕 -->
-  <button class="menu-btn" aria-label="Menu">
-    <span></span>
-    <span></span>
-    <span></span>
-  </button>
+    <!-- 漢堡按鈕 -->
+    <button class="menu-btn" aria-label="Toggle Menu">
+      ☰
+    </button>
 
-  <!-- 選單 -->
-  <ul id="menu" class="menu">
-    <li><a href={`${base}`}>首頁</a></li>
-    <li><a href={`${base}works`}>作品</a></li>
-    <li><a href={`${base}contact`}>聯絡</a></li>
-  </ul>
+    <!-- 選單 -->
+    <ul id="menu" class="menu">
+      <li><a href="/">首頁</a></li>
+      <li><a href="/works">作品</a></li>
+      <li><a href="/contact">聯絡</a></li>
+    </ul>
+  </div>
 </nav>
 
 <style>
-.navbar {
-  position: fixed;
-  top: 0; left: 0; right: 0;
-  height: 60px;
-  display: flex;
-  justify-content: space-between;
-  align-items: center;
-  padding: 0 20px;
-  z-index: 1000;
-  transition: background-color 0.3s ease, box-shadow 0.3s ease;
-}
-
-.navbar.scrolled {
-  background: #505e6680;
-  box-shadow: 0 2px 6px rgba(0,0,0,0.2);
-  backdrop-filter: blur(6px);
-}
-
-.logo img {
-  height: 72px;
-}
-
-.menu {
-  display: flex;
-  gap: 24px;
-  list-style: none;
-  margin: 0;
-  padding: 0;
-}
-
-.menu a {
-  color: #fff;
-  text-decoration: none;
-  font-size: 1rem;
-  transition: color 0.3s;
-}
-.menu a:hover { color: #E5AF3A; }
-
-.menu-btn {
-  display: none;
-  flex-direction: column;
-  justify-content: space-between;
-  width: 40px;
-  height: 28px;
-  background: none;
-  border: none;
-  cursor: pointer;
-  z-index: 1100;
-}
-
-.menu-btn span {
-  display: block;
-  height: 3px;
-  width: 100%;
-  background: #fff;
-  border-radius: 2px;
-  transition: all 0.3s ease;
-}
-
-.menu-btn.active span:nth-child(1) {
-  transform: rotate(45deg) translateY(12px);
-}
-.menu-btn.active span:nth-child(2) { opacity: 0; }
-.menu-btn.active span:nth-child(3) {
-  transform: rotate(-45deg) translateY(-12px);
-}
-
-/* ✅ 改 max-width: 900px，確保手機一定會觸發 */
-@media (max-width: 900px) {
-  .menu {
-    display: none;
-    position: absolute;
-    top: 60px;
-    right: 0;
-    flex-direction: column;
-    background: rgba(80,94,102,0.9);
-    width: 200px;
-    padding: 16px;
-    border-radius: 8px 0 0 8px;
+  nav {
+    position: sticky;
+    top: 0;
+    width: 100%;
+    background: transparent;
+    transition: background 0.3s, box-shadow 0.3s;
+    z-index: 1000;
   }
-  .menu.active { display: flex; }
-  .menu-btn { display: flex; }
-}
+
+  nav.scrolled {
+    background: rgba(0, 0, 0, 0.8);
+    box-shadow: 0 2px 6px rgba(0,0,0,0.3);
+  }
+
+  .nav-container {
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+    padding: 12px 24px;
+  }
+
+  .logo {
+    font-size: 1.25rem;
+    font-weight: bold;
+    color: white;
+    text-decoration: none;
+  }
+
+  /* 桌機版選單 */
+  .menu {
+    display: flex;
+    gap: 20px;
+    list-style: none;
+    margin: 0;
+    padding: 0;
+  }
+
+  .menu li a {
+    color: white;
+    text-decoration: none;
+    font-size: 1rem;
+  }
+
+  /* 漢堡按鈕（預設隱藏） */
+  .menu-btn {
+    display: none;
+    font-size: 1.5rem;
+    background: none;
+    border: none;
+    color: white;
+    cursor: pointer;
+  }
+
+  /* 手機版樣式 */
+  @media (max-width: 768px) {
+    .menu-btn {
+      display: block;
+    }
+
+    .menu {
+      display: none;
+      flex-direction: column;
+      gap: 12px;
+      position: absolute;
+      top: 60px;
+      right: 20px;
+      background: rgba(0,0,0,0.9);
+      padding: 16px;
+      border-radius: 8px;
+    }
+
+    .menu.active {
+      display: flex;
+    }
+  }
 </style>
 
 <script is:inline>
-document.addEventListener("DOMContentLoaded", () => {
-  const btn = document.querySelector(".menu-btn");
-  const menu = document.getElementById("menu");
-  const navbar = document.getElementById("navbar");
-  const main = document.getElementById("page-content");
+  document.addEventListener("DOMContentLoaded", () => {
+    const btn = document.querySelector(".menu-btn");
+    const menu = document.getElementById("menu");
+    const navbar = document.getElementById("navbar");
 
-  btn?.addEventListener("click", () => {
-    btn.classList.toggle("active");
-    menu?.classList.toggle("active");
+    // 手機選單切換
+    btn?.addEventListener("click", () => {
+      menu?.classList.toggle("active");
+    });
+
+    // 滾動變色
+    window.addEventListener("scroll", () => {
+      if (window.scrollY > 20) {
+        navbar?.classList.add("scrolled");
+      } else {
+        navbar?.classList.remove("scrolled");
+      }
+    });
   });
-
-  const checkScroll = (scrollTop) => {
-    if (scrollTop > 20) navbar?.classList.add("scrolled");
-    else navbar?.classList.remove("scrolled");
-  };
-
-  if (main && getComputedStyle(main).overflowY !== "visible") {
-    main.addEventListener("scroll", () => checkScroll(main.scrollTop));
-    checkScroll(main.scrollTop);
-  } else {
-    window.addEventListener("scroll", () => checkScroll(window.scrollY));
-    checkScroll(window.scrollY);
-  }
-});
 </script>

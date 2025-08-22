@@ -1,31 +1,28 @@
-<!DOCTYPE html><html lang="zh-Hant" data-astro-cid-37fxchfa> <head><meta charset="UTF-8"><title>01_typography_theme</title><link rel="stylesheet" href="/carol-lab/_astro/01_typography_music_visual.Dh8N57NP.css">
+<!DOCTYPE html><html lang="zh-Hant" data-astro-cid-37fxchfa> <head><meta charset="UTF-8"><meta name="viewport" content="width=device-width, initial-scale=1.0"><title>01_typography_theme</title><link rel="stylesheet" href="/carol-lab/_astro/01_typography_music_visual.GLJe0Jht.css">
 <style>.works-card-variant[data-astro-cid-kq565qz6]{border-radius:12px;overflow:hidden;cursor:pointer;display:flex;flex-direction:column;align-items:center;transition:box-shadow .4s ease,transform .3s ease}.works-card-variant[data-astro-cid-kq565qz6]:active{transform:scale(1.05);box-shadow:0 0 16px 8px #d3d7d980}.card-media[data-astro-cid-kq565qz6]{width:100%;height:100%;object-fit:cover;transition:transform .3s ease;border-radius:inherit;-webkit-user-drag:none;user-drag:none}.works-card-variant[data-astro-cid-kq565qz6]:hover .card-media[data-astro-cid-kq565qz6]{transform:scale(1.08)}.works-info[data-astro-cid-kq565qz6]{text-align:center;margin-top:8px}.works-info[data-astro-cid-kq565qz6] h3[data-astro-cid-kq565qz6],.works-info[data-astro-cid-kq565qz6] p[data-astro-cid-kq565qz6]{margin:4px 0;font-size:clamp(.6rem,1vw,.8rem)}.image-wrapper[data-astro-cid-kq565qz6]{position:relative;width:100%;height:100%}.image-wrapper[data-astro-cid-kq565qz6] .overlay[data-astro-cid-kq565qz6]{position:absolute;inset:0;background:transparent;pointer-events:auto}
 </style>
-<link rel="stylesheet" href="/carol-lab/_astro/01_typography_theme.CyhvjYck.css"></head> <body data-astro-cid-37fxchfa> <nav id="navbar" class="navbar" data-astro-cid-5blmo7yk> <a href="/carol-lab/" class="logo" data-astro-cid-5blmo7yk> <img src="/carol-lab/navbar_logo.svg" alt="Carol Lab Logo" data-astro-cid-5blmo7yk> </a> <!-- 漢堡按鈕 --> <button class="menu-btn" aria-label="Menu" data-astro-cid-5blmo7yk> <span data-astro-cid-5blmo7yk></span> <span data-astro-cid-5blmo7yk></span> <span data-astro-cid-5blmo7yk></span> </button> <!-- 選單 --> <ul id="menu" class="menu" data-astro-cid-5blmo7yk> <li data-astro-cid-5blmo7yk><a href="/carol-lab/" data-astro-cid-5blmo7yk>首頁</a></li> <li data-astro-cid-5blmo7yk><a href="/carol-lab/works" data-astro-cid-5blmo7yk>作品</a></li> <li data-astro-cid-5blmo7yk><a href="/carol-lab/contact" data-astro-cid-5blmo7yk>聯絡</a></li> </ul> </nav>  <script>
-document.addEventListener("DOMContentLoaded", () => {
-  const btn = document.querySelector(".menu-btn");
-  const menu = document.getElementById("menu");
-  const navbar = document.getElementById("navbar");
-  const main = document.getElementById("page-content");
+<link rel="stylesheet" href="/carol-lab/_astro/01_typography_theme.CyhvjYck.css"></head> <body data-astro-cid-37fxchfa> <nav id="navbar" data-astro-cid-5blmo7yk> <div class="nav-container" data-astro-cid-5blmo7yk> <a href="/" class="logo" data-astro-cid-5blmo7yk>Carol Lab</a> <!-- 漢堡按鈕 --> <button class="menu-btn" aria-label="Toggle Menu" data-astro-cid-5blmo7yk>
+☰
+</button> <!-- 選單 --> <ul id="menu" class="menu" data-astro-cid-5blmo7yk> <li data-astro-cid-5blmo7yk><a href="/" data-astro-cid-5blmo7yk>首頁</a></li> <li data-astro-cid-5blmo7yk><a href="/works" data-astro-cid-5blmo7yk>作品</a></li> <li data-astro-cid-5blmo7yk><a href="/contact" data-astro-cid-5blmo7yk>聯絡</a></li> </ul> </div> </nav>  <script>
+  document.addEventListener("DOMContentLoaded", () => {
+    const btn = document.querySelector(".menu-btn");
+    const menu = document.getElementById("menu");
+    const navbar = document.getElementById("navbar");
 
-  btn?.addEventListener("click", () => {
-    btn.classList.toggle("active");
-    menu?.classList.toggle("active");
+    // 手機選單切換
+    btn?.addEventListener("click", () => {
+      menu?.classList.toggle("active");
+    });
+
+    // 滾動變色
+    window.addEventListener("scroll", () => {
+      if (window.scrollY > 20) {
+        navbar?.classList.add("scrolled");
+      } else {
+        navbar?.classList.remove("scrolled");
+      }
+    });
   });
-
-  const checkScroll = (scrollTop) => {
-    if (scrollTop > 20) navbar?.classList.add("scrolled");
-    else navbar?.classList.remove("scrolled");
-  };
-
-  if (main && getComputedStyle(main).overflowY !== "visible") {
-    main.addEventListener("scroll", () => checkScroll(main.scrollTop));
-    checkScroll(main.scrollTop);
-  } else {
-    window.addEventListener("scroll", () => checkScroll(window.scrollY));
-    checkScroll(window.scrollY);
-  }
-});
 </script> <main id="page-content" class=" " data-astro-cid-37fxchfa>    <div class="back-link" data-astro-cid-kqxhzg4v> <a href="/carol-lab/works" data-astro-cid-kqxhzg4v> <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24" width="20" height="20" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" data-astro-cid-kqxhzg4v> <polyline points="15 18 9 12 15 6" data-astro-cid-kqxhzg4v></polyline> </svg>
 返回 Works
 </a> </div> <main class="works-container" data-astro-cid-kqxhzg4v> <section class="top-section" data-astro-cid-kqxhzg4v> <div class="media-wrapper" data-astro-cid-kqxhzg4v> <div class="works-card-variant grid" style="width: 80%; aspect-ratio: 1 / 1;" data-astro-cid-kq565qz6> <div class="image-wrapper" data-astro-cid-kq565qz6> <img src="/carol-lab/images/works_01_a.svg" class="card-media" oncontextmenu="return false;" draggable="false" data-astro-cid-kq565qz6> <div class="overlay" data-astro-cid-kq565qz6></div> </div> <div class="works-info" data-astro-cid-kq565qz6> <h3 data-astro-cid-kq565qz6></h3> <p data-astro-cid-kq565qz6></p> </div> </div>  </div> <div class="right-wrapper" data-astro-cid-kqxhzg4v> <div class="right-text" data-astro-cid-kqxhzg4v> <h2 class="work-title" data-astro-cid-kqxhzg4v>Happy New Year 2025 ᴗ̈</h2> <p class="work-category" data-astro-cid-kqxhzg4v>字體設計｜主題設計｜2025-01-29</p> <div class="work-concept" data-astro-cid-kqxhzg4v> <h3 data-astro-cid-kqxhzg4v><span class="symbol" data-astro-cid-kqxhzg4v>✦</span>概念 Concept</h3> <p data-astro-cid-kqxhzg4v>✦ 新的一年</p> <p data-astro-cid-kqxhzg4v>✦ 感謝每一次嘗試｜感謝每一筆描繪｜感謝每一份支持</p> <p data-astro-cid-kqxhzg4v>✦ 在設計的旅程中不斷成長</p> <p data-astro-cid-kqxhzg4v>✦ 讓色彩與創意交織｜描繪未來的無限可能</p> </div> <div class="work-idea" data-astro-cid-kqxhzg4v> <h3 data-astro-cid-kqxhzg4v><span class="symbol" data-astro-cid-kqxhzg4v>✦</span>理念 Philosophy</h3> <p data-astro-cid-kqxhzg4v>期待即將一路同行的你們，未來一起前行！大家對 2025 有什麼期待？</p> </div> <div class="hashtags" data-astro-cid-kqxhzg4v> <p data-astro-cid-kqxhzg4v>#HappyNewYear2025 #設計新篇章 #創意無限 #色彩靈感</p> </div> <div class="youtube-link" data-astro-cid-kqxhzg4v>

@@ -5,11 +5,13 @@ const { title, padded = true, mainClass = '' } = Astro.props;
 <html lang="zh-Hant">
   <head>
     <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
     <title>{title}</title>
     <style>
       html, body {
-        height: auto;
         margin: 0;
+        padding: 0;
+        height: 100%;
         user-select: none;
         -webkit-user-select: none;
         -moz-user-select: none;
@@ -19,11 +21,12 @@ const { title, padded = true, mainClass = '' } = Astro.props;
       body {
         display: flex;
         flex-direction: column;
-        min-height: 100vh;   /* ✅ 用 100vh，避免空白 */
+        min-height: 100dvh; /* 手機瀏覽器也安全 */
         background-color: #505e66;
         font-family: "Noto Sans TC","Noto Sans","Microsoft JhengHei","PingFang TC","Heiti TC",Arial,sans-serif;
       }
 
+      /* 背景雜訊 */
       body::before {
         content: "";
         position: fixed;
@@ -38,32 +41,19 @@ const { title, padded = true, mainClass = '' } = Astro.props;
       }
 
       main {
-        flex: 1 0 auto;  /* ✅ 讓 main 填滿，不要額外撐開 */
+        flex: 1;
         padding: 20px 96px;
         background-color: transparent;
-        overflow-y: auto;
-        -webkit-overflow-scrolling: touch;
-        scrollbar-width: none;
-        -ms-overflow-style: none;
       }
 
-      main::-webkit-scrollbar { display: none; }
       main.no-padding { padding: 0; }
-
-      footer {
-        flex-shrink: 0; /* ✅ Footer 保持在最底 */
-      }
 
       @media (max-width: 768px) {
         main { padding: 0 20px; }
       }
 
       @media (max-width: 480px) {
-        main {
-          padding: 0 16px;
-          min-height: auto;
-          overflow-y: auto;
-        }
+        main { padding: 0 16px; }
       }
     </style>
   </head>
