@@ -23,19 +23,19 @@ const base = import.meta.env.BASE_URL;
 <div class="nav-overlay"></div>
 
 <style>
-/* Navbar 基本樣式 */
+/* ===== Navbar 基本樣式 ===== */
 nav {
   position: fixed;
   top: 0; left: 0; right: 0;
   padding: 4px 24px;
   background-color: #505e66;
-  display: flex; justify-content: space-between; align-items: center;
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
   font-weight: 500;
-  font-family: "Noto Sans TC","Noto Sans","Microsoft JhengHei","PingFang TC","Heiti TC",Arial,sans-serif;
   transition: background-color 0.3s ease, padding 0.3s ease;
   z-index: 1000;
 }
-
 nav.scrolled {
   background-color: #505e6633;
   backdrop-filter: blur(6px);
@@ -51,111 +51,67 @@ nav.scrolled {
   transform-origin: center;
   transform: scale(1.5) translateY(2px);
 }
-
 nav.scrolled .logo img { transform: scale(1.2) translateY(0); }
 
-@media (min-width: 480px) {
-  .logo img { height: 60px; transform: scale(1.3) translateY(1px); }
-  nav.scrolled .logo img { transform: scale(1.1); }
-  .nav-links { top: 48px; }
-}
-
-@media (min-width: 768px) {
-  .logo img { height: 80px; transform: scale(1.2); }
-  nav.scrolled .logo img { transform: scale(1); }
-}
-
-/* nav-links 桌機/平板 */
-.nav-links {
-  display: flex; gap: 24px; list-style: none; flex-wrap: nowrap;
-}
+/* nav-links 桌機 */
+.nav-links { display: flex; gap: 24px; list-style: none; }
 .nav-links li a { white-space: nowrap; }
-
-.nav-link {
-  text-decoration: none;
-  color: #243640;
-  padding: 8px 8px;
-  border-radius: 6px;
-  transition: color 0.3s ease;
-  letter-spacing: 0.05em;
-}
+.nav-link { text-decoration: none; color: #243640; padding: 8px; border-radius: 6px; transition: color 0.3s; }
 .nav-link:hover { color: #E5AF3A80; }
 .nav-link.active { color: #d3d7d9; font-weight: 700; }
 
 /* 漢堡 */
-.hamburger {
-  display: none; flex-direction: column; cursor: pointer;
-  gap: 5px; width: 24px; height: 20px; justify-content: space-between; z-index: 1101;
-}
-.hamburger span {
-  display: block; width: 100%; height: 3px;
-  background-color: #d3d7d9; border-radius: 2px;
-  transition: all 0.3s ease;
-}
+.hamburger { display: none; flex-direction: column; cursor: pointer; gap: 5px; width: 24px; height: 20px; justify-content: space-between; z-index: 1101; }
+.hamburger span { display: block; width: 100%; height: 3px; background-color: #d3d7d9; border-radius: 2px; transition: all 0.3s; }
 .hamburger.active span:nth-child(1) { transform: rotate(45deg) translateY(11.5px); }
 .hamburger.active span:nth-child(2) { opacity: 0; }
 .hamburger.active span:nth-child(3) { transform: rotate(-45deg) translateY(-11.5px); }
 
-/* 手機版選單 */
+/* 手機版下拉選單 */
 @media (max-width: 480px) {
   .nav-links {
-    display: flex;
-    position: fixed;
-    top: 28px; right: 0; left: 0;
-    flex-direction: column; align-items: center;
-    border-radius: 0 0 12px 12px; gap: 16px;
-    max-height: 0; padding: 0; overflow: hidden;
-    background-color: transparent;
-    transition: max-height 0.4s ease, padding 0.3s ease, background-color 0.3s ease;
-    z-index: 1100;
+    position: fixed; top: 60px; right: 0; left: 0;
+    flex-direction: column; align-items: center; border-radius: 0 0 12px 12px; gap: 16px;
+    max-height: 0; padding: 0; overflow: hidden; background-color: transparent; transition: all 0.3s ease; z-index: 1100;
   }
-  .nav-links a { opacity: 0; transition: opacity 0.3s ease; }
+  .nav-links a { opacity: 0; transition: opacity 0.3s; }
   .nav-links.active { max-height: 300px; padding: 16px; background-color: #243640ee; }
   .nav-links.active a { opacity: 1; }
-
   .hamburger { display: flex; }
   .nav-links .nav-link { color: #d3d7d9; font-size: 1.2rem; width: 100%; text-align: center; }
   .nav-links .nav-link:hover { color: #E5AF3A; }
 }
 
 /* 遮罩 overlay */
-.nav-overlay {
-  position: fixed; top: 0; left: 0; right: 0; bottom: 0;
-  background-color: rgba(0,0,0,0.4);
-  opacity: 0; pointer-events: none;
-  transition: opacity 0.3s ease; z-index: 1000;
-}
+.nav-overlay { position: fixed; top:0; left:0; right:0; bottom:0; background-color: rgba(0,0,0,0.4); opacity: 0; pointer-events: none; transition: opacity 0.3s; z-index: 1000; }
 .nav-overlay.active { opacity: 1; pointer-events: auto; }
 </style>
 
 <script>
 document.addEventListener('DOMContentLoaded', () => {
   const nav = document.getElementById('main-nav');
-  if (!nav) return;
-
-  const hamburger = nav.querySelector('.hamburger');
-  const navLinks = nav.querySelector('.nav-links');
+  const hamburger = nav?.querySelector('.hamburger');
+  const navLinks = nav?.querySelector('.nav-links');
   const overlay = document.querySelector('.nav-overlay');
 
-  if (hamburger && navLinks && overlay) {
-    window.addEventListener('scroll', () => {
-      if (window.scrollY > 50) nav.classList.add('scrolled');
-      else nav.classList.remove('scrolled');
-    });
+  if (!nav || !hamburger || !navLinks || !overlay) return;
 
-    const toggleMenu = () => {
-      hamburger.classList.toggle('active');
-      navLinks.classList.toggle('active');
-      overlay.classList.toggle('active');
-    };
+  window.addEventListener('scroll', () => {
+    if (window.scrollY > 50) nav.classList.add('scrolled');
+    else nav.classList.remove('scrolled');
+  });
 
-    hamburger.addEventListener('click', toggleMenu);
-    overlay.addEventListener('click', toggleMenu);
+  const toggleMenu = () => {
+    hamburger.classList.toggle('active');
+    navLinks.classList.toggle('active');
+    overlay.classList.toggle('active');
+  };
 
-    // 點擊選單連結後自動收起
-    navLinks.querySelectorAll('a').forEach(link => {
-      link.addEventListener('click', toggleMenu);
-    });
-  }
+  hamburger.addEventListener('click', toggleMenu);
+  overlay.addEventListener('click', toggleMenu);
+
+  navLinks.querySelectorAll('a').forEach(link => {
+    link.addEventListener('click', toggleMenu);
+  });
 });
 </script>

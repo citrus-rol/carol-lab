@@ -23,6 +23,7 @@ const { title, padded = true, mainClass = '' } = Astro.props;
         background-color: #505e66;
         font-family: "Noto Sans TC","Noto Sans","Microsoft JhengHei","PingFang TC","Heiti TC",Arial,sans-serif;
         padding-top: 60px; /* navbar 高度 */
+        overflow: hidden; /* 避免整體滾動 */
       }
 
       body::before {
@@ -42,12 +43,11 @@ const { title, padded = true, mainClass = '' } = Astro.props;
         flex: 1;
         padding: 20px 96px;
         background-color: transparent;
-        overflow-y: auto;
+        overflow-y: auto; /* 內部滾動 */
+        -webkit-overflow-scrolling: touch;
       }
 
-      main.no-padding {
-        padding: 0;
-      }
+      main.no-padding { padding: 0; }
 
       @media (max-width: 768px) {
         main { padding: 0 20px; }
@@ -58,9 +58,7 @@ const { title, padded = true, mainClass = '' } = Astro.props;
           padding: 0 16px;
           flex: 1;
           min-height: calc(100vh - 60px);
-          max-height: none;
           overflow-y: auto;
-          -webkit-overflow-scrolling: touch;
         }
         main::-webkit-scrollbar { display: none; }
       }
