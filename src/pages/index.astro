@@ -1,5 +1,4 @@
 ---
-// index.astro
 import Navbar from '../components/Navbar.astro';
 import BaseLayout from '../layouts/BaseLayout.astro';
 import ServiceCategory from '../components/ServiceCategory.astro';
@@ -9,7 +8,7 @@ import Footer from '../components/Footer.astro';
 const base: string = import.meta.env.BASE_URL || '/';
 ---
 
-<BaseLayout title="Carol Lab">
+<BaseLayout title="Carol Lab" mainClass="home-main">
   <Navbar slot="navbar" />
 
   <main>
@@ -52,12 +51,14 @@ const base: string = import.meta.env.BASE_URL || '/';
 </BaseLayout>
 
 <style>
-main {
+main.home-main {
   max-width: 90%;
   margin: 0 auto;
   font-family: "Noto Sans TC","Noto Sans","Microsoft JhengHei","PingFang TC","Heiti TC",Arial,sans-serif;
+  padding-bottom: 40px;
 }
 
+/* About 區塊動畫 */
 .about-section {
   margin: 80px auto;
 }
@@ -77,13 +78,7 @@ main {
   text-overflow: ellipsis;
   opacity: 0;
   transform: translateY(60px);
-  background: linear-gradient(
-    to right,
-    #d3d7d9 0%, 
-    #d3d7d9 50%,  
-    #24364080 60%,  
-    #E5AF3A 70% 
-  );
+  background: linear-gradient(to right, #d3d7d9 0%, #d3d7d9 50%, #24364080 60%, #E5AF3A 70%);
   background-size: 200% 100%;
   background-position: 100% 0;
   -webkit-background-clip: text;
@@ -97,20 +92,17 @@ main {
 .about-section p:nth-of-type(2) {
   animation: fadeInMove 3s forwards 3.5s, sweep 5s forwards 8s; 
 }
+
 @keyframes fadeInMove {
-  to {
-    opacity: 1;
-    transform: translateY(0);
-  }
+  to { opacity: 1; transform: translateY(0); }
 }
 @keyframes sweep {
-  to {
-    background-position: 0% 0;
-  }
+  to { background-position: 0% 0; }
 }
 
+/* Service 區塊 */
 .service-title-section {
-  margin: 40px auto ;
+  margin: 40px auto;
 }
 .service-title-section h2 {
   color: #243640;
@@ -120,15 +112,17 @@ main {
   margin-bottom: 20px;
 }
 
+/* 分隔線 */
 .divider-line {
   height: 2px;
   margin: 80px auto;
   background: linear-gradient(to right, #505e66, #e5af3a33, #505e66);
 }
 
+/* ELSE 區塊 */
 .else-title-section {
   text-align: center;
-  margin: 40px auto ;
+  margin: 40px auto;
 }
 .else-title-section h2 {
   letter-spacing: 0.05em;
@@ -138,12 +132,13 @@ main {
   margin-bottom: 20px;
 }
 .grid-section {
-  margin: 40px auto 120px;
+  margin: 12px auto 80px;
   display: grid;
   grid-template-columns: repeat(auto-fit, minmax(200px, 1fr));
   gap: 24px;
 }
 .grid-card {
+  width: 100%;
   background: linear-gradient(to left, #24364080, #d3d7d980, #24364080);
   box-shadow: 0 0 16px 4px #243640;
   border-radius: 12px;
@@ -156,10 +151,9 @@ main {
   transition: all 0.8s ease;
 }
 .grid-card.visible {
-    /* 進入畫面時淡入 */
-    opacity: 1;
-    transform: translateY(0);
-  }
+  opacity: 1;
+  transform: translateY(0);
+}
 .grid-card:hover {
   transform: scale(1.05);
   background-color: #505e66;
@@ -176,30 +170,34 @@ main {
   color: #243640;
 }
 
+/* 手機響應式 */
 @media (max-width: 480px) {
-  .about-section p { 
-    font-size: clamp(0.4rem, 1vw, 0.6rem);
+  main.home-main {
+    flex: unset;
+    padding: 0 12px;
+    height: 35vh;               /* 初始只顯示上半部 */
+    overflow-y: auto;
+    -webkit-overflow-scrolling: touch;
   }
+  main::-webkit-scrollbar { display: none; }
+  .about-section, .service-title-section, .else-title-section { margin: 0; padding: 0; }
+  .about-section p { font-size: clamp(0.4rem, 1vw, 0.6rem); }
+  .grid-section { padding: 0; }
 }
 </style>
 
 <script>
-  document.addEventListener("DOMContentLoaded", () => {
-    const cards = document.querySelectorAll(".grid-card");
-
-    const observer = new IntersectionObserver(
-      (entries) => {
-        entries.forEach((entry) => {
-          if (entry.isIntersecting) {
-            entry.target.classList.add("visible");
-          } else {
-            entry.target.classList.remove("visible");
-          }
-        });
-      },
-      { threshold: 0.3 }
-    );
-
-    cards.forEach((card) => observer.observe(card));
-  });
+document.addEventListener("DOMContentLoaded", () => {
+  const cards = document.querySelectorAll(".grid-card");
+  const observer = new IntersectionObserver(
+    (entries) => {
+      entries.forEach((entry) => {
+        if (entry.isIntersecting) entry.target.classList.add("visible");
+        else entry.target.classList.remove("visible");
+      });
+    },
+    { threshold: 0.3 }
+  );
+  cards.forEach((card) => observer.observe(card));
+});
 </script>

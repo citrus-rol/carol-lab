@@ -1,5 +1,5 @@
 ---
-const { title, padded = true } = Astro.props;
+const { title, padded = true, mainClass = '' } = Astro.props;
 ---
 
 <html lang="zh-Hant">
@@ -54,7 +54,7 @@ const { title, padded = true } = Astro.props;
 
       main {
         flex: 1;
-        padding: 0 96px;
+        padding: 20px 96px 20px;
         background-color: transparent;
       }
 
@@ -67,11 +67,39 @@ const { title, padded = true } = Astro.props;
           padding: 0 20px;
         }
       }
+      @media (max-width: 480px) {
+        main {
+          padding: 0 16px;           /* 比 20px 稍小，視覺更緊湊 */
+          flex: unset;               /* 取消 flex:1 */
+          overflow-y: scroll;
+          -webkit-overflow-scrolling: touch; /* 手機滑動更順 */
+        }
+        /* 首頁 main 高度 */
+        main.home-main {
+          height: 35vh; 
+          overflow-y: auto;     /* 可以滾動看下方內容 */
+          -webkit-overflow-scrolling: touch;
+        }
+        /* Contact main 高度 */
+        main.contact-main {
+          height: 50vh;
+          overflow-y: auto;     /* 可以滾動看下方內容 */
+          -webkit-overflow-scrolling: touch;
+        }
+        /* 作品頁 main 高度 */
+        main.works-main {
+          max-height: 35vh;
+        }
+        main::-webkit-scrollbar {
+          display: none; 
+        }
+      }
+        
     </style>
   </head>
   <body>
     <slot name="navbar" />
-    <main class={padded ? '' : 'no-padding'}>
+    <main class={`${padded ? '' : 'no-padding'} ${mainClass}`}>
       <slot />
     </main>
     <slot name="footer" />

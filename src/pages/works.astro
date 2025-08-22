@@ -43,7 +43,7 @@ const comingSoonList = [
 const colors = ['#e5af3a33', '#24364033', '#d3d7d933', '#24364033', '#d3d7d933', '#e5af3a33', '#d3d7d933', '#e5af3a33', '#24364033'];
 ---
 
-<BaseLayout title="作品展示">
+<BaseLayout title="作品展示" mainClass="works-main">
   <Navbar slot="navbar" />
 
   <!-- 篩選按鈕（可水平滑動） -->
@@ -161,6 +161,11 @@ const colors = ['#e5af3a33', '#24364033', '#d3d7d933', '#24364033', '#d3d7d933',
   </script>
 
   <style>
+
+    main.works-grid {
+      flex: 1;
+    }
+
     /* 可水平滑動容器 */
     .filter-buttons-container {
       max-width: 80%;
@@ -258,12 +263,30 @@ const colors = ['#e5af3a33', '#24364033', '#d3d7d933', '#24364033', '#d3d7d933',
       .works-grid {
         grid-template-columns: repeat(2, 1fr);
         grid-auto-rows: 1fr;
+        padding-bottom: 120px; /* 同步平板底部空間 */
       }
     }
     @media (max-width: 480px) {
+      main.works-grid {
+        height: 35vh; 
+        overflow-y: auto;
+        -webkit-overflow-scrolling: touch;
+        padding: 16px;
+      }
+      main::-webkit-scrollbar {
+        display: none; 
+      }
       .works-grid {
         grid-template-columns: 1fr;
         grid-auto-rows: 1fr;
+        padding-bottom: 120px; /* 手機版增加底部間距 */
+      }
+      .filter-buttons-container,
+      .works-grid {
+        max-width: 95%;
+        width: 100%;
+        margin: 0 auto;
+        padding: 0 8px;
       }
     }
   </style>

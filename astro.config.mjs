@@ -1,6 +1,6 @@
 import { defineConfig } from 'astro/config';
 
 export default defineConfig({
-  base: '/',
+  base: '/carol-lab/',
   outDir: 'docs',
 });

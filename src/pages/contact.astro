@@ -5,67 +5,86 @@ import BaseLayout from '../layouts/BaseLayout.astro';
 import BackToTop from '../components/BackToTop.astro';
 ---
 
-<BaseLayout title="歡迎合作洽談" padded={false}>
+<BaseLayout title="聯絡我們" mainClass="contact-main">
   <Navbar slot="navbar" />
 
   <main class="contact-main">
-
-    <!-- Tally 表單 -->
-    <iframe
-      src="https://tally.so/embed/wbJ2vo?dynamicHeight=1"
-      width="100%"
-      height="100%"
-      frameborder="0"
-      marginheight="0"
-      marginwidth="0"
-      title="歡迎合作洽談"
-      class="tally-iframe"
-    ></iframe>
-
+    <div class="iframe-wrapper">
+      <div class="iframe-scale">
+        <iframe
+          src="https://tally.so/embed/wbJ2vo?dynamicHeight=1"
+          frameborder="0"
+          title="歡迎合作洽談"
+          class="tally-iframe"
+        ></iframe>
+      </div>
+    </div>
   </main>
-
   <BackToTop />
   <Footer slot="footer" />
 
   <style>
-    main.contact-main {
-      display: flex;
-      flex-direction: column;
-      align-items: center;          /* 水平置中 */
-      justify-content: center;      /* 垂直置中 */
-      min-height: 100vh;            /* 滿整個視窗高度 */
-      margin: 0;
-      padding: 0;
-      width: 100%;
-      box-sizing: border-box;
-      background-color: #d3d7d9;             
-    }
-
     
-    .tally-iframe {
+    /* 外層容器 */
+    .iframe-wrapper {
       width: 100%;
       max-width: 1200px;
-      min-height: 1000px;
-      border: none;
+      margin: 64px auto;
+      padding: 32px;
       box-sizing: border-box;
-      display: block;
-      margin: 64px auto;               /* 水平置中 */
+      background-color: #d3d7d9;
+      border-radius: 12px;
+      box-shadow: 0 0 24px #243640;
+      overflow: hidden;
     }
 
+    /* 內層縮放容器 */
+    .iframe-scale {
+      width: 100%;
+      transform-origin: top center;
+    }
+
+    /* iframe 設定 */
+    .tally-iframe {
+      width: 100%;
+      min-height: 1000px;
+      border: none;
+      display: block;
+    }
     /* 平板響應式 */
     @media (max-width: 1024px) {
+      .iframe-wrapper {
+        padding: 16px;
+        margin: 32px auto;
+      }
       .tally-iframe {
-        width: 95%;
-        min-height: 550px;
+        min-height: 700px;
+      }
+      .iframe-scale {
+        transform: scale(1.05); /* 放大比例，可調整 */
       }
     }
 
     /* 手機響應式 */
     @media (max-width: 480px) {
+      main.contact-main {
+        height: 50vh;               /* 初始只顯示上半部 */
+        overflow-y: auto;           
+        -webkit-overflow-scrolling: touch;
+      }
+      main::-webkit-scrollbar {
+        display: none; 
+      }
+      .iframe-wrapper {
+        padding: 12px;
+        margin: 16px auto;
+      }
       .tally-iframe {
-        width: 100%;
+        min-height: 600px;
+      }
+      .iframe-scale {
+        transform: scale(1.15); /* 手機版再放大 */
       }
     }
-
   </style>
 </BaseLayout>

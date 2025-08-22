@@ -20,13 +20,17 @@ const base = import.meta.env.BASE_URL;
   </div>
 </nav>
 
+<!-- 手機版選單展開時的遮罩 -->
+<div class="nav-overlay"></div>
+
 <style>
+/* ===== Navbar 基本樣式 ===== */
 nav {
   position: fixed;
   top: 0;
   left: 0;
   right: 0;
-  padding: 4px 24px;       /* navbar 高度由 padding 決定 */
+  padding: 4px 24px;
   background-color: #505e66;
   display: flex;
   justify-content: space-between;
@@ -40,21 +44,21 @@ nav {
 nav.scrolled {
   background-color: #505e6633;
   backdrop-filter: blur(6px);
-  padding: 0px 24px;   /* scroll 後 navbar 高度縮小 */
+  padding: 0px 24px;
 }
 
 /* Logo */
 .logo img {
-  height: 48px;             /* 基礎高度 */
+  height: 48px;
   width: auto;
   display: block;
   transition: transform 0.3s ease;
   transform-origin: center;
-  transform: scale(1.5) translateY(2px);  /* 放大 logo，不改 navbar 高度 */
+  transform: scale(1.5) translateY(2px);
 }
 
 nav.scrolled .logo img {
-  transform: scale(1.2) translateY(0);    /* scroll 後縮小 logo */
+  transform: scale(1.2) translateY(0);
 }
 
 /* 平板 */
@@ -79,15 +83,15 @@ nav.scrolled .logo img {
   }
 }
 
-/* nav-links */
+/* nav-links (桌機/平板) */
 .nav-links {
   display: flex;
   gap: 24px;
   list-style: none;
-  flex-wrap: nowrap;        /* 防止換行 */
+  flex-wrap: nowrap;
 }
 .nav-links li a {
-  white-space: nowrap;      /* 防止文字換行 */
+  white-space: nowrap;
 }
 
 .nav-link {
@@ -101,7 +105,7 @@ nav.scrolled .logo img {
 .nav-link:hover { color: #E5AF3A80; }
 .nav-link.active { color: #d3d7d9; font-weight: 700; }
 
-/* 漢堡 */
+/* ===== 漢堡 ===== */
 .hamburger {
   display: none;
   flex-direction: column;
@@ -110,6 +114,7 @@ nav.scrolled .logo img {
   width: 24px;
   height: 20px;
   justify-content: space-between;
+  z-index: 1101; /* 確保在 overlay 上面 */
 }
 .hamburger span {
   display: block;
@@ -119,28 +124,72 @@ nav.scrolled .logo img {
   border-radius: 2px;
   transition: all 0.3s ease;
 }
-.hamburger.active span:nth-child(1) { transform: rotate(45deg) translateY(8px); }
+.hamburger.active span:nth-child(1) { transform: rotate(45deg) translateY(11.5px); }
 .hamburger.active span:nth-child(2) { opacity: 0; }
-.hamburger.active span:nth-child(3) { transform: rotate(-45deg) translateY(-8px); }
+.hamburger.active span:nth-child(3) { transform: rotate(-45deg) translateY(-11.5px); }
 
-/* 手機響應式 */
+/* ===== 手機版下拉選單 ===== */
 @media (max-width: 480px) {
   .nav-links {
-    display: none;
-    position: absolute;
-    top: 40px;
-    right: 16px;
+    display: flex;
+    position: fixed;
+    top: 28px;
+    right: 0;
+    left: 0;
     flex-direction: column;
-    align-items: flex-end;
-    background-color: #24364080;
-    padding: 12px 16px;
-    border-radius: 8px;
-    gap: 8px;
+    align-items: center;
+    border-radius: 0 0 12px 12px;
+    gap: 16px;
+
+    max-height: 0;
+    padding: 0;
+    overflow: hidden;
+    background-color: transparent;
+    transition: max-height 0.4s ease, padding 0.3s ease, background-color 0.3s ease;
+    z-index: 1100;
   }
-  .nav-links.active { display: flex; }
+
+  .nav-links a {
+    opacity: 0;
+    transition: opacity 0.3s ease;
+  }
+
+  .nav-links.active {
+    max-height: 300px;
+    padding: 16px;
+    background-color: #243640ee;
+  }
+  .nav-links.active a {
+    opacity: 1;
+  }
+
   .hamburger { display: flex; }
-  .nav-links .nav-link { color: #d3d7d9; max-width: 100%; word-break: keep-all; }
+
+  .nav-links .nav-link {
+    color: #d3d7d9;
+    font-size: 1.2rem;
+    width: 100%;
+    text-align: center;
+  }
   .nav-links .nav-link:hover { color: #E5AF3A; }
+}
+
+/* ===== 遮罩 overlay ===== */
+.nav-overlay {
+  position: fixed;
+  top: 0;
+  left: 0;
+  right: 0;
+  bottom: 0;
+  background-color: rgba(0,0,0,0.4);
+  opacity: 0;
+  pointer-events: none;
+  transition: opacity 0.3s ease;
+  z-index: 1000; /* 在 nav-links 底下 */
+}
+.nav-overlay.active {
+  opacity: 1;
+  pointer-events: auto;
 }
 </style>
 
@@ -151,16 +200,36 @@ document.addEventListener('DOMContentLoaded', () => {
 
   const hamburger = nav.querySelector('.hamburger');
   const navLinks = nav.querySelector('.nav-links');
+  const overlay = document.querySelector('.nav-overlay');
 
-  if (hamburger && navLinks) {
+  if (hamburger && navLinks && overlay) {
     window.addEventListener('scroll', () => {
       if (window.scrollY > 50) nav.classList.add('scrolled');
       else nav.classList.remove('scrolled');
     });
 
-    hamburger.addEventListener('click', () => {
+    const toggleMenu = () => {
       hamburger.classList.toggle('active');
       navLinks.classList.toggle('active');
+      overlay.classList.toggle('active');
+    };
+
+    hamburger.addEventListener('click', toggleMenu);
+
+    overlay.addEventListener('click', () => {
+      hamburger.classList.remove('active');
+      navLinks.classList.remove('active');
+      overlay.classList.remove('active');
+    });
+
+    // 點擊選單連結後自動收起
+    const links = navLinks.querySelectorAll('a');
+    links.forEach(link => {
+      link.addEventListener('click', () => {
+        hamburger.classList.remove('active');
+        navLinks.classList.remove('active');
+        overlay.classList.remove('active');
+      });
     });
   }
 });

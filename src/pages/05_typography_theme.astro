@@ -109,7 +109,10 @@ const worksList = [
       box-shadow: 0 0 16px 8px #24364080; 
       background: radial-gradient(circle, #d3d7d933, #24364033 80%); 
       font-family: "Noto Sans TC","Noto Sans","Microsoft JhengHei","PingFang TC","Heiti TC",Arial,sans-serif; 
-      min-height:100vh; 
+      
+      min-height: calc(100vh - 60px); /* 減掉 navbar 高度 */
+      box-sizing: border-box;
+      overflow-y: auto; /* 手機版滾動 */
     }
 
     /* 上方區塊 */
@@ -330,8 +333,14 @@ const worksList = [
 
     @media(max-width:480px) {
       .works-container { 
-        padding:20px; 
-        min-height:40vh; 
+        min-height: auto;          /* 高度自動 */
+        height: 50vh;              /* 初始顯示 50% */
+        overflow-y: auto;          /* 可以滾動看下方內容 */
+        -webkit-overflow-scrolling: touch;
+        padding: 20px;
+      }
+      .works-container::-webkit-scrollbar {
+        display: none; 
       }
       .works-grid { 
         grid-template-columns:1fr; 
@@ -348,8 +357,8 @@ const worksList = [
     /* 返回 Works 連結 */
     .back-link { 
       max-width:100%; 
-      margin:20px auto 0; 
-      padding:0 5%; 
+      margin: 12px 0 0px; /* navbar 高度 + 額外間距 */
+      padding-top: 4%; 
       font-size:1rem; 
     }
 
@@ -369,6 +378,16 @@ const worksList = [
     .back-link svg { 
       flex-shrink:0; 
     }
-
+    /* 小螢幕微調 */
+    @media(max-width: 768px) {
+      .back-link {
+        padding-top: 3%;
+      }
+    }
+    @media(max-width: 480px) {
+      .back-link {
+        padding-top: 3%;
+      }
+    }
   </style>
 </BaseLayout>
