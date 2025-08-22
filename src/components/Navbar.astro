@@ -2,116 +2,154 @@
 const base = import.meta.env.BASE_URL;
 ---
 
-<nav id="main-nav">
-  <div class="logo">
-    <img src={`${base}navbar_logo.svg`} alt="Carol Lab logo" class="logo-img" />
-  </div>
+<nav id="navbar" class="navbar">
+  <a href={`${base}`} class="logo">
+    <img src={`${base}navbar_logo.svg`} alt="Carol Lab Logo" />
+  </a>
 
-  <ul class="nav-links">
-    <li><a href={`${base}`} class={`nav-link ${Astro.url.pathname === base || Astro.url.pathname === base + '/' ? 'active' : ''}`}>首頁</a></li>
-    <li><a href={`${base}works`} class={`nav-link ${Astro.url.pathname === base + 'works' ? 'active' : ''}`}>作品展示</a></li>
-    <li><a href={`${base}contact`} class={`nav-link ${Astro.url.pathname === base + 'contact' ? 'active' : ''}`}>聯絡資訊</a></li>
+  <!-- 漢堡選單按鈕 -->
+  <button class="menu-btn" aria-label="Menu">
+    <span></span>
+    <span></span>
+    <span></span>
+  </button>
+
+  <!-- 選單 -->
+  <ul id="menu" class="menu">
+    <li><a href={`${base}`}>首頁</a></li>
+    <li><a href={`${base}works`}>作品</a></li>
+    <li><a href={`${base}contact`}>聯絡</a></li>
   </ul>
-
-  <div class="hamburger">
-    <span></span>
-    <span></span>
-    <span></span>
-  </div>
 </nav>
 
-<div class="nav-overlay"></div>
-
 <style>
-/* ===== Navbar 基本樣式 ===== */
-nav {
+/* Navbar 基本 */
+.navbar {
   position: fixed;
   top: 0; left: 0; right: 0;
-  padding: 4px 24px;
-  background-color: #505e66;
+  height: 60px;
   display: flex;
   justify-content: space-between;
   align-items: center;
-  font-weight: 500;
-  transition: background-color 0.3s ease, padding 0.3s ease;
+  padding: 0 20px;
   z-index: 1000;
+  transition: background-color 0.3s ease, box-shadow 0.3s ease;
 }
-nav.scrolled {
-  background-color: #505e6633;
+
+/* 滾動變色 */
+.navbar.scrolled {
+  background: #505e6680;
+  box-shadow: 0 2px 6px rgba(0,0,0,0.2);
   backdrop-filter: blur(6px);
-  padding: 0px 24px;
 }
 
 /* Logo */
 .logo img {
-  height: 48px;
-  width: auto;
+  height: 72px;
+}
+
+/* Menu */
+.menu {
+  display: flex;
+  gap: 24px;
+  list-style: none;
+  margin: 0;
+  padding: 0;
+}
+
+.menu a {
+  color: #fff;
+  text-decoration: none;
+  font-size: 1rem;
+  transition: color 0.3s;
+}
+.menu a:hover { color: #E5AF3A; }
+
+/* 漢堡按鈕 */
+.menu-btn {
+  display: none;                /* 桌面版隱藏 */
+  flex-direction: column;
+  justify-content: space-between;
+  width: 40px;
+  height: 28px;
+  background: none;
+  border: none;
+  cursor: pointer;
+  z-index: 1100;                /* 確保蓋過選單 */
+}
+
+.menu-btn span {
   display: block;
-  transition: transform 0.3s ease;
-  transform-origin: center;
-  transform: scale(1.5) translateY(2px);
+  height: 3px;
+  width: 100%;
+  background: #fff;
+  border-radius: 2px;
+  transition: all 0.3s ease;
 }
-nav.scrolled .logo img { transform: scale(1.2) translateY(0); }
 
-/* nav-links 桌機 */
-.nav-links { display: flex; gap: 24px; list-style: none; }
-.nav-links li a { white-space: nowrap; }
-.nav-link { text-decoration: none; color: #243640; padding: 8px; border-radius: 6px; transition: color 0.3s; }
-.nav-link:hover { color: #E5AF3A80; }
-.nav-link.active { color: #d3d7d9; font-weight: 700; }
+/* 漢堡動畫 → X */
+.menu-btn.active span:nth-child(1) {
+  transform: rotate(45deg) translateY(16px);
+}
+.menu-btn.active span:nth-child(2) {
+  opacity: 0;
+}
+.menu-btn.active span:nth-child(3) {
+  transform: rotate(-45deg) translateY(-16px);
+}
 
-/* 漢堡 */
-.hamburger { display: none; flex-direction: column; cursor: pointer; gap: 5px; width: 24px; height: 20px; justify-content: space-between; z-index: 1101; }
-.hamburger span { display: block; width: 100%; height: 3px; background-color: #d3d7d9; border-radius: 2px; transition: all 0.3s; }
-.hamburger.active span:nth-child(1) { transform: rotate(45deg) translateY(11.5px); }
-.hamburger.active span:nth-child(2) { opacity: 0; }
-.hamburger.active span:nth-child(3) { transform: rotate(-45deg) translateY(-11.5px); }
-
-/* 手機版下拉選單 */
-@media (max-width: 480px) {
-  .nav-links {
-    position: fixed; top: 60px; right: 0; left: 0;
-    flex-direction: column; align-items: center; border-radius: 0 0 12px 12px; gap: 16px;
-    max-height: 0; padding: 0; overflow: hidden; background-color: transparent; transition: all 0.3s ease; z-index: 1100;
+/* 手機版選單 */
+@media (max-width: 768px) {
+  .menu {
+    display: none;
+    position: absolute;
+    top: 60px;
+    right: 0;
+    flex-direction: column;
+    background: #505e6680;
+    width: 180px;
+    padding: 16px;
+    border-radius: 8px 0 0 8px;
   }
-  .nav-links a { opacity: 0; transition: opacity 0.3s; }
-  .nav-links.active { max-height: 300px; padding: 16px; background-color: #243640ee; }
-  .nav-links.active a { opacity: 1; }
-  .hamburger { display: flex; }
-  .nav-links .nav-link { color: #d3d7d9; font-size: 1.2rem; width: 100%; text-align: center; }
-  .nav-links .nav-link:hover { color: #E5AF3A; }
+  .menu.active { display: flex; }
+  .menu-btn { display: flex; }
 }
-
-/* 遮罩 overlay */
-.nav-overlay { position: fixed; top:0; left:0; right:0; bottom:0; background-color: rgba(0,0,0,0.4); opacity: 0; pointer-events: none; transition: opacity 0.3s; z-index: 1000; }
-.nav-overlay.active { opacity: 1; pointer-events: auto; }
 </style>
 
-<script>
-document.addEventListener('DOMContentLoaded', () => {
-  const nav = document.getElementById('main-nav');
-  const hamburger = nav?.querySelector('.hamburger');
-  const navLinks = nav?.querySelector('.nav-links');
-  const overlay = document.querySelector('.nav-overlay');
+<script is:inline>
+document.addEventListener("DOMContentLoaded", () => {
+  const btn = document.querySelector(".menu-btn");
+  const menu = document.getElementById("menu");
+  const navbar = document.getElementById("navbar");
+  const main = document.querySelector("page-content"); // 👈 抓 main，不用 id
 
-  if (!nav || !hamburger || !navLinks || !overlay) return;
-
-  window.addEventListener('scroll', () => {
-    if (window.scrollY > 50) nav.classList.add('scrolled');
-    else nav.classList.remove('scrolled');
+  // 手機選單開關
+  btn?.addEventListener("click", () => {
+    btn.classList.toggle("active");
+    menu?.classList.toggle("active");
   });
 
-  const toggleMenu = () => {
-    hamburger.classList.toggle('active');
-    navLinks.classList.toggle('active');
-    overlay.classList.toggle('active');
-  };
+  // 判斷滾動的函式
+  function checkScroll(scrollTop) {
+    if (scrollTop > 20) {
+      navbar?.classList.add("scrolled");
+    } else {
+      navbar?.classList.remove("scrolled");
+    }
+  }
 
-  hamburger.addEventListener('click', toggleMenu);
-  overlay.addEventListener('click', toggleMenu);
-
-  navLinks.querySelectorAll('a').forEach(link => {
-    link.addEventListener('click', toggleMenu);
-  });
+  // 監聽 main 滾動（如果 main 本身可滾動）
+  if (main && getComputedStyle(main).overflowY !== "visible") {
+    main.addEventListener("scroll", () => {
+      checkScroll(main.scrollTop);
+    });
+    checkScroll(main.scrollTop); // 初始化
+  } else {
+    // 否則監聽 window
+    window.addEventListener("scroll", () => {
+      checkScroll(window.scrollY);
+    });
+    checkScroll(window.scrollY); // 初始化
+  }
 });
 </script>
