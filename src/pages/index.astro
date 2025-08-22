@@ -93,12 +93,8 @@ main.home-main {
   animation: fadeInMove 3s forwards 3.5s, sweep 5s forwards 8s; 
 }
 
-@keyframes fadeInMove {
-  to { opacity: 1; transform: translateY(0); }
-}
-@keyframes sweep {
-  to { background-position: 0% 0; }
-}
+@keyframes fadeInMove { to { opacity: 1; transform: translateY(0); } }
+@keyframes sweep { to { background-position: 0% 0; } }
 
 /* Service 區塊 */
 .service-title-section {
@@ -170,19 +166,33 @@ main.home-main {
   color: #243640;
 }
 
-/* 手機響應式 */
+/* ===== 手機響應式 ===== */
 @media (max-width: 480px) {
   main.home-main {
-    flex: unset;
+    flex: 1;
     padding: 0 12px;
-    height: 35vh;               /* 初始只顯示上半部 */
+    min-height: calc(100vh - 60px);
     overflow-y: auto;
     -webkit-overflow-scrolling: touch;
   }
+
   main::-webkit-scrollbar { display: none; }
-  .about-section, .service-title-section, .else-title-section { margin: 0; padding: 0; }
-  .about-section p { font-size: clamp(0.4rem, 1vw, 0.6rem); }
-  .grid-section { padding: 0; }
+
+  .about-section, .service-title-section, .else-title-section {
+    margin: 20px 0;
+    padding: 0 4px;
+  }
+
+  .about-section p { font-size: clamp(0.5rem, 1vw, 0.6rem); }
+
+  .grid-section {
+    padding: 0 4px;
+    gap: 16px;
+    display: grid;
+    grid-template-columns: 1fr;
+  }
+
+  .grid-card { width: 100%; }
 }
 </style>
 
