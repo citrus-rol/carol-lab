@@ -150,164 +150,165 @@ const colors = ['#e5af3a33', '#24364033', '#d3d7d933', '#24364033', '#d3d7d933',
     });
   </script>
 
-<style>
-  main.works-grid {
-    flex: 1;
-  }
+  <style>
+    main.works-grid {
+      flex: 1;
+    }
 
-  /* 篩選按鈕容器 */
-  .filter-buttons-container {
-    max-width: 100%;
-    width: 100%;
-    overflow-x: auto;
-    -webkit-overflow-scrolling: touch;
-    margin: 56px auto 20px;
-    padding: 0 16px;
-    display: flex;
-    justify-content: flex-start;
-    scroll-snap-type: x mandatory;
-  }
-
-  /* 桌機置中 */
-  @media (min-width: 769px) {
+    /* 篩選按鈕容器 */
     .filter-buttons-container {
       max-width: 100%;
-      justify-content: center;
-    }
-  }
-
-  .filter-buttons {
-    display: flex;
-    gap: 12px;
-    position: relative;
-    width: max-content;
-  }
-
-  .filter-buttons button {
-    background: none;
-    border: none;
-    padding: 8px 16px;
-    cursor: pointer;
-    font-size: var(--font-lg);
-    color: #243640;
-    transition: color 0.3s;
-    white-space: nowrap;
-    letter-spacing: 0.05rem;
-    scroll-snap-align: start;
-  }
-  /* hover 顏色 */
-  .filter-buttons button:hover {
-    color: #E5AF3A80;  /* ⭐ 滑過去變金色 */
-  }
-
-  .filter-buttons button.active {
-    color: #d3d7d9;
-    font-weight: bold;
-  }
-  .filter-buttons button.active:hover {
-    color: #E5AF3A;
-  }
-
-  .indicator {
-    position: absolute;
-    bottom: 0;
-    height: 2px;
-    background: #E5AF3A;
-    transition: all 0.3s ease;
-    left: 0;
-    width: 0;
-    /* ⭐ 預設就指到第一顆 */
-    width: auto;
-    min-width: 40px; /* 視字寬給個大概值，避免閃爍 */
-  }
-
-  /* 作品集 */
-  .works-grid {
-    max-width: 90%;
-    margin: 0 auto;
-    padding: 40px 0px 80px;
-    display: grid;
-    gap: 48px;
-    grid-template-columns: repeat(3, 1fr);
-    justify-items: center;
-    grid-auto-rows: 1fr;
-    justify-content: center;
-  }
-
-  .works-grid a {
-    display: flex;
-    flex-direction: column;
-    width: 100%;
-    height: 100%;
-    text-decoration: none;
-    color: inherit;
-    opacity: 1;
-    transition: opacity 0.3s ease, transform 0.3s ease;
-    font-size: var(--font-sm);
-  }
-
-  .works-grid a .card {
-    width: 100%;
-    aspect-ratio: 1/1;
-    overflow: hidden;
-  }
-
-  .fade-in {
-    animation: fadeIn 0.3s forwards;
-  }
-
-  .fade-out {
-    animation: fadeOut 0.3s forwards;
-  }
-
-  .works-grid a img {
-    width: 100%;
-    height: 100%;
-    object-fit: cover;
-  }
-
-  @keyframes fadeIn {
-    from { opacity: 0; transform: translateY(10px); }
-    to { opacity: 1; transform: translateY(0); }
-  }
-
-  @keyframes fadeOut {
-    from { opacity: 1; transform: translateY(0); }
-    to { opacity: 0; transform: translateY(10px); }
-  }
-
-  /* 平板 */
-  @media (max-width: 1024px) {
-    .works-grid {
-      grid-template-columns: repeat(2, 1fr);
-      grid-auto-rows: 1fr;
-      padding-bottom: 120px;
-    }
-  }
-
-  /* 手機 */
-  @media (max-width: 480px) {
-    main.works-grid {
-      min-height: calc(100vh - 60px);
-      overflow-y: auto;
+      width: 100%;
+      overflow-x: auto;
+      overflow-y: hidden;              /* ⭐ 防止撐開頁面 */
       -webkit-overflow-scrolling: touch;
-      padding: 0;
+      margin: 56px auto 20px;
+      padding: 0 16px;
+      display: flex;
+      justify-content: flex-start;
+      scroll-snap-type: x mandatory;
+      box-sizing: border-box;
     }
-    main.works-grid::-webkit-scrollbar { display: none; }
 
-    .works-grid {
-      grid-template-columns: 1fr;
-      grid-auto-rows: 1fr;
-      max-width: 100%;
-      margin: 0 auto;
-      padding: 24px 12px 120px;
-      gap: 24px;
+    /* 桌機置中 */
+    @media (min-width: 769px) {
+      .filter-buttons-container {
+        max-width: 100%;
+        justify-content: center;
+      }
+    }
+
+    .filter-buttons {
+      display: inline-flex;             /* ⭐ 改成 inline-flex，避免撐滿整個頁面 */
+      gap: 12px;
+      position: relative;
+      min-width: max-content;           /* ⭐ 保持內容寬度，不會影響整個 body */
     }
 
     .filter-buttons button {
-      font-size: var(--font-md);
-      padding: 6px 12px;
+      background: none;
+      border: none;
+      padding: 8px 16px;
+      cursor: pointer;
+      font-size: var(--font-lg);
+      color: #243640;
+      transition: color 0.3s;
+      white-space: nowrap;
+      letter-spacing: 0.05rem;
+      scroll-snap-align: start;
     }
-  }
-</style>
+    /* hover 顏色 */
+    .filter-buttons button:hover {
+      color: #E5AF3A80;  /* ⭐ 滑過去變金色 */
+    }
+
+    .filter-buttons button.active {
+      color: #d3d7d9;
+      font-weight: bold;
+    }
+    .filter-buttons button.active:hover {
+      color: #E5AF3A;
+    }
+
+    .indicator {
+      position: absolute;
+      bottom: 0;
+      height: 2px;
+      background: #E5AF3A;
+      transition: all 0.3s ease;
+      left: 0;
+      width: 0;         /* ⭐ 不要 auto，JS 會幫你算 */
+      min-width: 0;     /* ⭐ 避免固定 40px 撐寬 */
+    }
+
+    /* 作品集 */
+    .works-grid {
+      max-width: 90%;
+      margin: 0 auto;
+      padding: 40px 0px 80px;
+      display: grid;
+      gap: 48px;
+      grid-template-columns: repeat(3, 1fr);
+      justify-items: center;
+      grid-auto-rows: 1fr;
+      justify-content: center;
+    }
+
+    .works-grid a {
+      display: flex;
+      flex-direction: column;
+      width: 100%;
+      height: 100%;
+      text-decoration: none;
+      color: inherit;
+      opacity: 1;
+      transition: opacity 0.3s ease, transform 0.3s ease;
+      font-size: var(--font-sm);
+    }
+
+    .works-grid a .card {
+      width: 100%;
+      aspect-ratio: 1/1;
+      overflow: hidden;
+    }
+
+    .fade-in {
+      animation: fadeIn 0.3s forwards;
+    }
+
+    .fade-out {
+      animation: fadeOut 0.3s forwards;
+    }
+
+    .works-grid a img {
+      width: 100%;
+      height: 100%;
+      object-fit: cover;
+    }
+
+    @keyframes fadeIn {
+      from { opacity: 0; transform: translateY(10px); }
+      to { opacity: 1; transform: translateY(0); }
+    }
+
+    @keyframes fadeOut {
+      from { opacity: 1; transform: translateY(0); }
+      to { opacity: 0; transform: translateY(10px); }
+    }
+
+    /* 平板 */
+    @media (max-width: 1024px) {
+      .works-grid {
+        grid-template-columns: repeat(2, 1fr);
+        grid-auto-rows: 1fr;
+        padding-bottom: 120px;
+      }
+    }
+
+    /* 手機 */
+    @media (max-width: 480px) {
+      main.works-grid {
+        min-height: calc(100vh - 60px);
+        overflow-y: auto;
+        -webkit-overflow-scrolling: touch;
+        padding: 0;
+      }
+      main.works-grid::-webkit-scrollbar { display: none; }
+
+      .works-grid {
+        grid-template-columns: 1fr;
+        grid-auto-rows: 1fr;
+        max-width: 100%;
+        margin: 0 auto;
+        padding: 24px 12px 120px;
+        gap: 24px;
+      }
+
+      .filter-buttons button {
+        font-size: var(--font-md);
+        padding: 6px 12px;
+      }
+    }
+
+  </style>
 </BaseLayout>
