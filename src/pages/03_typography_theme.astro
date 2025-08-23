@@ -41,37 +41,25 @@ const worksList = [
 
       <div class="right-wrapper">
         <div class="right-text">
-          <h2 class="work-title">Six Degrees</h2>
-          <p class="work-category">字體設計｜音樂視覺｜2025-02-19</p>
+          <h2 class="work-title">元宵節特輯</h2>
+          <p class="work-category">字體設計｜主題設計｜2025-02-13</p>
 
           <div class="work-concept">
             <h3><span class="symbol">✦</span>概念 Concept</h3>
-            <p>✦ 距離與連結，存在六度之間交錯</p>
-            <p>✦ 未知的交點，牽引著熟悉與陌生</p>
-            <p>✦ 潛在的連結，悄然交織著命運軌跡</p>
+            <p>✦ 圓月高掛，燈火璀璨</p>
+            <p>✦ 天燈映照夜空，彷彿承載著團圓與希望</p>
+            <p>✦ 靈感的微光｜點亮創意的無限可能</p>
           </div>
 
           <div class="work-idea">
             <h3><span class="symbol">✦</span>理念 Philosophy</h3>
-            <p>冷、暖光般的線條，帶來科技感與未來感，彷彿資訊流動的痕跡，也暗示著人際關係的交織與連結。</p>
+            <p>在這個充滿溫暖的節日裡，讓我們以光影連結情感，以設計描繪美好，將每一份團圓與祝福融入創作之中。🧡 元宵節快樂 🌕</p>
           </div>
 
           <div class="hashtags">
-            <p>#SixDegrees #人際連結 #命運交錯 #科技感設計 #視覺藝術</p>
+            <p>#元宵節 #光影設計 #創意連結 #燈火團圓</p>
           </div>
 
-          <div class="youtube-link">
-            靈感來源影片 — 
-            <a href="https://youtu.be/s__iJysWkCY" target="_blank" rel="noopener noreferrer">
-              <svg viewBox="0 0 24 24" fill="none" width="16" height="16">
-                <path class="play" d="M10 15l5-3-5-3v6z" stroke="currentColor"
-                  stroke-width="1.2" stroke-linecap="round" stroke-linejoin="round"/>
-                <path class="frame" d="M21 3H3a2 2 0 0 0-2 2v14a2 2 0 0 0 2 2h18a2 2 0 0 0 2-2V5a2 2 0 0 0-2-2zm-1 14H4V7h16v10z"
-                  stroke="currentColor" stroke-width="1.2" stroke-linecap="round" stroke-linejoin="round"/>
-              </svg>
-            </a>
-            — 點此前往 YouTube
-          </div>
         </div>
       </div>
     </section>
@@ -109,9 +97,11 @@ const worksList = [
       background: radial-gradient(circle, #d3d7d933, #24364033 80%); 
       font-family: "Noto Sans TC","Noto Sans","Microsoft JhengHei","PingFang TC","Heiti TC",Arial,sans-serif; 
       
-      min-height: calc(100vh - 60px); /* 減掉 navbar 高度 */
+      /* 高度自適應 */
+      min-height: auto; 
+      height: auto;
       box-sizing: border-box;
-      overflow-y: auto; /* 手機版滾動 */
+      overflow-y: visible; /* 取消強制滾動 */
     }
 
     /* 上方區塊 */
@@ -151,17 +141,18 @@ const worksList = [
       white-space: normal;
       overflow: hidden;
       text-overflow: ellipsis;
-      font-size:clamp(1.2rem, 2vw, 1.4rem);
+      font-size: clamp(1rem, 2.5vw, 2.5rem);/* Hero 標題 / 最大字 */
       font-weight:700; 
       text-align:end; 
       color:#e5af3a; 
       margin:4px 0 4px; 
-      letter-spacing:0.05rem; 
+      letter-spacing:0.1rem; 
       text-shadow: 0 0 8px #243640; /* 文字光暈 */
     }
 
     .work-category { 
-      font-size:clamp(0.8rem,1vw,1rem); 
+      font-size: clamp(0.9rem, 1.5vw, 1.5rem);/* 小標題 */
+      letter-spacing:0.05rem; 
       color:#d3d7d980; 
       text-align:end; 
       margin:0 0 8px; 
@@ -169,7 +160,8 @@ const worksList = [
 
     /* 小標題 h3 + 符號 */
     .right-text h3 { 
-      font-size:clamp(1rem,1vw,1.2rem); 
+      font-size: clamp(0.9rem, 1.5vw, 1.5rem);/* 小標題 */
+      letter-spacing:0.05rem; 
       margin:1em 0 0.4em; 
       color:#E5AF3A80; 
       text-align:start; 
@@ -188,8 +180,9 @@ const worksList = [
 
     /* 段落 */
     .work-concept p, .work-idea p { 
-      font-size:clamp(0.6rem,1vw,0.8rem); 
+      font-size: clamp(0.75rem, 1vw, 1rem);/* 註解、小字 */
       line-height:1.8; 
+      letter-spacing:0.05rem; 
       text-align:start; 
       margin:4px 0; 
       padding-left: 1.6rem;
@@ -200,7 +193,7 @@ const worksList = [
 
     /* Hashtags */
     .hashtags p { 
-      font-size:clamp(0.4rem,1vw,0.6rem); 
+      font-size: clamp(0.625rem, 0.8vw, 0.875rem); /* 更小的註解字 */
       color:#d3d7d980; 
       text-align:end; 
       letter-spacing:0.05em; 
@@ -211,7 +204,7 @@ const worksList = [
 
     /* YouTube */
     .youtube-link { 
-      font-size:clamp(0.4rem,1vw,0.6rem); 
+      font-size: clamp(0.625rem, 0.8vw, 0.875rem); /* 更小的註解字 */
       color:#d3d7d980; 
       display:flex; 
       justify-content:end; 
@@ -269,7 +262,7 @@ const worksList = [
     }
 
     .bottom-text { 
-      font-size:clamp(1rem,1vw,1.2rem); 
+      font-size: clamp(0.9rem, 1.5vw, 1.5rem);/* 小標題 */
       color:#d3d7d980; 
       text-align:end; 
       border-radius:12px; 
@@ -332,10 +325,9 @@ const worksList = [
 
     @media(max-width:480px) {
       .works-container { 
-        min-height: auto;          /* 高度自動 */
-        height: 50vh;              /* 初始顯示 50% */
-        overflow-y: auto;          /* 可以滾動看下方內容 */
-        -webkit-overflow-scrolling: touch;
+        min-height: auto; 
+        height: auto; 
+        overflow-y: visible; 
         padding: 20px;
       }
       .works-container::-webkit-scrollbar {
@@ -358,7 +350,9 @@ const worksList = [
       max-width:100%; 
       margin: 12px 0 0px; /* navbar 高度 + 額外間距 */
       padding-top: 4%; 
-      font-size:1rem; 
+      font-size: clamp(0.9rem, 1.5vw, 1.5rem);/* 小標題 */
+      letter-spacing:0.05em; 
+
     }
 
     .back-link a { 

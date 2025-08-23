@@ -53,16 +53,26 @@ const base = import.meta.env.BASE_URL || '/';
 <style>
 /* main-home 保留原本排版 */
 main.home-main {
-  max-width: 90%; margin: 0 auto; font-family: "Noto Sans TC","Noto Sans","Microsoft JhengHei","PingFang TC","Heiti TC",Arial,sans-serif;
-  padding-bottom: 40px;
+  max-width: 100%; 
+  margin: 0 auto; 
+  font-family: "Noto Sans TC","Noto Sans","Microsoft JhengHei","PingFang TC","Heiti TC",Arial,sans-serif;
 }
 
 /* About 區塊動畫 */
-.about-section { margin: 80px auto; }
-.about-section h2 { color: #243640; font-size: clamp(1rem,1vw,1.2rem); letter-spacing: 0.05em; margin: 40px auto; text-align: left; }
+.about-section { 
+  max-width: 100%; 
+  margin: 56px auto; 
+}
+.about-section h2 { 
+  color: #243640; 
+  font-size: clamp(1rem, 2vw, 2rem);       /* 大標題 */
+  letter-spacing:0.1rem;
+  margin: 40px auto; 
+  text-align: left; 
+}
 .about-section p {
-  font-size: clamp(0.8rem,1vw,1rem);
-  letter-spacing: 0.2em;
+  font-size: clamp(0.8rem, 1.2vw, 1.2rem); /* 內文字 */
+  letter-spacing: 0.2rem;
   text-align: right;
   white-space: nowrap;
   overflow: hidden;
@@ -75,7 +85,7 @@ main.home-main {
   -webkit-background-clip: text;
   -webkit-text-fill-color: transparent;
   display: block;
-  margin: 1em 0;
+  margin: 1rem 0;
 }
 .about-section p:nth-of-type(1) { animation: fadeInMove 3s forwards 0.5s, sweep 5s forwards 8s; }
 .about-section p:nth-of-type(2) { animation: fadeInMove 3s forwards 3.5s, sweep 5s forwards 8s; }
@@ -84,30 +94,90 @@ main.home-main {
 @keyframes sweep { to { background-position: 0% 0; } }
 
 /* Service 區塊 */
-.service-title-section { margin: 40px auto; }
-.service-title-section h2 { color:#243640; font-size:clamp(1rem,1vw,1.2rem); text-align:left; letter-spacing:0.05em; margin-bottom:20px; }
+.service-title-section { 
+  margin: 40px auto; 
+}
+.service-title-section h2 { 
+  color:#243640; 
+  font-size: clamp(1rem, 2vw, 2rem);/* 大標題 */ 
+  text-align:left; 
+  letter-spacing:0.1rem; 
+  margin-bottom:20px; 
+}
 
 /* 分隔線 */
-.divider-line { height:2px; margin:80px auto; background: linear-gradient(to right,#505e66,#e5af3a33,#505e66); }
+.divider-line { 
+  height:2px; 
+  margin:80px auto; 
+  background: linear-gradient(to right,#505e66,#e5af3a33,#505e66); 
+}
 
 /* ELSE 區塊 */
-.else-title-section { text-align:center; margin:40px auto; }
-.else-title-section h2 { letter-spacing:0.05em; text-align:left; color:#243640; font-size:clamp(1rem,1vw,1.2rem); margin-bottom:20px; }
+.else-title-section { 
+  text-align:center; 
+  margin:40px auto; 
+}
+.else-title-section h2 { 
+  letter-spacing:0.1rem;
+  text-align:left; 
+  color:#243640; 
+  font-size: clamp(1rem, 2vw, 2rem);       /* 大標題 */ 
+  margin-bottom:20px; 
+}
 
-.grid-section { margin:12px auto 80px; display:grid; grid-template-columns:repeat(auto-fit, minmax(200px,1fr)); gap:24px; }
-.grid-card { width:100%; background: linear-gradient(to left,#24364080,#d3d7d980,#24364080); box-shadow:0 0 16px 4px #243640; border-radius:12px; text-align:center; cursor:pointer; text-decoration:none; color:inherit; opacity:0; transform:translateY(40px); transition:all 0.8s ease; }
-.grid-card.visible { opacity:1; transform:translateY(0); }
-.grid-card:hover { transform:scale(1.05); background-color:#505e66; box-shadow: inset 0 0 24px 12px #d3d7d980; }
-.grid-card h2 { font-size:clamp(0.8rem,1vw,1rem); letter-spacing:0.05em; color:#243640; }
-.grid-card p { font-size:clamp(0.6rem,1vw,0.8rem); letter-spacing:0.05em; color:#243640; }
+.grid-section { 
+  margin:12px auto 80px; 
+  display:grid; 
+  grid-template-columns:repeat(auto-fit, minmax(200px,1fr)); 
+  gap:24px; 
+}
+.grid-card { 
+  width:100%; 
+  background: linear-gradient(to left,#24364080,#d3d7d980,#24364080); 
+  box-shadow:0 0 16px 4px #243640; 
+  border-radius:12px; 
+  text-align:center; 
+  cursor:pointer; 
+  text-decoration:none; 
+  color:inherit; 
+  opacity:0; 
+  transform:translateY(40px); transition:all 0.8s ease; 
+}
+.grid-card.visible { opacity:1; 
+  transform:translateY(0); 
+}
+.grid-card:hover { transform:scale(1.05); 
+  background-color:#505e66; 
+  box-shadow: inset 0 0 24px 12px #d3d7d980; 
+}
+.grid-card h2 { 
+  font-size: clamp(1rem, 2vw, 2rem);       /* 大標題 */ 
+  letter-spacing:0.05rem; 
+  color:#243640; 
+}
+.grid-card p { font-size: clamp(0.8rem, 1.2vw, 1.2rem); /* 內文字 */
+  letter-spacing:0.05rem; 
+  color:#243640; 
+}
 
 /* 手機響應式 */
 @media(max-width:480px){
-  main.home-main { padding:0 12px; flex:unset; height:auto; overflow-y:auto; -webkit-overflow-scrolling:touch; }
+  main.home-main { padding:0 12px; 
+    flex:unset; 
+    height:auto; 
+    overflow-y:auto; 
+    -webkit-overflow-scrolling:touch; }
   main::-webkit-scrollbar{ display:none; }
-  .about-section,.service-title-section,.else-title-section{ margin:0; padding:0; }
-  .about-section p{ font-size:clamp(0.4rem,1vw,0.6rem); }
-  .grid-section{ padding:0; }
+  .about-section,.service-title-section,.else-title-section{ 
+    margin:0; 
+    padding:0; 
+  }
+  .about-section p{ 
+    background: linear-gradient(to right, #d3d7d9 0%, #d3d7d9 40%, #24364080 50%, #E5AF3A 60%);
+  }
+  .grid-section{ 
+    padding:0; 
+  }
 }
 </style>
 

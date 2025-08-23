@@ -1,37 +1,39 @@
 ---
+const base = import.meta.env.BASE_URL || '/';
+const currentPath = Astro.url.pathname; // 🔑 這裡定義目前路徑
 ---
 
 <nav id="navbar">
   <div class="nav-container">
-    <a href="/" class="logo">Carol Lab</a>
+    <a href={base} class="logo">
+      <!-- 直接用 public 的路徑 -->
+      <img src={`${import.meta.env.BASE_URL}navbar_logo.svg`} alt="Carol Lab" class="logo-img" />
+    </a>
 
-    <!-- 漢堡按鈕 -->
     <button class="menu-btn" aria-label="Toggle Menu">
       ☰
     </button>
 
-    <!-- 選單 -->
     <ul id="menu" class="menu">
-      <li><a href="/">首頁</a></li>
-      <li><a href="/works">作品</a></li>
-      <li><a href="/contact">聯絡</a></li>
+      <li><a href={`${base}`} class={currentPath === `${base}` ? "active" : ""}>Lab Base</a></li>
+      <li><a href={`${base}works`} class={currentPath.startsWith(`${base}works`) ? "active" : ""}>Creations</a></li>
+      <li><a href={`${base}contact`} class={currentPath.startsWith(`${base}contact`) ? "active" : ""}>Connect</a></li>
     </ul>
   </div>
 </nav>
 
 <style>
   nav {
-    position: sticky;
+    position: fixed;
     top: 0;
     width: 100%;
-    background: transparent;
     transition: background 0.3s, box-shadow 0.3s;
     z-index: 1000;
   }
 
   nav.scrolled {
-    background: rgba(0, 0, 0, 0.8);
-    box-shadow: 0 2px 6px rgba(0,0,0,0.3);
+    background: #505e6680;
+    box-shadow: 0 2px 6px #243640;
   }
 
   .nav-container {
@@ -42,13 +44,18 @@
   }
 
   .logo {
-    font-size: 1.25rem;
-    font-weight: bold;
-    color: white;
+    display: flex;
+    align-items: center;
+    gap: 8px;
     text-decoration: none;
+    color: inherit;
   }
 
-  /* 桌機版選單 */
+  .logo-img {
+    height: 80px;
+    width: auto;
+  }
+
   .menu {
     display: flex;
     gap: 20px;
@@ -58,22 +65,33 @@
   }
 
   .menu li a {
-    color: white;
+    color: #d3d7d980;
     text-decoration: none;
-    font-size: 1rem;
+    font-size: clamp(1rem, 2vw, 2rem); 
+    letter-spacing:0.05rem;
   }
-
-  /* 漢堡按鈕（預設隱藏） */
-  .menu-btn {
+  .menu li a:hover {    /* 滑過時變亮 */
+    color: #e5af3a;           
+  }
+  .menu li a.active {
+    color: #d3d7d9; 
+    font-weight: bold;
+  }
+  .menu li a.active:hover {
+    color: #e5af3a;  /* 例如當前頁 hover 時變金色 */
+  }
+  .menu-btn { /*漢堡☰*/
     display: none;
     font-size: 1.5rem;
     background: none;
     border: none;
-    color: white;
+    color: #d3d7d9;
     cursor: pointer;
   }
+  .menu-btn:hover{
+    color: #e5af3a; 
+  }
 
-  /* 手機版樣式 */
   @media (max-width: 768px) {
     .menu-btn {
       display: block;
@@ -82,17 +100,26 @@
     .menu {
       display: none;
       flex-direction: column;
-      gap: 12px;
+      justify-content: center;  /* 垂直方向置中 */
+      align-items: center;      /* 水平方向置中 */
+      gap: 24px;
       position: absolute;
-      top: 60px;
+      top: 100%; /* 直接貼在 navbar 底下 */
       right: 20px;
-      background: rgba(0,0,0,0.9);
-      padding: 16px;
-      border-radius: 8px;
+      background: #24364080;
+      box-shadow: 0 4px 12px 4px #24364080;
+      padding: 24px 16px;
+      border-radius: 12px;
     }
 
     .menu.active {
       display: flex;
+    }
+
+    .menu li a {
+      font-size: 1rem; /* 調大字體 */
+      letter-spacing:0.05rem;
+      padding: 16px 0;    /* 增加間距，點擊範圍更大 */
     }
   }
 </style>
@@ -103,12 +130,10 @@
     const menu = document.getElementById("menu");
     const navbar = document.getElementById("navbar");
 
-    // 手機選單切換
     btn?.addEventListener("click", () => {
       menu?.classList.toggle("active");
     });
 
-    // 滾動變色
     window.addEventListener("scroll", () => {
       if (window.scrollY > 20) {
         navbar?.classList.add("scrolled");

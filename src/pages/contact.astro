@@ -5,26 +5,24 @@ import BaseLayout from '../layouts/BaseLayout.astro';
 import BackToTop from '../components/BackToTop.astro';
 ---
 
-<BaseLayout title="聯絡我們" mainClass="contact-main">
+<BaseLayout title="聯絡" mainClass="contact-main">
   <Navbar slot="navbar" />
 
   <main class="contact-main">
     <div class="iframe-wrapper">
-      <div class="iframe-scale">
-        <iframe
-          src="https://tally.so/embed/wbJ2vo?dynamicHeight=1"
-          frameborder="0"
-          title="歡迎合作洽談"
-          class="tally-iframe"
-        ></iframe>
-      </div>
+      <iframe
+        src="https://tally.so/embed/wbJ2vo?dynamicHeight=1"
+        frameborder="0"
+        title="歡迎合作洽談"
+        class="tally-iframe"
+      ></iframe>
     </div>
   </main>
+
   <BackToTop />
   <Footer slot="footer" />
 
   <style>
-    
     /* 外層容器 */
     .iframe-wrapper {
       width: 100%;
@@ -35,13 +33,7 @@ import BackToTop from '../components/BackToTop.astro';
       background-color: #d3d7d9;
       border-radius: 12px;
       box-shadow: 0 0 24px #243640;
-      overflow: hidden;
-    }
-
-    /* 內層縮放容器 */
-    .iframe-scale {
-      width: 100%;
-      transform-origin: top center;
+      overflow: hidden; /* 這裡保留，只裁切陰影範圍 */
     }
 
     /* iframe 設定 */
@@ -51,6 +43,7 @@ import BackToTop from '../components/BackToTop.astro';
       border: none;
       display: block;
     }
+
     /* 平板響應式 */
     @media (max-width: 1024px) {
       .iframe-wrapper {
@@ -58,17 +51,14 @@ import BackToTop from '../components/BackToTop.astro';
         margin: 32px auto;
       }
       .tally-iframe {
-        min-height: 700px;
-      }
-      .iframe-scale {
-        transform: scale(1.05); /* 放大比例，可調整 */
+        min-height: 800px;
       }
     }
 
     /* 手機響應式 */
     @media (max-width: 480px) {
       main.contact-main {
-        min-height: calc(100vh - 60px); /* 保證手機版填滿整個可視區 */
+        min-height: calc(100vh - 60px); 
         overflow-y: auto;           
         -webkit-overflow-scrolling: touch;
       }
@@ -80,10 +70,7 @@ import BackToTop from '../components/BackToTop.astro';
         margin: 16px auto;
       }
       .tally-iframe {
-        min-height: 600px;
-      }
-      .iframe-scale {
-        transform: scale(1.15); /* 手機版再放大 */
+        min-height: 900px; /* 拉長，確保送出鍵能完整顯示 */
       }
     }
   </style>
