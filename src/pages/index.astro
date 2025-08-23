@@ -102,6 +102,8 @@ main.home-main {
 .about-desktop p:nth-of-type(1) { animation: fadeInMove 3s forwards 0.5s, sweep 5s forwards 8s; }
 .about-desktop p:nth-of-type(2) { animation: fadeInMove 3s forwards 3.5s, sweep 5s forwards 8s; }
 
+.about-mobile p{ display: none; }
+
 /* Service 區塊 */
 .service-title-section { 
   margin: 40px auto; 
@@ -141,7 +143,7 @@ main.home-main {
   gap:24px; 
 }
 .grid-card { 
-  width:100%; 
+  width:100%; background-color: #243640;
   background: linear-gradient(to left,#24364080,#d3d7d980,#24364080); 
   box-shadow:0 0 16px 4px #243640; 
   border-radius:12px; 
@@ -205,7 +207,7 @@ main.home-main {
   .about-mobile p {
     display: block; 
     margin: 0.5rem 0;
-    font-size: clamp(0.8rem, 4vw, var(--font-sm));
+    font-size: var(--font-sm);
     letter-spacing: 0.1rem;
     opacity: 0;
     transform: translateY(60px);
@@ -233,9 +235,27 @@ main.home-main {
 
   @keyframes fadeInMove { to { opacity:1; transform: translateY(0); } }
   @keyframes sweep { to { background-position: 0% 0; } }
-
-  .grid-card h2 { padding: 16px 12px; }
   
+  .grid-section { 
+    gap: 16px;              /* 卡片間距更緊湊 */
+    margin: 12px auto 40px; /* 下方留白縮小 */
+  }
+
+  .grid-card { 
+    padding: 12px 8px;      /* 內距再收緊 */
+    border-radius: 8px;     /* 圓角稍微小一點 */
+    box-shadow: 0 0 10px 2px #243640; /* 陰影柔和 */
+  }
+
+  .grid-card h2 { 
+    font-size: var(--font-sm);  /* 手機字體小一號 */
+    margin-bottom: 4px; 
+  }
+
+  .grid-card p { 
+    font-size: 0.8rem;  /* 描述字更小 */
+    line-height: 1.3;
+  }
 }
 </style>
 
