@@ -209,6 +209,7 @@ main.home-main {
     font-size: clamp(0.8rem, 4vw, var(--font-sm));
     letter-spacing: 0.15rem;
     opacity: 0;
+    transform: translateY(60px);
     white-space: nowrap;
     overflow: visible;
     text-overflow: clip;
@@ -226,15 +227,16 @@ main.home-main {
     -webkit-text-fill-color: transparent;
   }
   
-  .about-mobile p:nth-of-type(1) { animation: fadeInMove 2s forwards 0.3s; }
-  .about-mobile p:nth-of-type(2) { animation: fadeInMove 3s forwards 2.3s; }
-  .about-mobile p:nth-of-type(3) { animation: fadeInMove 2s forwards 3.3s; }
-  .about-mobile p:nth-of-type(4) { animation: fadeInMove 2s forwards 4.3s; }
+  .about-mobile p:nth-of-type(1) { animation: fadeInMove 2s forwards 0.3s, sweep 3s forwards 10s;}
+  .about-mobile p:nth-of-type(2) { animation: fadeInMove 3s forwards 2.3s, sweep 3s forwards 10s;}
+  .about-mobile p:nth-of-type(3) { animation: fadeInMove 2s forwards 5.3s, sweep 3s forwards 10s;}
+  .about-mobile p:nth-of-type(4) { animation: fadeInMove 2s forwards 7.3s, sweep 3s forwards 10s;}
 
-  /* 手機版外層掃光 */
-  .about-mobile p{ animation: sweep 3s forwards 10s; }
+  @keyframes fadeInMove { to { opacity:1; transform: translateY(0); } }
+  @keyframes sweep { to { background-position: 0% 0; } }
 
   .grid-card h2 { padding: 16px 12px; }
+  
 }
 </style>
 
