@@ -154,11 +154,15 @@ main.home-main {
   font-size: var(--font-md); /* 小標題 */ 
   letter-spacing:0.05rem; 
   color:#243640; 
+  line-height: 1.3; /* 加這個 */
+  margin: 0; /* 避免多餘間距 */
 }
 .grid-card p { 
   font-size: var(--font-sm); /* 內文字 */
   letter-spacing:0.05rem; 
   color:#243640; 
+  line-height: 1.3; /* 加這個 */
+  margin: 4px 0 0; /* 控制與 h2 間距 */
 }
 
 /* 手機響應式 */
@@ -183,8 +187,12 @@ main.home-main {
 
   /* 手機版 About 區塊動畫調整 */
   .about-section p {
-    font-size: var(--font-sm);
-    letter-spacing: 0.2rem;
+    font-size: clamp(0.7rem, 3.5vw, var(--font-sm)); /* 隨螢幕縮小 */
+    letter-spacing: 0.15rem;
+    white-space: nowrap;       /* 不換行 */
+    overflow: visible;         /* 不截斷 */
+    text-overflow: clip;       /* 移除 "..." */
+
     background: linear-gradient(
       to right, 
       #d3d7d9 0%, 
