@@ -23,14 +23,16 @@ const { title, padded = true, mainClass = '' } = Astro.props;
         flex-direction: column;
         min-height: 100dvh; /* 手機瀏覽器也安全 */
         background-color: #505e66;
-        font-family: "Noto Sans TC","Noto Sans","Microsoft JhengHei","PingFang TC","Heiti TC",Arial,sans-serif;
+        font-family: "Noto Sans TC","Noto Sans","Microsoft JhengHei",
+          "PingFang TC","Heiti TC",Arial,sans-serif;
       }
 
       /* 背景雜訊 */
       body::before {
         content: "";
         position: fixed;
-        top: 0; left: 0; width: 100%; height: 100%;
+        top: 0; left: 0;
+        width: 100%; height: 100%;
         pointer-events: none;
         z-index: -1;
         background-color: #505e66;
@@ -40,19 +42,24 @@ const { title, padded = true, mainClass = '' } = Astro.props;
         opacity: 0.8;
       }
 
-      main {
-        flex: 1;
-        padding: 0px 10%;
-        padding-top: var(--navbar-height, 80px); /* 用變數控制間距 */
-        background-color: transparent;
+      /* navbar 占位，避免內容被 fixed navbar 蓋住 */
+      .navbar-spacer {
+        height: 60px; /* 桌面版 navbar 高度 */
+      }
+      @media (max-width: 768px) {
+        .navbar-spacer { height: 64px; } /* 手機版 navbar 高度 */
       }
 
+      main {
+        flex: 1;
+        padding: 0 10%;
+        background-color: transparent;
+      }
       main.no-padding { padding: 0; }
 
       @media (max-width: 768px) {
         main { padding: 0 20px; }
       }
-
       @media (max-width: 480px) {
         main { padding: 0 16px; }
       }
@@ -60,6 +67,7 @@ const { title, padded = true, mainClass = '' } = Astro.props;
   </head>
   <body>
     <slot name="navbar" />
+    <div class="navbar-spacer"></div>
     <main id="page-content" class={`${padded ? '' : 'no-padding'} ${mainClass}`}>
       <slot />
     </main>
