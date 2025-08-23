@@ -13,11 +13,23 @@ const base = import.meta.env.BASE_URL || '/';
 
   <main>
     <!-- About 區塊 -->
-    <section class="about-section">
+    <section class="about-title-section">
       <h2>關於Carol Lab</h2>
+    </section>
+
+    <!-- 桌機版 About -->
+    <div class="about-desktop">
       <p>｜ 個人設計實驗室，專注於字體設計、品牌視覺以及小動畫創作。｜</p>
       <p>｜ 將創意轉化為可視化的作品，探索簡約且帶有溫度的設計表現。｜</p>
-    </section>
+    </div>
+
+    <!-- 手機版 About -->
+    <div class="about-mobile">
+      <p>｜ 個人設計實驗室</p>
+      <p>｜ 專注於字體設計、品牌視覺以及小動畫創作。</p>
+      <p>｜ 將創意轉化為可視化的作品</p>
+      <p>｜ 探索簡約且帶有溫度的設計表現。｜</p>
+    </div>
 
     <div class="divider-line"></div>
 
@@ -58,25 +70,23 @@ main.home-main {
   font-family: "Noto Sans TC","Noto Sans","Microsoft JhengHei","PingFang TC","Heiti TC",Arial,sans-serif;
 }
 
-/* About 區塊動畫 */
-.about-section { 
-  max-width: 100%; 
-  margin: 56px auto; 
+/* About 區塊 */
+.about-title-section { 
+  text-align:center; 
+  margin:40px auto; 
 }
-.about-section h2 { 
-  color: #243640; 
-  font-size: var(--font-xl);
+.about-title-section h2 { 
   letter-spacing:0.1rem;
-  margin: 40px auto; 
-  text-align: left; 
+  text-align:left; 
+  color:#243640; 
+  font-size: var(--font-xl);
+  margin-bottom:20px; 
 }
-.about-section p {
+
+.about-desktop p{
   font-size: var(--font-md);
   letter-spacing: 0.2rem;
   text-align: right;
-  white-space: nowrap;
-  overflow: hidden;
-  text-overflow: ellipsis;
   opacity: 0;
   transform: translateY(60px);
   background: linear-gradient(to right, #d3d7d9 0%, #d3d7d9 50%, #24364080 60%, #E5AF3A 70%);
@@ -87,11 +97,17 @@ main.home-main {
   display: block;
   margin: 1rem 0;
 }
-.about-section p:nth-of-type(1) { animation: fadeInMove 3s forwards 0.5s, sweep 5s forwards 8s; }
-.about-section p:nth-of-type(2) { animation: fadeInMove 3s forwards 3.5s, sweep 5s forwards 8s; }
+
+.about-desktop p:nth-of-type(1) { animation: fadeInMove 3s forwards 0.5s, sweep 5s forwards 8s; }
+.about-desktop p:nth-of-type(2) { animation: fadeInMove 3s forwards 3.5s, sweep 5s forwards 8s; }
 
 @keyframes fadeInMove { to { opacity:1; transform: translateY(0); } }
 @keyframes sweep { to { background-position: 0% 0; } }
+
+.about-mobile p{ 
+  display: none; 
+}
+
 
 /* Service 區塊 */
 .service-title-section { 
@@ -186,7 +202,13 @@ main.home-main {
   }
 
   /* 手機版 About 區塊動畫調整 */
-  .about-section p {
+  
+  .about-desktop p{ 
+    display: none; 
+  }
+  
+  .about-mobile p {
+    display: block; margin: 0.5rem 0;
     font-size: clamp(0.7rem, 3.5vw, var(--font-sm)); /* 隨螢幕縮小 */
     letter-spacing: 0.15rem;
     white-space: nowrap;       /* 不換行 */
@@ -205,12 +227,11 @@ main.home-main {
     -webkit-text-fill-color: transparent; /* 要加 */
   }
   
-  .about-section p:nth-of-type(1) {
-    animation: fadeInMove 2s forwards 0.3s, sweep 3s forwards 3s;
-  }
-  .about-section p:nth-of-type(2) {
-    animation: fadeInMove 2s forwards 1.5s, sweep 3s forwards 3s;
-  }
+  .about-mobile p:nth-of-type(1) { animation: fadeInMove 2s forwards 0.3s, sweep 3s forwards 3s; }
+  .about-mobile p:nth-of-type(2) { animation: fadeInMove 2s forwards 1.3s, sweep 3s forwards 3s; }
+  .about-mobile p:nth-of-type(3) { animation: fadeInMove 2s forwards 2.3s, sweep 3s forwards 3s; }
+  .about-mobile p:nth-of-type(4) { animation: fadeInMove 2s forwards 3.3s, sweep 3s forwards 3s; }
+
 }
 </style>
 
