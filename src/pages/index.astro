@@ -161,7 +161,6 @@ main.home-main {
   box-shadow: inset 0 0 24px 12px #d3d7d980; 
 }
 .grid-card h2 { 
-  padding: 16px 12px; 
   font-size: var(--font-md); 
   letter-spacing:0.05rem; 
   color:#243640; 
@@ -173,7 +172,7 @@ main.home-main {
   letter-spacing:0.05rem; 
   color:#243640; 
   line-height: 1.3; 
-  margin: 4px 0 0; 
+  margin: 0; 
 }
 
 /* 共用動畫 */
@@ -207,7 +206,7 @@ main.home-main {
     display: block; 
     margin: 0.5rem 0;
     font-size: clamp(0.8rem, 4vw, var(--font-sm));
-    letter-spacing: 0.15rem;
+    letter-spacing: 0.1rem;
     opacity: 0;
     transform: translateY(60px);
     white-space: nowrap;
@@ -227,10 +226,10 @@ main.home-main {
     -webkit-text-fill-color: transparent;
   }
   
-  .about-mobile p:nth-of-type(1) { animation: fadeInMove 2s forwards 0.3s, sweep 3s forwards 10s;}
-  .about-mobile p:nth-of-type(2) { animation: fadeInMove 3s forwards 2.3s, sweep 3s forwards 10s;}
-  .about-mobile p:nth-of-type(3) { animation: fadeInMove 2s forwards 5.3s, sweep 3s forwards 10s;}
-  .about-mobile p:nth-of-type(4) { animation: fadeInMove 2s forwards 7.3s, sweep 3s forwards 10s;}
+  .about-mobile p:nth-of-type(1) { animation: fadeInMove 2s forwards 0.3s, sweep 3s forwards 11s;}
+  .about-mobile p:nth-of-type(2) { animation: fadeInMove 3s forwards 2.3s, sweep 3s forwards 11s;}
+  .about-mobile p:nth-of-type(3) { animation: fadeInMove 2s forwards 5.8s, sweep 3s forwards 11s;}
+  .about-mobile p:nth-of-type(4) { animation: fadeInMove 2s forwards 7.8s, sweep 3s forwards 11s;}
 
   @keyframes fadeInMove { to { opacity:1; transform: translateY(0); } }
   @keyframes sweep { to { background-position: 0% 0; } }
