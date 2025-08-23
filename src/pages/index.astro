@@ -217,11 +217,12 @@ main.home-main {
 
     background: linear-gradient(
       to right, 
-      #d3d7d9 10%, 
-      #24364080 20%, 
-      #E5AF3A 30%
+      #d3d7d9 0%,        /* 起始灰 */
+      #d3d7d9 50%,       /* 一半還是灰 */
+      #24364080 60%,     /* 再過渡到藍灰 */
+      #E5AF3A 100%       /* 最後全金 */
     );
-    background-size: 150% 100%;
+    background-size: 200% 100%;
     background-position: 100% 0;
     -webkit-background-clip: text;  /* 要加 */
     -webkit-text-fill-color: transparent; /* 要加 */
