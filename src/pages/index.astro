@@ -202,14 +202,14 @@ main.home-main {
   }
 
   /* 手機版 About 區塊動畫調整 */
-  
+
   .about-desktop p{ 
     display: none; 
   }
   
   .about-mobile p {
     display: block; margin: 0.5rem 0;
-    font-size: clamp(0.7rem, 3.5vw, var(--font-sm)); /* 隨螢幕縮小 */
+    font-size: clamp(0.8rem, 4vw, var(--font-sm));
     letter-spacing: 0.15rem;
     white-space: nowrap;       /* 不換行 */
     overflow: visible;         /* 不截斷 */
@@ -217,9 +217,9 @@ main.home-main {
 
     background: linear-gradient(
       to right, 
-      #d3d7d9 0%, 
-      #d3d7d9 60%, 
-      #E5AF3A 100%
+      #d3d7d9 10%, 
+      #24364080 20%, 
+      #E5AF3A 30%
     );
     background-size: 150% 100%;
     background-position: 100% 0;
@@ -231,7 +231,9 @@ main.home-main {
   .about-mobile p:nth-of-type(2) { animation: fadeInMove 2s forwards 1.3s, sweep 3s forwards 3s; }
   .about-mobile p:nth-of-type(3) { animation: fadeInMove 2s forwards 2.3s, sweep 3s forwards 3s; }
   .about-mobile p:nth-of-type(4) { animation: fadeInMove 2s forwards 3.3s, sweep 3s forwards 3s; }
-
+  
+  @keyframes fadeInMove { to { opacity:1; transform: translateY(0); } }
+  @keyframes sweep { to { background-position: 0% 0; } }
 }
 </style>
 
