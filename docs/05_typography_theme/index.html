@@ -25,13 +25,12 @@
     // 更新 navbar 高度，通知 BaseLayout
     const updateNavHeight = () => {
       if (navbar) {
-        document.documentElement.style.setProperty(
-          "--navbar-height",
-          navbar.offsetHeight + "px"
-        );
+        const height = navbar.offsetHeight;
+        document.documentElement.style.setProperty("--navbar-height", height + "px");
       }
     };
 
+    // 初始 & 監聽
     updateNavHeight();
     window.addEventListener("resize", updateNavHeight);
     window.addEventListener("orientationchange", updateNavHeight);
