@@ -53,7 +53,7 @@ const currentPath = Astro.url.pathname;
 
   .menu {
     display: flex;
-    gap: 20px;
+    gap: 32px;
     list-style: none;
     margin: 0;
     padding: 0;
@@ -62,7 +62,7 @@ const currentPath = Astro.url.pathname;
   .menu li a {
     color: #d3d7d980;
     text-decoration: none;
-    font-size: clamp(1rem, 2vw, 2rem);
+    font-size: var(--font-lg);   /* ✅ 改用 tokens.css */
     letter-spacing: 0.05rem;
   }
 
@@ -81,7 +81,7 @@ const currentPath = Astro.url.pathname;
 
   .menu-btn {
     display: none;
-    font-size: 1.5rem;
+    font-size: var(--font-lg);   /* ✅ 漢堡選單按鈕也改 */
     background: none;
     border: none;
     color: #d3d7d9;
@@ -99,7 +99,6 @@ const currentPath = Astro.url.pathname;
     }
 
     .menu {
-      /* 🚀 改用高度動畫，而不是直接 display:none */
       flex-direction: column;
       justify-content: center;
       align-items: center;
@@ -109,7 +108,7 @@ const currentPath = Astro.url.pathname;
       right: 20px;
       background: #243640cc;
       box-shadow: 0 4px 12px 4px #24364080;
-      padding: 0 16px; /* 先不給 padding，高度展開時再顯示 */
+      padding: 0 16px;
       border-radius: 12px;
       max-height: 0;
       overflow: hidden;
@@ -119,17 +118,18 @@ const currentPath = Astro.url.pathname;
 
     .menu.active {
       padding: 24px 16px;
-      max-height: 500px; /* 🚀 動畫展開 */
+      max-height: 500px;
       opacity: 1;
     }
 
     .menu li a {
-      font-size: 1rem;
+      font-size: var(--font-md);   /* ✅ 小螢幕縮小一階 */
       letter-spacing: 0.05rem;
       padding: 16px 0;
     }
   }
 </style>
+
 
 <script is:inline>
   document.addEventListener("DOMContentLoaded", () => {

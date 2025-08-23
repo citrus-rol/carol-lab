@@ -109,7 +109,7 @@ export const categories: Category[] = [
   width: 100%;
   padding: 20px;
   font-weight: 500;
-  background: linear-gradient(to left, #24364080, #e5af3a80, #24364080);
+  background: linear-gradient(to left, #24364080, #e5af3a80, #e5af3a80, #24364080);
   color: #d3d7d9;
   box-shadow: 0 0 16px 4px #24364080;
   border: none;
@@ -275,6 +275,10 @@ export const categories: Category[] = [
     align-items: center;
     display: flex;
     flex-direction: column;
+  }
+  /* 🔑 修正手機版 item-right 裡文字置中 */
+  .item-right span {
+    text-align: center;
   }
 }
 

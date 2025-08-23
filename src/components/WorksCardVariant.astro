@@ -72,9 +72,16 @@ const { title, date, media, type = 'image', variant = 'grid', width = '100%' } =
   margin-top: 8px;
 }
 
-.works-info h3, .works-info p {
+.works-info h3 {
   margin: 4px 0;
-  font-size: clamp(0.8rem, 1.2vw, 1.2rem);/* 內文字 */
+  font-size: var(--font-md); /* ✅ 卡片標題 */
+  font-weight: bold;
+}
+
+.works-info p {
+  margin: 4px 0;
+  font-size: var(--font-sm); /* ✅ 卡片日期 */
+  color: #d3d7d9cc;
 }
 
 /* 防止圖片右鍵另存 (透明覆蓋層) */

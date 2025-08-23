@@ -11,8 +11,6 @@ const imgSrc =
       : image.startsWith(base)
         ? image
         : `${base}${image.replace(/^\//, '')}`;
-
-
 ---
 
 <div class="card" role="article" aria-label={title}>
@@ -125,20 +123,20 @@ const imgSrc =
 }
 
 .title {
-  font-size: clamp(0.9rem, 1.5vw, 1.5rem);/* 小標題 */
-  letter-spacing: 0.05rem; /* 段落文字間距 */
+  font-size: var(--font-md); /* ✅ 小標題 */
+  letter-spacing: 0.05rem; 
   font-weight: bold;
   color: #505e66;
   margin-bottom: 4px;
   white-space: nowrap;
   overflow: hidden;
   text-overflow: ellipsis;
-  transition: color 0.3s ease; /* 顏色變化滑順 */
+  transition: color 0.3s ease;
 }
 
 .date {
-  font-size: clamp(0.8rem, 1.2vw, 1.2rem);/* 內文字 */
-  letter-spacing: 0.05rem; /* 段落文字間距 */
+  font-size: var(--font-sm); /* ✅ 內文字 */
+  letter-spacing: 0.05rem;
   color: #24364080;
   white-space: nowrap;
   overflow: hidden;
@@ -148,5 +146,4 @@ const imgSrc =
 .card:hover .title {
   color: #505e66;
 }
-
 </style>

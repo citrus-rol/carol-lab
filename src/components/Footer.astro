@@ -22,8 +22,8 @@ footer {
   background-color: #505e66;
   color: #d3d7d9;
   padding: 16px 24px;
-  font-size: clamp(0.8rem, 1.2vw, 1.2rem);/* 內文字 */
-  letter-spacing:0.05rem;
+  font-size: var(--font-sm); /* ✅ 改成 tokens.css 變數 */
+  letter-spacing: 0.05rem;
   font-family: "Noto Sans TC","Noto Sans","Microsoft JhengHei","PingFang TC","Heiti TC",Arial,sans-serif;
   text-align: center;
   display: flex;
@@ -54,10 +54,12 @@ footer {
   display: flex;
   align-items: center;
   gap: 4px;
+  font-size: var(--font-sm); /* ✅ 保持一致 */
 }
 
 .divider {
   display: none; /* 手機隱藏 */
+  font-size: var(--font-sm); /* ✅ Divider 也跟隨 */
 }
 
 .footer-email {
@@ -68,6 +70,7 @@ footer {
   text-decoration: none;
   transition: color 0.3s;
   user-select: text !important;
+  font-size: var(--font-sm); /* ✅ 明確指定 */
 }
 
 .footer-email:hover {
