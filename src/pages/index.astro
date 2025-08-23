@@ -83,6 +83,7 @@ main.home-main {
   margin-bottom:20px; 
 }
 
+/* 桌機版 About */
 .about-desktop p{
   font-size: var(--font-md);
   letter-spacing: 0.2rem;
@@ -100,14 +101,6 @@ main.home-main {
 
 .about-desktop p:nth-of-type(1) { animation: fadeInMove 3s forwards 0.5s, sweep 5s forwards 8s; }
 .about-desktop p:nth-of-type(2) { animation: fadeInMove 3s forwards 3.5s, sweep 5s forwards 8s; }
-
-@keyframes fadeInMove { to { opacity:1; transform: translateY(0); } }
-@keyframes sweep { to { background-position: 0% 0; } }
-
-.about-mobile p{ 
-  display: none; 
-}
-
 
 /* Service 區塊 */
 .service-title-section { 
@@ -167,20 +160,25 @@ main.home-main {
   background-color:#505e66; 
   box-shadow: inset 0 0 24px 12px #d3d7d980; 
 }
-.grid-card h2 { padding: 16px 12px; /* 新增左右內距 */
-  font-size: var(--font-md); /* 小標題 */ 
+.grid-card h2 { 
+  padding: 16px 12px; 
+  font-size: var(--font-md); 
   letter-spacing:0.05rem; 
   color:#243640; 
-  line-height: 1.3; /* 加這個 */
-  margin: 0; /* 避免多餘間距 */
+  line-height: 1.3; 
+  margin: 0; 
 }
 .grid-card p { 
-  font-size: var(--font-sm); /* 內文字 */
+  font-size: var(--font-sm); 
   letter-spacing:0.05rem; 
   color:#243640; 
-  line-height: 1.3; /* 加這個 */
-  margin: 4px 0 0; /* 控制與 h2 間距 */
+  line-height: 1.3; 
+  margin: 4px 0 0; 
 }
+
+/* 共用動畫 */
+@keyframes fadeInMove { to { opacity:1; transform: translateY(0); } }
+@keyframes sweep { to { background-position: 0% 0; } }
 
 /* 手機響應式 */
 @media(max-width:480px){
@@ -202,65 +200,43 @@ main.home-main {
     padding:0; 
   }
 
-  /* 手機版 About 區塊動畫調整 */
-
-  .about-desktop p{ 
-    display: none; 
-  }
+  /* 手機版 About 區塊動畫 */
+  .about-desktop p{ display: none; }
   
   .about-mobile p {
-    display: block; margin: 0.5rem 0;
+    display: block; 
+    margin: 0.5rem 0;
     font-size: clamp(0.8rem, 4vw, var(--font-sm));
     letter-spacing: 0.15rem;
-    white-space: nowrap;       /* 不換行 */
-    overflow: visible;         /* 不截斷 */
-    text-overflow: clip;       /* 移除 "..." */
+    opacity: 0;
+    white-space: nowrap;
+    overflow: visible;
+    text-overflow: clip;
 
     background: linear-gradient(
       to right, 
-      #d3d7d9 0%,        /* 起始灰 */
-      #d3d7d9 50%,       /* 一半還是灰 */
-      #24364080 60%,     /* 再過渡到藍灰 */
-      #E5AF3A 100%       /* 最後全金 */
+      #d3d7d9 0%, 
+      #d3d7d9 50%, 
+      #24364080 60%, 
+      #E5AF3A 100%
     );
     background-size: 300% 100%;
     background-position: 100% 0;
-    -webkit-background-clip: text;  /* 要加 */
-    -webkit-text-fill-color: transparent; /* 要加 */
+    -webkit-background-clip: text;
+    -webkit-text-fill-color: transparent;
   }
   
-  .about-mobile p:nth-of-type(1) { 
-    animation: fadeInMove 2s forwards 0.3s; 
-  }
-  .about-mobile p:nth-of-type(2) { 
-    animation: fadeInMove 2s forwards 1.3s; 
-  }
-  .about-mobile p:nth-of-type(3) { 
-    animation: fadeInMove 2s forwards 2.3s; 
-  }
-  .about-mobile p:nth-of-type(4) { 
-    animation: fadeInMove 2s forwards 3.3s; 
-  }
+  .about-mobile p:nth-of-type(1) { animation: fadeInMove 2s forwards 0.3s; }
+  .about-mobile p:nth-of-type(2) { animation: fadeInMove 2s forwards 1.3s; }
+  .about-mobile p:nth-of-type(3) { animation: fadeInMove 2s forwards 2.3s; }
+  .about-mobile p:nth-of-type(4) { animation: fadeInMove 2s forwards 3.3s; }
 
-  /* 外層一起掃光 */
-  .about-mobile {
-    animation: sweep 3s forwards 6s; /* 等到最後一句出現後才開始 */
-  }
+  /* 手機版外層掃光 */
+  .about-mobile { animation: sweep 3s forwards 6s; }
 
-  @keyframes fadeInMove { 
-    to { opacity:1; transform: translateY(0); } 
-  }
-
-  @keyframes sweep { 
-    to { background-position: 0% 0; } 
-  }
-
-  .grid-card h2 { 
-    padding: 16px 12px; /* 新增左右內距 */
-  }
+  .grid-card h2 { padding: 16px 12px; }
 }
 </style>
-
 
 <script>
 document.addEventListener("DOMContentLoaded", () => {
