@@ -130,10 +130,15 @@ const currentPath = Astro.url.pathname; // 🔑 這裡定義目前路徑
     const menu = document.getElementById("menu");
     const navbar = document.getElementById("navbar");
 
+    // 📌 漢堡選單開關
     btn?.addEventListener("click", () => {
       menu?.classList.toggle("active");
+
+      // 點擊後重新計算 navbar 高度
+      updateNavHeight();
     });
 
+    // 📌 捲動陰影效果
     window.addEventListener("scroll", () => {
       if (window.scrollY > 20) {
         navbar?.classList.add("scrolled");
@@ -141,5 +146,20 @@ const currentPath = Astro.url.pathname; // 🔑 這裡定義目前路徑
         navbar?.classList.remove("scrolled");
       }
     });
+
+    // 📌 計算 navbar 高度，更新 BaseLayout 使用的變數
+    const updateNavHeight = () => {
+      if (navbar) {
+        document.documentElement.style.setProperty(
+          "--navbar-height",
+          navbar.offsetHeight + "px"
+        );
+      }
+    };
+
+    // 初始化 + 視窗尺寸變化時重新計算
+    updateNavHeight();
+    window.addEventListener("resize", updateNavHeight);
   });
 </script>
+

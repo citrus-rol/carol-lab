@@ -43,7 +43,7 @@ const { title, padded = true, mainClass = '' } = Astro.props;
       main {
         flex: 1;
         padding: 0px 10%;
-        padding-top: 80px; /* 跟 navbar 的高度差不多 */
+        padding-top: var(--navbar-height, 80px); /* 用變數控制間距 */
         background-color: transparent;
       }
 
