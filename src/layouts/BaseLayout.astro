@@ -44,18 +44,14 @@ const { title, padded = true, mainClass = '' } = Astro.props;
       main {
         flex: 1;
         padding: 0 10%;
-        padding-top: var(--navbar-height);
+        padding-top: var(--navbar-height); /* 🚀 保證留出 navbar 高度 */
         background-color: transparent;
       }
 
       main.no-padding { padding: 0; }
 
-      @media (max-width: 768px) {
-        main { padding: 0 20px; }
-      }
-      @media (max-width: 480px) {
-        main { padding: 0 16px; }
-      }
+      @media (max-width: 768px) { main { padding: 0 20px; padding-top: var(--navbar-height); } }
+      @media (max-width: 480px) { main { padding: 0 16px; padding-top: var(--navbar-height); } }
     </style>
   </head>
   <body>
@@ -64,24 +60,5 @@ const { title, padded = true, mainClass = '' } = Astro.props;
       <slot />
     </main>
     <slot name="footer" />
-
-    <script is:inline>
-      document.addEventListener("DOMContentLoaded", () => {
-        const navbar = document.getElementById("navbar");
-
-        const updateNavHeight = () => {
-          if (navbar) {
-            document.documentElement.style.setProperty(
-              "--navbar-height",
-              navbar.offsetHeight + "px"
-            );
-          }
-        };
-
-        updateNavHeight();
-        window.addEventListener("resize", updateNavHeight);
-        window.addEventListener("orientationchange", updateNavHeight);
-      });
-    </script>
   </body>
 </html>

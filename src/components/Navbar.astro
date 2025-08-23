@@ -1,6 +1,6 @@
 ---
 const base = import.meta.env.BASE_URL || '/';
-const currentPath = Astro.url.pathname; // 目前路徑
+const currentPath = Astro.url.pathname;
 ---
 
 <nav id="navbar">
@@ -92,28 +92,35 @@ const currentPath = Astro.url.pathname; // 目前路徑
     color: #e5af3a;
   }
 
+  /* 手機版 */
   @media (max-width: 768px) {
     .menu-btn {
       display: block;
     }
 
     .menu {
-      display: none;
+      /* 🚀 改用高度動畫，而不是直接 display:none */
       flex-direction: column;
       justify-content: center;
       align-items: center;
       gap: 24px;
       position: absolute;
-      top: 100%; /* 貼在 navbar 下 */
+      top: 100%;
       right: 20px;
       background: #243640cc;
       box-shadow: 0 4px 12px 4px #24364080;
-      padding: 24px 16px;
+      padding: 0 16px; /* 先不給 padding，高度展開時再顯示 */
       border-radius: 12px;
+      max-height: 0;
+      overflow: hidden;
+      opacity: 0;
+      transition: max-height 0.4s ease, opacity 0.3s ease, padding 0.3s ease;
     }
 
     .menu.active {
-      display: flex;
+      padding: 24px 16px;
+      max-height: 500px; /* 🚀 動畫展開 */
+      opacity: 1;
     }
 
     .menu li a {
@@ -130,10 +137,20 @@ const currentPath = Astro.url.pathname; // 目前路徑
     const menu = document.getElementById("menu");
     const navbar = document.getElementById("navbar");
 
-    // 切換選單
+    // ✅ 更新 navbar 高度
+    const updateNavHeight = () => {
+      if (navbar) {
+        const height = navbar.offsetHeight;
+        document.documentElement.style.setProperty("--navbar-height", height + "px");
+      }
+    };
+
+    // 切換選單（帶動畫）
     btn?.addEventListener("click", () => {
       menu?.classList.toggle("active");
-      updateNavHeight();
+
+      // 等動畫結束再更新高度（避免高度讀不到）
+      setTimeout(updateNavHeight, 400);
     });
 
     // 捲動陰影效果
@@ -145,16 +162,8 @@ const currentPath = Astro.url.pathname; // 目前路徑
       }
     });
 
-    // 更新 navbar 高度，通知 BaseLayout
-    const updateNavHeight = () => {
-      if (navbar) {
-        const height = navbar.offsetHeight;
-        document.documentElement.style.setProperty("--navbar-height", height + "px");
-      }
-    };
-
-    // 初始 & 監聽
-    updateNavHeight();
+    // 🚀 初始與響應式更新
+    window.addEventListener("load", updateNavHeight);
     window.addEventListener("resize", updateNavHeight);
     window.addEventListener("orientationchange", updateNavHeight);
   });

@@ -1,4 +1,4 @@
-<!DOCTYPE html><html lang="zh-Hant" data-astro-cid-37fxchfa> <head><meta charset="UTF-8"><meta name="viewport" content="width=device-width, initial-scale=1.0"><title>聯絡</title><link rel="stylesheet" href="/carol-lab/_astro/01_typography_music_visual.CsU0oJwW.css">
+<!DOCTYPE html><html lang="zh-Hant" data-astro-cid-37fxchfa> <head><meta charset="UTF-8"><meta name="viewport" content="width=device-width, initial-scale=1.0"><title>聯絡</title><link rel="stylesheet" href="/carol-lab/_astro/01_typography_music_visual.OQb8B4mn.css">
 <style>.iframe-wrapper[data-astro-cid-uw5kdbxl]{width:100%;max-width:1200px;margin:64px auto;padding:32px;box-sizing:border-box;background-color:#d3d7d9;border-radius:12px;box-shadow:0 0 24px #243640;overflow:hidden}.tally-iframe[data-astro-cid-uw5kdbxl]{width:100%;min-height:1000px;border:none;display:block}@media (max-width: 1024px){.iframe-wrapper[data-astro-cid-uw5kdbxl]{padding:16px;margin:32px auto}.tally-iframe[data-astro-cid-uw5kdbxl]{min-height:800px}}@media (max-width: 480px){main[data-astro-cid-uw5kdbxl].contact-main{min-height:calc(100vh - 60px);overflow-y:auto;-webkit-overflow-scrolling:touch}main[data-astro-cid-uw5kdbxl]::-webkit-scrollbar{display:none}.iframe-wrapper[data-astro-cid-uw5kdbxl]{padding:12px;margin:16px auto}.tally-iframe[data-astro-cid-uw5kdbxl]{min-height:900px}}
 </style></head> <body data-astro-cid-37fxchfa> <nav id="navbar" data-astro-cid-5blmo7yk> <div class="nav-container" data-astro-cid-5blmo7yk> <a href="/carol-lab/" class="logo" data-astro-cid-5blmo7yk> <img src="/carol-lab/navbar_logo.svg" alt="Carol Lab" class="logo-img" data-astro-cid-5blmo7yk> </a> <button class="menu-btn" aria-label="Toggle Menu" data-astro-cid-5blmo7yk>☰</button> <ul id="menu" class="menu" data-astro-cid-5blmo7yk> <li data-astro-cid-5blmo7yk><a href="/carol-lab/" class data-astro-cid-5blmo7yk>Lab Base</a></li> <li data-astro-cid-5blmo7yk><a href="/carol-lab/works" class data-astro-cid-5blmo7yk>Creations</a></li> <li data-astro-cid-5blmo7yk><a href="/carol-lab/contact" class="active" data-astro-cid-5blmo7yk>Connect</a></li> </ul> </div> </nav>  <script>
   document.addEventListener("DOMContentLoaded", () => {
@@ -6,10 +6,20 @@
     const menu = document.getElementById("menu");
     const navbar = document.getElementById("navbar");
 
-    // 切換選單
+    // ✅ 更新 navbar 高度
+    const updateNavHeight = () => {
+      if (navbar) {
+        const height = navbar.offsetHeight;
+        document.documentElement.style.setProperty("--navbar-height", height + "px");
+      }
+    };
+
+    // 切換選單（帶動畫）
     btn?.addEventListener("click", () => {
       menu?.classList.toggle("active");
-      updateNavHeight();
+
+      // 等動畫結束再更新高度（避免高度讀不到）
+      setTimeout(updateNavHeight, 400);
     });
 
     // 捲動陰影效果
@@ -21,16 +31,8 @@
       }
     });
 
-    // 更新 navbar 高度，通知 BaseLayout
-    const updateNavHeight = () => {
-      if (navbar) {
-        const height = navbar.offsetHeight;
-        document.documentElement.style.setProperty("--navbar-height", height + "px");
-      }
-    };
-
-    // 初始 & 監聽
-    updateNavHeight();
+    // 🚀 初始與響應式更新
+    window.addEventListener("load", updateNavHeight);
     window.addEventListener("resize", updateNavHeight);
     window.addEventListener("orientationchange", updateNavHeight);
   });
@@ -38,21 +40,4 @@
 © 2025 Carol Lab。版權所有。
 </span> <span class="divider" data-astro-cid-sz7xmlte>｜</span> <a class="footer-email" href="mailto:c.citrus.rol@gmail.com" data-astro-cid-sz7xmlte>
 c.citrus.rol@gmail.com
-</a> </div> </div> </footer>  <script>
-      document.addEventListener("DOMContentLoaded", () => {
-        const navbar = document.getElementById("navbar");
-
-        const updateNavHeight = () => {
-          if (navbar) {
-            document.documentElement.style.setProperty(
-              "--navbar-height",
-              navbar.offsetHeight + "px"
-            );
-          }
-        };
-
-        updateNavHeight();
-        window.addEventListener("resize", updateNavHeight);
-        window.addEventListener("orientationchange", updateNavHeight);
-      });
-    </script> </body> </html>
+</a> </div> </div> </footer>  </body></html>
