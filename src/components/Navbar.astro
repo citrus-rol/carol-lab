@@ -1,6 +1,6 @@
 ---
 const base = import.meta.env.BASE_URL || '/';
-const currentPath = Astro.url.pathname;
+const currentPath = Astro.url.pathname; // 目前路徑
 ---
 
 <nav id="navbar">
@@ -40,6 +40,12 @@ const currentPath = Astro.url.pathname;
     padding: 12px 24px;
   }
 
+  .logo {
+    display: flex;
+    align-items: center;
+    text-decoration: none;
+  }
+
   .logo-img {
     height: 80px;
     width: auto;
@@ -59,9 +65,19 @@ const currentPath = Astro.url.pathname;
     font-size: clamp(1rem, 2vw, 2rem);
     letter-spacing: 0.05rem;
   }
-  .menu li a:hover { color: #e5af3a; }
-  .menu li a.active { color: #d3d7d9; font-weight: bold; }
-  .menu li a.active:hover { color: #e5af3a; }
+
+  .menu li a:hover {
+    color: #e5af3a;
+  }
+
+  .menu li a.active {
+    color: #d3d7d9;
+    font-weight: bold;
+  }
+
+  .menu li a.active:hover {
+    color: #e5af3a;
+  }
 
   .menu-btn {
     display: none;
@@ -71,10 +87,15 @@ const currentPath = Astro.url.pathname;
     color: #d3d7d9;
     cursor: pointer;
   }
-  .menu-btn:hover { color: #e5af3a; }
+
+  .menu-btn:hover {
+    color: #e5af3a;
+  }
 
   @media (max-width: 768px) {
-    .menu-btn { display: block; }
+    .menu-btn {
+      display: block;
+    }
 
     .menu {
       display: none;
@@ -83,15 +104,23 @@ const currentPath = Astro.url.pathname;
       align-items: center;
       gap: 24px;
       position: absolute;
-      top: 100%;
+      top: 100%; /* 貼在 navbar 下 */
       right: 20px;
-      background: #24364080;
+      background: #243640cc;
       box-shadow: 0 4px 12px 4px #24364080;
       padding: 24px 16px;
       border-radius: 12px;
     }
-    .menu.active { display: flex; }
-    .menu li a { font-size: 1rem; padding: 16px 0; }
+
+    .menu.active {
+      display: flex;
+    }
+
+    .menu li a {
+      font-size: 1rem;
+      letter-spacing: 0.05rem;
+      padding: 16px 0;
+    }
   }
 </style>
 
@@ -101,11 +130,13 @@ const currentPath = Astro.url.pathname;
     const menu = document.getElementById("menu");
     const navbar = document.getElementById("navbar");
 
+    // 切換選單
     btn?.addEventListener("click", () => {
       menu?.classList.toggle("active");
       updateNavHeight();
     });
 
+    // 捲動陰影效果
     window.addEventListener("scroll", () => {
       if (window.scrollY > 20) {
         navbar?.classList.add("scrolled");
@@ -114,15 +145,18 @@ const currentPath = Astro.url.pathname;
       }
     });
 
+    // 更新 navbar 高度，通知 BaseLayout
     const updateNavHeight = () => {
       if (navbar) {
-        const h = navbar.offsetHeight;
-        document.documentElement.style.setProperty("--navbar-height", h + "px");
-        console.log("Navbar height:", h);
+        document.documentElement.style.setProperty(
+          "--navbar-height",
+          navbar.offsetHeight + "px"
+        );
       }
     };
 
     updateNavHeight();
     window.addEventListener("resize", updateNavHeight);
+    window.addEventListener("orientationchange", updateNavHeight);
   });
 </script>

@@ -259,6 +259,7 @@ const colors = ['#e5af3a33', '#24364033', '#d3d7d933', '#24364033', '#d3d7d933',
       to { opacity: 0; transform: translateY(10px); }
     }
 
+    /* 平板 */
     @media (max-width: 1024px) {
       .works-grid {
         grid-template-columns: repeat(2, 1fr);
@@ -266,29 +267,33 @@ const colors = ['#e5af3a33', '#24364033', '#d3d7d933', '#24364033', '#d3d7d933',
         padding-bottom: 120px; /* 同步平板底部空間 */
       }
     }
+
+    /* 手機 */
     @media (max-width: 480px) {
       main.works-grid {
         min-height: calc(100vh - 60px); /* 扣掉 navbar 高度 */
-
         overflow-y: auto;
         -webkit-overflow-scrolling: touch;
-        padding: 16px;
+        padding: 0; /* ✅ 移掉重複 padding */
       }
-      main::-webkit-scrollbar {
-        display: none; 
-      }
+      main.works-grid::-webkit-scrollbar { display: none; }
+
       .works-grid {
         grid-template-columns: 1fr;
         grid-auto-rows: 1fr;
+        padding: 16px; /* ✅ 單一控制 */
+        max-width: 100%; /* ✅ 滿版 */
+        margin: 0 auto;
         padding-bottom: 120px; /* 手機版增加底部間距 */
       }
-      .filter-buttons-container,
-      .works-grid {
-        max-width: 95%;
+
+      .filter-buttons-container {
+        max-width: 100%;
         width: 100%;
-        margin: 0 auto;
+        margin: 0 auto 16px;
         padding: 0 8px;
       }
     }
+
   </style>
 </BaseLayout>

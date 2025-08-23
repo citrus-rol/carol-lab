@@ -1,4 +1,4 @@
-<!DOCTYPE html><html lang="zh-Hant" data-astro-cid-37fxchfa> <head><meta charset="UTF-8"><meta name="viewport" content="width=device-width, initial-scale=1.0"><title>08_typography_music_visual</title><link rel="stylesheet" href="/carol-lab/_astro/01_typography_music_visual.B_crnE4F.css">
+<!DOCTYPE html><html lang="zh-Hant" data-astro-cid-37fxchfa> <head><meta charset="UTF-8"><meta name="viewport" content="width=device-width, initial-scale=1.0"><title>08_typography_music_visual</title><link rel="stylesheet" href="/carol-lab/_astro/01_typography_music_visual.CsU0oJwW.css">
 <style>.works-card-variant[data-astro-cid-kq565qz6]{border-radius:12px;overflow:hidden;cursor:pointer;display:flex;flex-direction:column;align-items:center;transition:box-shadow .4s ease,transform .3s ease}.works-card-variant[data-astro-cid-kq565qz6]:active{transform:scale(1.05);box-shadow:0 0 16px 8px #d3d7d980}.card-media[data-astro-cid-kq565qz6]{width:100%;height:100%;object-fit:cover;transition:transform .3s ease;border-radius:inherit;-webkit-user-drag:none;user-drag:none}.works-card-variant[data-astro-cid-kq565qz6]:hover .card-media[data-astro-cid-kq565qz6]{transform:scale(1.08)}.works-info[data-astro-cid-kq565qz6]{text-align:center;margin-top:8px}.works-info[data-astro-cid-kq565qz6] h3[data-astro-cid-kq565qz6],.works-info[data-astro-cid-kq565qz6] p[data-astro-cid-kq565qz6]{margin:4px 0;font-size:clamp(.8rem,1.2vw,1.2rem)}.image-wrapper[data-astro-cid-kq565qz6]{position:relative;width:100%;height:100%}.image-wrapper[data-astro-cid-kq565qz6] .overlay[data-astro-cid-kq565qz6]{position:absolute;inset:0;background:transparent;pointer-events:auto}
 </style>
 <link rel="stylesheet" href="/carol-lab/_astro/02_typography_music_visual.BzsYonuZ.css"></head> <body data-astro-cid-37fxchfa> <nav id="navbar" data-astro-cid-5blmo7yk> <div class="nav-container" data-astro-cid-5blmo7yk> <a href="/carol-lab/" class="logo" data-astro-cid-5blmo7yk> <img src="/carol-lab/navbar_logo.svg" alt="Carol Lab" class="logo-img" data-astro-cid-5blmo7yk> </a> <button class="menu-btn" aria-label="Toggle Menu" data-astro-cid-5blmo7yk>☰</button> <ul id="menu" class="menu" data-astro-cid-5blmo7yk> <li data-astro-cid-5blmo7yk><a href="/carol-lab/" class data-astro-cid-5blmo7yk>Lab Base</a></li> <li data-astro-cid-5blmo7yk><a href="/carol-lab/works" class data-astro-cid-5blmo7yk>Creations</a></li> <li data-astro-cid-5blmo7yk><a href="/carol-lab/contact" class data-astro-cid-5blmo7yk>Connect</a></li> </ul> </div> </nav>  <script>
@@ -7,11 +7,13 @@
     const menu = document.getElementById("menu");
     const navbar = document.getElementById("navbar");
 
+    // 切換選單
     btn?.addEventListener("click", () => {
       menu?.classList.toggle("active");
       updateNavHeight();
     });
 
+    // 捲動陰影效果
     window.addEventListener("scroll", () => {
       if (window.scrollY > 20) {
         navbar?.classList.add("scrolled");
@@ -20,16 +22,19 @@
       }
     });
 
+    // 更新 navbar 高度，通知 BaseLayout
     const updateNavHeight = () => {
       if (navbar) {
-        const h = navbar.offsetHeight;
-        document.documentElement.style.setProperty("--navbar-height", h + "px");
-        console.log("Navbar height:", h);
+        document.documentElement.style.setProperty(
+          "--navbar-height",
+          navbar.offsetHeight + "px"
+        );
       }
     };
 
     updateNavHeight();
     window.addEventListener("resize", updateNavHeight);
+    window.addEventListener("orientationchange", updateNavHeight);
   });
 </script> <main id="page-content" class=" " data-astro-cid-37fxchfa>   <div class="back-link" data-astro-cid-pq7vhtve> <a href="/carol-lab/works" data-astro-cid-pq7vhtve> <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24" width="20" height="20" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" data-astro-cid-pq7vhtve> <polyline points="15 18 9 12 15 6" data-astro-cid-pq7vhtve></polyline> </svg>
 返回 Works
@@ -41,4 +46,21 @@
 © 2025 Carol Lab。版權所有。
 </span> <span class="divider" data-astro-cid-sz7xmlte>｜</span> <a class="footer-email" href="mailto:c.citrus.rol@gmail.com" data-astro-cid-sz7xmlte>
 c.citrus.rol@gmail.com
-</a> </div> </div> </footer>  </body></html>
+</a> </div> </div> </footer>  <script>
+      document.addEventListener("DOMContentLoaded", () => {
+        const navbar = document.getElementById("navbar");
+
+        const updateNavHeight = () => {
+          if (navbar) {
+            document.documentElement.style.setProperty(
+              "--navbar-height",
+              navbar.offsetHeight + "px"
+            );
+          }
+        };
+
+        updateNavHeight();
+        window.addEventListener("resize", updateNavHeight);
+        window.addEventListener("orientationchange", updateNavHeight);
+      });
+    </script> </body> </html>

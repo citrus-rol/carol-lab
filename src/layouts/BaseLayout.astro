@@ -9,7 +9,7 @@ const { title, padded = true, mainClass = '' } = Astro.props;
     <title>{title}</title>
     <style>
       :root {
-        --navbar-height: 80px; /* 預設高度，JS 會更新 */
+        --navbar-height: 80px; /* 預設高度，JS 會覆蓋 */
       }
 
       html, body {
@@ -27,10 +27,11 @@ const { title, padded = true, mainClass = '' } = Astro.props;
         font-family: "Noto Sans TC","Noto Sans","Microsoft JhengHei","PingFang TC","Heiti TC",Arial,sans-serif;
       }
 
+      /* 背景雜訊 */
       body::before {
         content: "";
         position: fixed;
-        top: 0; left: 0; width: 100%; height: 100%;
+        inset: 0;
         pointer-events: none;
         z-index: -1;
         background-color: #505e66;
@@ -46,10 +47,15 @@ const { title, padded = true, mainClass = '' } = Astro.props;
         padding-top: var(--navbar-height);
         background-color: transparent;
       }
+
       main.no-padding { padding: 0; }
 
-      @media (max-width: 768px) { main { padding: 0 20px; } }
-      @media (max-width: 480px) { main { padding: 0 16px; } }
+      @media (max-width: 768px) {
+        main { padding: 0 20px; }
+      }
+      @media (max-width: 480px) {
+        main { padding: 0 16px; }
+      }
     </style>
   </head>
   <body>
@@ -58,5 +64,24 @@ const { title, padded = true, mainClass = '' } = Astro.props;
       <slot />
     </main>
     <slot name="footer" />
+
+    <script is:inline>
+      document.addEventListener("DOMContentLoaded", () => {
+        const navbar = document.getElementById("navbar");
+
+        const updateNavHeight = () => {
+          if (navbar) {
+            document.documentElement.style.setProperty(
+              "--navbar-height",
+              navbar.offsetHeight + "px"
+            );
+          }
+        };
+
+        updateNavHeight();
+        window.addEventListener("resize", updateNavHeight);
+        window.addEventListener("orientationchange", updateNavHeight);
+      });
+    </script>
   </body>
 </html>
