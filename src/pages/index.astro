@@ -97,6 +97,9 @@ main.home-main {
   -webkit-text-fill-color: transparent;
   display: block;
   margin: 1rem 0;
+  white-space: nowrap;        /* 不換行 */
+  overflow: hidden;           /* 超出隱藏 */
+  text-overflow: ellipsis;    /* 顯示 ... */
 }
 
 .about-desktop p:nth-of-type(1) { animation: fadeInMove 3s forwards 0.5s, sweep 5s forwards 8s; }
@@ -188,14 +191,14 @@ main.home-main {
     letter-spacing: 0.1rem;
     opacity: 0;
     transform: translateY(60px);
-    white-space: nowrap;
-    overflow: visible;
-    text-overflow: clip;
     background: linear-gradient(to right, #d3d7d9 0%, #d3d7d9 40%, #24364080 50%, #E5AF3A 60%);
     background-size: 300% 100%;
     background-position: 100% 0;
     -webkit-background-clip: text;
     -webkit-text-fill-color: transparent;
+    white-space: nowrap;        /* 不換行 */
+    overflow: hidden;           /* 超出隱藏 */
+    text-overflow: ellipsis;    /* 顯示 ... */
   }
   .about-mobile p:nth-of-type(1) { animation: fadeInMove 2s forwards 0.3s, sweep 3s forwards 11s;}
   .about-mobile p:nth-of-type(2) { animation: fadeInMove 3s forwards 2.3s, sweep 3s forwards 11s;}

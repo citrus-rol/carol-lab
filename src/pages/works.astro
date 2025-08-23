@@ -171,15 +171,15 @@ const colors = ['#e5af3a33', '#24364033', '#d3d7d933', '#24364033', '#d3d7d933',
     overflow-x: auto;
     -webkit-overflow-scrolling: touch;
     margin: 56px auto 20px;
+    display: flex;              /* ✅ 新增 */
+    justify-content: center;    /* ✅ 容器層級置中 */
   }
 
   .filter-buttons {
     display: flex;
-    justify-content: center;
     gap: 12px;
     position: relative;
-    width: max-content;
-    margin: 0 auto;
+    width: max-content;         /* ✅ 保留捲動特性 */
   }
 
   .filter-buttons button {
@@ -284,18 +284,36 @@ const colors = ['#e5af3a33', '#24364033', '#d3d7d933', '#24364033', '#d3d7d933',
     .works-grid {
       grid-template-columns: 1fr;
       grid-auto-rows: 1fr;
-      padding: 16px;
       max-width: 100%;
       margin: 0 auto;
       padding-bottom: 120px;
+      padding: 24px 12px 120px; /* 上下左右多一點 padding */
+      gap: 24px; /* 卡片之間留更多間距 */
     }
-
+    
     .filter-buttons-container {
       max-width: 100%;
       width: 100%;
+      overflow-x: auto;                /* ✅ 可以滑動 */
+      -webkit-overflow-scrolling: touch;
       margin: 0 auto 16px;
       padding: 0 8px;
+      display: flex;                   /* ✅ 水平置中 */
+      justify-content: flex-start;     /* ✅ 從左開始排，方便滑動 */
     }
+    .filter-buttons {
+      display: flex;
+      gap: 12px;
+      position: relative;
+      width: max-content;              /* ✅ 讓內容寬度自適應，超出時可滑 */
+      margin: 0;
+    }
+
+    .filter-buttons button {
+      font-size: var(--font-md);       /* ✅ 手機字體小一點 */
+      padding: 6px 12px;               /* ✅ 內距縮小 */
+    }
+    
   }
 </style>
 

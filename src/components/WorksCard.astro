@@ -146,4 +146,31 @@ const imgSrc =
 .card:hover .title {
   color: #505e66;
 }
+
+@media (max-width: 480px) {
+  /* 手機上禁用 hover 視覺效果 */
+  .card:hover {
+    transform: none;
+    background-color: #d3d7d933;
+    box-shadow: 0 0 16px 4px #24364080;
+  }
+
+  .card:hover .inner-img {
+    opacity: 0.6;
+    box-shadow: none;
+  }
+
+  .card:hover .inner-img::after {
+    background-color: #505e66;
+  }
+
+  .card:hover .text-container::after {
+    background-color: #E5AF3A33;
+  }
+
+  .card:hover .title {
+    color: #505e66;
+  }
+}
+
 </style>
