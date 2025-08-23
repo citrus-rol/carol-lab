@@ -1,22 +1,16 @@
-<!DOCTYPE html><html lang="zh-Hant" data-astro-cid-37fxchfa> <head><meta charset="UTF-8"><meta name="viewport" content="width=device-width, initial-scale=1.0"><title>聯絡</title><link rel="stylesheet" href="/carol-lab/_astro/01_typography_music_visual.8RROrodl.css">
+<!DOCTYPE html><html lang="zh-Hant" data-astro-cid-37fxchfa> <head><meta charset="UTF-8"><meta name="viewport" content="width=device-width, initial-scale=1.0"><title>聯絡</title><link rel="stylesheet" href="/carol-lab/_astro/01_typography_music_visual.B_crnE4F.css">
 <style>.iframe-wrapper[data-astro-cid-uw5kdbxl]{width:100%;max-width:1200px;margin:64px auto;padding:32px;box-sizing:border-box;background-color:#d3d7d9;border-radius:12px;box-shadow:0 0 24px #243640;overflow:hidden}.tally-iframe[data-astro-cid-uw5kdbxl]{width:100%;min-height:1000px;border:none;display:block}@media (max-width: 1024px){.iframe-wrapper[data-astro-cid-uw5kdbxl]{padding:16px;margin:32px auto}.tally-iframe[data-astro-cid-uw5kdbxl]{min-height:800px}}@media (max-width: 480px){main[data-astro-cid-uw5kdbxl].contact-main{min-height:calc(100vh - 60px);overflow-y:auto;-webkit-overflow-scrolling:touch}main[data-astro-cid-uw5kdbxl]::-webkit-scrollbar{display:none}.iframe-wrapper[data-astro-cid-uw5kdbxl]{padding:12px;margin:16px auto}.tally-iframe[data-astro-cid-uw5kdbxl]{min-height:900px}}
-</style></head> <body data-astro-cid-37fxchfa> <nav id="navbar" data-astro-cid-5blmo7yk> <div class="nav-container" data-astro-cid-5blmo7yk> <a href="/carol-lab/" class="logo" data-astro-cid-5blmo7yk> <!-- 直接用 public 的路徑 --> <img src="/carol-lab/navbar_logo.svg" alt="Carol Lab" class="logo-img" data-astro-cid-5blmo7yk> </a> <button class="menu-btn" aria-label="Toggle Menu" data-astro-cid-5blmo7yk>
-☰
-</button> <ul id="menu" class="menu" data-astro-cid-5blmo7yk> <li data-astro-cid-5blmo7yk><a href="/carol-lab/" class data-astro-cid-5blmo7yk>Lab Base</a></li> <li data-astro-cid-5blmo7yk><a href="/carol-lab/works" class data-astro-cid-5blmo7yk>Creations</a></li> <li data-astro-cid-5blmo7yk><a href="/carol-lab/contact" class="active" data-astro-cid-5blmo7yk>Connect</a></li> </ul> </div> </nav>  <script>
+</style></head> <body data-astro-cid-37fxchfa> <nav id="navbar" data-astro-cid-5blmo7yk> <div class="nav-container" data-astro-cid-5blmo7yk> <a href="/carol-lab/" class="logo" data-astro-cid-5blmo7yk> <img src="/carol-lab/navbar_logo.svg" alt="Carol Lab" class="logo-img" data-astro-cid-5blmo7yk> </a> <button class="menu-btn" aria-label="Toggle Menu" data-astro-cid-5blmo7yk>☰</button> <ul id="menu" class="menu" data-astro-cid-5blmo7yk> <li data-astro-cid-5blmo7yk><a href="/carol-lab/" class data-astro-cid-5blmo7yk>Lab Base</a></li> <li data-astro-cid-5blmo7yk><a href="/carol-lab/works" class data-astro-cid-5blmo7yk>Creations</a></li> <li data-astro-cid-5blmo7yk><a href="/carol-lab/contact" class="active" data-astro-cid-5blmo7yk>Connect</a></li> </ul> </div> </nav>  <script>
   document.addEventListener("DOMContentLoaded", () => {
     const btn = document.querySelector(".menu-btn");
     const menu = document.getElementById("menu");
     const navbar = document.getElementById("navbar");
 
-    // 📌 漢堡選單開關
     btn?.addEventListener("click", () => {
       menu?.classList.toggle("active");
-
-      // 點擊後重新計算 navbar 高度
       updateNavHeight();
     });
 
-    // 📌 捲動陰影效果
     window.addEventListener("scroll", () => {
       if (window.scrollY > 20) {
         navbar?.classList.add("scrolled");
@@ -25,17 +19,14 @@
       }
     });
 
-    // 📌 計算 navbar 高度，更新 BaseLayout 使用的變數
     const updateNavHeight = () => {
       if (navbar) {
-        document.documentElement.style.setProperty(
-          "--navbar-height",
-          navbar.offsetHeight + "px"
-        );
+        const h = navbar.offsetHeight;
+        document.documentElement.style.setProperty("--navbar-height", h + "px");
+        console.log("Navbar height:", h);
       }
     };
 
-    // 初始化 + 視窗尺寸變化時重新計算
     updateNavHeight();
     window.addEventListener("resize", updateNavHeight);
   });
