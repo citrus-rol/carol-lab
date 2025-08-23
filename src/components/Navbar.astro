@@ -25,11 +25,11 @@ const currentPath = Astro.url.pathname;
     top: 0;
     width: 100%;
     z-index: 1000;
-    transition: background 0.3s, box-shadow 0.3s;
+    transition: background-color 0.3s, box-shadow 0.3s;
   }
 
   nav.scrolled {
-    background: #505e6680;
+    background-color: #505e6680;
     box-shadow: 0 2px 6px #243640;
   }
 
@@ -67,7 +67,7 @@ const currentPath = Astro.url.pathname;
   }
 
   .menu li a:hover {
-    color: #e5af3a;
+    color: #e5af3a80;
   }
 
   .menu li a.active {

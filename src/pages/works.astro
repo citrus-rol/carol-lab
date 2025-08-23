@@ -29,7 +29,7 @@ const worksList: Work[] = [
   { title: '字體設計｜音樂視覺', date: '2025-04-16', image: 'images/works_12_a.svg', link: '06_typography_music_visual' },
 ];
 
-// 持續更新中清單
+// Coming Soon
 const comingSoonList = [
   { title: 'Coming Soon', date: '____-__-__' },
   { title: 'Coming Soon', date: '____-__-__' },
@@ -39,14 +39,14 @@ const comingSoonList = [
   { title: 'Coming Soon', date: '____-__-__' },
 ];
 
-// 定義顏色陣列
+// 顏色背景
 const colors = ['#e5af3a33', '#24364033', '#d3d7d933', '#24364033', '#d3d7d933', '#e5af3a33', '#d3d7d933', '#e5af3a33', '#24364033'];
 ---
 
 <BaseLayout title="作品" mainClass="works-main">
   <Navbar slot="navbar" />
 
-  <!-- 篩選按鈕（可水平滑動） -->
+  <!-- 篩選按鈕 -->
   <div class="filter-buttons-container">
     <div class="filter-buttons">
       <button data-filter="all" class="active">全部</button>
@@ -57,7 +57,7 @@ const colors = ['#e5af3a33', '#24364033', '#d3d7d933', '#24364033', '#d3d7d933',
     </div>
   </div>
 
-  <!-- 卡片區域 -->
+  <!-- 作品卡片 -->
   <main class="works-grid" id="works-grid">
     {worksList.map((work) => {
       const imgSrc = work.image.startsWith(base)
@@ -66,18 +66,13 @@ const colors = ['#e5af3a33', '#24364033', '#d3d7d933', '#24364033', '#d3d7d933',
 
       return (
         <a href={`${base}${work.link.replace(/^\//, '')}`} class="fade-in" data-category={work.title}>
-          <WorksCard
-            title={work.title}
-            date={work.date}
-            image={imgSrc}
-          />
+          <WorksCard title={work.title} date={work.date} image={imgSrc} />
         </a>
       );
     })}
 
     {comingSoonList.map((work, index) => {
       const color = colors[index % colors.length];
-      // 統一使用 viewBox + preserveAspectRatio，確保填滿卡片
       const imgSrc = 'data:image/svg+xml;base64,' + btoa(
         `<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 400 400" preserveAspectRatio="xMidYMid slice">
           <rect width="400" height="400" fill="${color}"/>
@@ -86,17 +81,12 @@ const colors = ['#e5af3a33', '#24364033', '#d3d7d933', '#24364033', '#d3d7d933',
 
       return (
         <a class="fade-in" data-category="Coming Soon">
-          <WorksCard
-            title={work.title}
-            date={work.date}
-            image={imgSrc}
-          />
+          <WorksCard title={work.title} date={work.date} image={imgSrc} />
         </a>
       );
     })}
-
-
   </main>
+
   <BackToTop />
   <Footer slot="footer" />
 
@@ -109,15 +99,15 @@ const colors = ['#e5af3a33', '#24364033', '#d3d7d933', '#24364033', '#d3d7d933',
 
       buttons.forEach((btn) => {
         btn.addEventListener('click', () => {
-          // 切換 active 樣式
+          // active 樣式
           buttons.forEach((b) => b.classList.remove('active'));
           btn.classList.add('active');
 
-          // 移動 indicator
+          // indicator 移動
           indicator.style.left = btn.offsetLeft + 'px';
           indicator.style.width = btn.offsetWidth + 'px';
 
-          // 保持點擊按鈕在可視範圍
+          // 確保按鈕在可視範圍
           const btnLeft = btn.offsetLeft;
           const btnRight = btnLeft + btn.offsetWidth;
           const containerScrollLeft = container.scrollLeft;
@@ -165,21 +155,32 @@ const colors = ['#e5af3a33', '#24364033', '#d3d7d933', '#24364033', '#d3d7d933',
     flex: 1;
   }
 
-  /* 可水平滑動容器 */
+  /* 篩選按鈕容器 */
   .filter-buttons-container {
-    max-width: 90%;
+    max-width: 100%;
+    width: 100%;
     overflow-x: auto;
     -webkit-overflow-scrolling: touch;
     margin: 56px auto 20px;
-    display: flex;              /* ✅ 新增 */
-    justify-content: center;    /* ✅ 容器層級置中 */
+    padding: 0 16px;
+    display: flex;
+    justify-content: flex-start;
+    scroll-snap-type: x mandatory;
+  }
+
+  /* 桌機置中 */
+  @media (min-width: 769px) {
+    .filter-buttons-container {
+      max-width: 100%;
+      justify-content: center;
+    }
   }
 
   .filter-buttons {
     display: flex;
     gap: 12px;
     position: relative;
-    width: max-content;         /* ✅ 保留捲動特性 */
+    width: max-content;
   }
 
   .filter-buttons button {
@@ -187,16 +188,24 @@ const colors = ['#e5af3a33', '#24364033', '#d3d7d933', '#24364033', '#d3d7d933',
     border: none;
     padding: 8px 16px;
     cursor: pointer;
-    font-size: var(--font-lg);   /* ✅ 用 tokens.css */
+    font-size: var(--font-lg);
     color: #243640;
     transition: color 0.3s;
     white-space: nowrap;
-    letter-spacing: 0.05rem; /* ✅ 段落文字間距 */
+    letter-spacing: 0.05rem;
+    scroll-snap-align: start;
+  }
+  /* hover 顏色 */
+  .filter-buttons button:hover {
+    color: #E5AF3A80;  /* ⭐ 滑過去變金色 */
   }
 
   .filter-buttons button.active {
     color: #d3d7d9;
     font-weight: bold;
+  }
+  .filter-buttons button.active:hover {
+    color: #E5AF3A;
   }
 
   .indicator {
@@ -205,6 +214,11 @@ const colors = ['#e5af3a33', '#24364033', '#d3d7d933', '#24364033', '#d3d7d933',
     height: 2px;
     background: #E5AF3A;
     transition: all 0.3s ease;
+    left: 0;
+    width: 0;
+    /* ⭐ 預設就指到第一顆 */
+    width: auto;
+    min-width: 40px; /* 視字寬給個大概值，避免閃爍 */
   }
 
   /* 作品集 */
@@ -229,7 +243,7 @@ const colors = ['#e5af3a33', '#24364033', '#d3d7d933', '#24364033', '#d3d7d933',
     color: inherit;
     opacity: 1;
     transition: opacity 0.3s ease, transform 0.3s ease;
-    font-size: var(--font-sm);   /* ✅ 卡片內文字用 tokens.css */
+    font-size: var(--font-sm);
   }
 
   .works-grid a .card {
@@ -286,35 +300,14 @@ const colors = ['#e5af3a33', '#24364033', '#d3d7d933', '#24364033', '#d3d7d933',
       grid-auto-rows: 1fr;
       max-width: 100%;
       margin: 0 auto;
-      padding-bottom: 120px;
-      padding: 24px 12px 120px; /* 上下左右多一點 padding */
-      gap: 24px; /* 卡片之間留更多間距 */
-    }
-    
-    .filter-buttons-container {
-      max-width: 100%;
-      width: 100%;
-      overflow-x: auto;                /* ✅ 可以滑動 */
-      -webkit-overflow-scrolling: touch;
-      margin: 0 auto 16px;
-      padding: 0 8px;
-      display: flex;                   /* ✅ 水平置中 */
-      justify-content: flex-start;     /* ✅ 從左開始排，方便滑動 */
-    }
-    .filter-buttons {
-      display: flex;
-      gap: 12px;
-      position: relative;
-      width: max-content;              /* ✅ 讓內容寬度自適應，超出時可滑 */
-      margin: 0;
+      padding: 24px 12px 120px;
+      gap: 24px;
     }
 
     .filter-buttons button {
-      font-size: var(--font-md);       /* ✅ 手機字體小一點 */
-      padding: 6px 12px;               /* ✅ 內距縮小 */
+      font-size: var(--font-md);
+      padding: 6px 12px;
     }
-    
   }
 </style>
-
 </BaseLayout>

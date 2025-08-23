@@ -90,7 +90,7 @@ main.home-main {
   text-align: right;
   opacity: 0;
   transform: translateY(60px);
-  background: linear-gradient(to right, #d3d7d9 0%, #d3d7d9 50%, #24364080 60%, #E5AF3A 70%);
+  background: linear-gradient(to right, #d3d7d9 0%, #d3d7d9 40%, #24364080 50%, #E5AF3A 60%);
   background-size: 200% 100%;
   background-position: 100% 0;
   -webkit-background-clip: text;
@@ -146,7 +146,7 @@ main.home-main {
   gap:24px; 
 }
 .grid-card { 
-  width:100%; background-color: #243640;
+  background-color: #243640;
   background: linear-gradient(to left,#24364080,#d3d7d980,#24364080); 
   box-shadow:0 0 16px 4px #243640; 
   border-radius:12px; 
@@ -157,9 +157,11 @@ main.home-main {
   color:inherit; 
   opacity:0; 
   transform:translateY(40px); transition:all 0.8s ease; 
+  width: auto;       /* 改掉 100% */
+  max-width: 100%;   /* 保留不超出 */
 }
 .grid-card.visible { opacity:1; transform:translateY(0); }
-.grid-card:hover { transform:scale(1.05); background-color:#505e66; box-shadow: inset 0 0 24px 12px #d3d7d980; }
+.grid-card:hover { background-color:#505e66; box-shadow: inset 0 0 24px 12px #d3d7d980; }
 .grid-card h2 { font-size: var(--font-md); letter-spacing:0.05rem; color:#243640; line-height: 1.3; margin: 0 0 6px 0; }
 .grid-card p { font-size: var(--font-sm); letter-spacing:0.05rem; color:#243640; line-height: 1.4; margin: 0; }
 

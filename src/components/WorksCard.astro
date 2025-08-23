@@ -23,7 +23,6 @@ const imgSrc =
       oncontextmenu="return false;"
       draggable="false"
     />
-    <div class="img-overlay"></div>
   </div>
   <div class="text-container">
     <div class="title">{title}</div>
@@ -45,6 +44,7 @@ const imgSrc =
   z-index: 1;
 }
 
+/* hover only for桌機 */
 .card:hover {
   transform: scale(1.05);
   background-color: #d3d7d980;
@@ -65,37 +65,25 @@ const imgSrc =
   height: 100%;
   object-fit: cover;
   display: block;
-  opacity: 0.6;
-  transition: box-shadow 0.3s ease, opacity 0.3s ease;
+  opacity: 0.6; /* 預設透明度 */
   border-radius: inherit;
 }
 
-.inner-img::after {
+/* 遮罩用 wrapper::after */
+.img-wrapper::after {
   content: "";
-  position: absolute;
-  top:0; left:0; right:0; bottom:0;
-  border-radius:12px;
-  background-color:#505e66;
-  pointer-events:none;
-  z-index:3;
-  transition: background-color 0.3s ease;
-}
-
-.img-overlay {
   position: absolute;
   inset: 0;
   border-radius: 12px;
-  background: transparent;
-  pointer-events: auto; /* 阻擋右鍵 */
+  background-color: #505e66; /* 遮罩顏色 */
+  opacity: 0.4;              /* 遮罩強度 */
+  pointer-events: none;
+  transition: opacity 0.3s ease;
 }
 
-.card:hover .inner-img { 
-  box-shadow:none; 
-  opacity:0.8; 
-}
-
-.card:hover .inner-img::after { 
-  background-color:transparent; 
+/* hover 時讓遮罩變透明 */
+.card:hover .img-wrapper::after {
+  opacity: 0;
 }
 
 .text-container {
@@ -119,11 +107,11 @@ const imgSrc =
   border-radius: 2px;
 }
 .card:hover .text-container::after {
-  background-color: #E5AF3A80; /* 顏色變亮 */
+  background-color: #E5AF3A80;
 }
 
 .title {
-  font-size: var(--font-md); /* ✅ 小標題 */
+  font-size: var(--font-md);
   letter-spacing: 0.05rem; 
   font-weight: bold;
   color: #505e66;
@@ -135,7 +123,7 @@ const imgSrc =
 }
 
 .date {
-  font-size: var(--font-sm); /* ✅ 內文字 */
+  font-size: var(--font-sm);
   letter-spacing: 0.05rem;
   color: #24364080;
   white-space: nowrap;
@@ -143,34 +131,41 @@ const imgSrc =
   text-overflow: ellipsis;
 }
 
-.card:hover .title {
-  color: #505e66;
-}
-
+/* 手機版: 拔掉 hover 效果，但保留樣式 */
 @media (max-width: 480px) {
-  /* 手機上禁用 hover 視覺效果 */
+
+  .card {
+    background-color: #d3d7d980;   /* 固定底色 */
+    box-shadow: inset 0 0 24px 12px #24364080; /* 固定陰影 */
+    transform: none; /* 不放大 */
+  }
+
+  /* 🚫 覆寫 hover，保持和預設一致 */
   .card:hover {
-    transform: none;
     background-color: #d3d7d980;
     box-shadow: inset 0 0 24px 12px #24364080;
+    transform: none;
   }
 
-  .card:hover .inner-img {
-    opacity: 0.8;
-    box-shadow: none;
+  .img-wrapper::after {
+    opacity: 0;  /* 固定遮罩，不要變透明 */
+  }
+  .card:hover .img-wrapper::after {
+    opacity: 0;  /* 固定遮罩，不要變透明 */
   }
 
-  .card:hover .inner-img::after {
-    background-color: transparent; 
+  .text-container::after {
+    background-color: #E5AF3A80; /* 固定原本的顏色 */
   }
-
   .card:hover .text-container::after {
-    background-color: #E5AF3A80;
+    background-color: #E5AF3A80; /* 固定原本的顏色 */
   }
 
   .card:hover .title {
-    color: #505e66;
+    color: #505e66; /* 固定文字顏色 */
   }
-}
 
+  .inner-img {
+    opacity: 0.8; /* 預設透明度 */
+  }
 </style>
