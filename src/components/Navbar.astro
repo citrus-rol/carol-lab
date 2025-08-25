@@ -13,8 +13,8 @@ const currentPath = Astro.url.pathname;
 
     <ul id="menu" class="menu">
       <li><a href={`${base}`} class={currentPath === `${base}` ? "active" : ""}>Lab Base</a></li>
-      <li><a href={`${base}works`} class={currentPath.startsWith(`${base}works`) ? "active" : ""}>Creations</a></li>
-      <li><a href={`${base}contact`} class={currentPath.startsWith(`${base}contact`) ? "active" : ""}>Connect</a></li>
+      <li><a href={`${base}creations`} class={currentPath.startsWith(`${base}creations`) ? "active" : ""}>Creations</a></li>
+      <li><a href={`${base}connect`} class={currentPath.startsWith(`${base}connect`) ? "active" : ""}>Connect</a></li>
     </ul>
   </div>
 </nav>

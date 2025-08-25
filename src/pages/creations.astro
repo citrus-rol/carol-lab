@@ -163,7 +163,6 @@ const colors = ['#e5af3a33', '#24364033', '#d3d7d933', '#24364033', '#d3d7d933',
       overflow-y: hidden;              /* ⭐ 防止撐開頁面 */
       -webkit-overflow-scrolling: touch;
       margin: 56px auto 20px;
-      padding: 0 16px;
       display: flex;
       justify-content: flex-start;
       scroll-snap-type: x mandatory;
@@ -175,6 +174,7 @@ const colors = ['#e5af3a33', '#24364033', '#d3d7d933', '#24364033', '#d3d7d933',
       .filter-buttons-container {
         max-width: 100%;
         justify-content: center;
+        background-color:transparent;
       }
     }
 
@@ -190,12 +190,13 @@ const colors = ['#e5af3a33', '#24364033', '#d3d7d933', '#24364033', '#d3d7d933',
       border: none;
       padding: 8px 16px;
       cursor: pointer;
-      font-size: var(--font-lg);
+      font-size: var(--font-md);
       color: #243640;
       transition: color 0.3s;
       white-space: nowrap;
       letter-spacing: 0.05rem;
       scroll-snap-align: start;
+      box-shadow: inset;
     }
     /* hover 顏色 */
     .filter-buttons button:hover {
@@ -311,4 +312,4 @@ const colors = ['#e5af3a33', '#24364033', '#d3d7d933', '#24364033', '#d3d7d933',
     }
 
   </style>
-</BaseLayout>
+</BaseLayout> 

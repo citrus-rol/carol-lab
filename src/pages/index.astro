@@ -46,11 +46,11 @@ const base = import.meta.env.BASE_URL || '/';
       <h2>ELSE</h2>
     </section>
     <section class="grid-section">
-      <a href={`${base}works/`} class="grid-card">
+      <a href={`${base}creations`} class="grid-card">
         <h2>作品展示</h2>
         <p>--- 點擊此處 ---</p>
       </a>
-      <a href={`${base}contact/`} class="grid-card">
+      <a href={`${base}connect`} class="grid-card">
         <h2>聯絡資訊</h2>
         <p>--- 點擊此處 ---</p>
       </a>
@@ -79,7 +79,7 @@ main.home-main {
   letter-spacing:0.1rem;
   text-align:left; 
   color:#243640; 
-  font-size: var(--font-xl);
+  font-size: var(--font-lg);
   margin-bottom:20px; 
 }
 
@@ -90,7 +90,7 @@ main.home-main {
   text-align: right;
   opacity: 0;
   transform: translateY(60px);
-  background: linear-gradient(to right, #d3d7d9 0%, #d3d7d9 40%, #24364080 50%, #E5AF3A 60%);
+  background: linear-gradient(to right, #d3d7d9 0%, #d3d7d9 48%, #24364080 51%, #E5AF3A 60%);
   background-size: 200% 100%;
   background-position: 100% 0;
   -webkit-background-clip: text;
@@ -102,8 +102,8 @@ main.home-main {
   text-overflow: ellipsis;    /* 顯示 ... */
 }
 
-.about-desktop p:nth-of-type(1) { animation: fadeInMove 3s forwards 0.5s, sweep 5s forwards 8s; }
-.about-desktop p:nth-of-type(2) { animation: fadeInMove 3s forwards 3.5s, sweep 5s forwards 8s; }
+.about-desktop p:nth-of-type(1) { animation: fadeInMove 3s forwards 0.5s, sweep 3s forwards 7s; }
+.about-desktop p:nth-of-type(2) { animation: fadeInMove 3s forwards 3.5s, sweep 3s forwards 7s; }
 
 .about-mobile p{ display: none; }
 
@@ -113,7 +113,7 @@ main.home-main {
 }
 .service-title-section h2 { 
   color:#243640; 
-  font-size: var(--font-xl);
+  font-size: var(--font-lg);
   text-align:left; 
   letter-spacing:0.1rem; 
   margin-bottom:20px; 
@@ -135,7 +135,7 @@ main.home-main {
   letter-spacing:0.1rem;
   text-align:left; 
   color:#243640; 
-  font-size: var(--font-xl);
+  font-size: var(--font-lg);
   margin-bottom:20px; 
 }
 
