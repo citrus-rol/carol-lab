@@ -95,13 +95,22 @@ import "../styles/tokens.css";
         position: fixed;
         bottom: 20px;
         left: 20px;
-        width: 376px;
+        width: 90vw;        /* 手機螢幕自動縮小 */
+        max-width: 376px;   /* 桌面維持 376px */
         height: 500px;
         z-index: 9998;
         display: none;
         box-shadow: 0 4px 12px #243640;
         border-radius: 8px;
         overflow: hidden;
+      }
+      /* 手機小螢幕進一步調整 */
+      @media (max-width: 400px) {
+        #tally-container {
+          left: 5vw;        /* 靠左一些 */
+          width: 90vw;      /* 寬度 90% */
+          height: 450px;    /* 高度略縮 */
+        }
       }
 
       /* 自訂關閉按鈕 */
