@@ -9,16 +9,9 @@ import "../styles/tokens.css";
     <meta name="viewport" content="width=device-width, initial-scale=1.0" />
     <title>{title}</title>
     <style>
-      :root {
-        --navbar-height: 80px; /* 預設高度，JS 會覆蓋 */
-      }
+      :root { --navbar-height: 80px; }
 
-      html, body {
-        margin: 0;
-        padding: 0;
-        height: 100%;
-        user-select: none;
-      }
+      html, body { margin: 0; padding: 0; height: 100%; user-select: none; }
 
       body {
         display: flex;
@@ -28,7 +21,6 @@ import "../styles/tokens.css";
         font-family: "Noto Sans TC","Noto Sans","Microsoft JhengHei","PingFang TC","Heiti TC",Arial,sans-serif;
       }
 
-      /* 背景雜訊 */
       body::before {
         content: "";
         position: fixed;
@@ -45,7 +37,7 @@ import "../styles/tokens.css";
       main {
         flex: 1;
         padding: 0 10%;
-        padding-top: var(--navbar-height); /* 🚀 保證留出 navbar 高度 */
+        padding-top: var(--navbar-height);
         background-color: transparent;
       }
 
@@ -53,13 +45,134 @@ import "../styles/tokens.css";
 
       @media (max-width: 768px) { main { padding: 0 20px; padding-top: var(--navbar-height); } }
       @media (max-width: 480px) { main { padding: 0 16px; padding-top: var(--navbar-height); } }
+
+      /* 左下角浮動按鈕 */
+      #tally-feedback-btn {
+        border: none;
+        position: fixed;
+        bottom: 20px;
+        left: 20px;
+        width: auto;
+        min-width: 56px;
+        height: 56px;
+        padding: 0 12px;
+        border-radius: 28px;
+        background: #505e6680;
+        color: #d3d7d9;
+        font-size: var(--font-xxs);
+        display: flex;
+        align-items: center;
+        justify-content: center;
+        cursor: pointer;
+        box-shadow: 0 4px 8px #24364080;
+        z-index: 9999;
+        transform-origin: center;
+        animation: rotate-shake 1s 1; /* 初始晃動一次 */
+      }
+
+      @keyframes rotate-shake {
+        0% { transform: rotate(0deg); }
+        25% { transform: rotate(5deg); }
+        50% { transform: rotate(-5deg); }
+        75% { transform: rotate(5deg); }
+        100% { transform: rotate(0deg); }
+      }
+
+      #tally-feedback-btn:hover {
+        animation: shake-hover 0.6s 1; /* hover 再晃動一次 */
+      }
+
+      @keyframes shake-hover {
+        0% { transform: rotate(0deg); }
+        25% { transform: rotate(5deg); }
+        50% { transform: rotate(-5deg); }
+        75% { transform: rotate(5deg); }
+        100% { transform: rotate(0deg); }
+      }
+
+      /* 左下角浮動表單容器 */
+      #tally-container {
+        position: fixed;
+        bottom: 20px;
+        left: 20px;
+        width: 376px;
+        height: 500px;
+        z-index: 9998;
+        display: none;
+        box-shadow: 0 4px 12px #243640;
+        border-radius: 8px;
+        overflow: hidden;
+      }
+
+      /* 自訂關閉按鈕 */
+      #tally-close-btn {
+        position: absolute;
+        top: 8px;
+        right: 8px;
+        width: 28px;
+        height: 28px;
+        border: none;
+        border-radius: 50%;
+        background: #24364080;
+        color: #d3d7d980;
+        font-size: 18px;
+        cursor: pointer;
+        z-index: 10;
+      }
+      #tally-close-btn:hover {
+        background: #243640;
+        color: #d3d7d9;
+      }
     </style>
   </head>
+
   <body>
     <slot name="navbar" />
     <main id="page-content" class={`${padded ? '' : 'no-padding'} ${mainClass}`}>
       <slot />
     </main>
     <slot name="footer" />
+
+    <!-- 左下角浮動按鈕 -->
+    <button id="tally-feedback-btn">👋 意見回饋 & Feedback</button>
+
+    <!-- 左下角浮動表單容器 -->
+    <div id="tally-container">
+      <button id="tally-close-btn">✖</button>
+      <iframe
+        src="https://tally.so/embed/3jjWx6"
+        width="100%"
+        height="100%"
+        frameborder="0"
+        title="Feedback">
+      </iframe>
+    </div>
+
+    <script>
+      const btn = document.getElementById('tally-feedback-btn');
+      const container = document.getElementById('tally-container');
+      const closeBtn = document.getElementById('tally-close-btn');
+
+      if(btn && container && closeBtn){
+        // 點擊按鈕開啟表單，按鈕消失
+        btn.addEventListener('click', () => {
+          container.style.display = 'block';
+          btn.style.display = 'none';
+        });
+
+        // 關閉表單後按鈕再出現
+        closeBtn.addEventListener('click', () => {
+          container.style.display = 'none';
+          btn.style.display = 'flex';
+        });
+
+        // hover 再觸發晃動動畫
+        btn.addEventListener('mouseenter', () => {
+          btn.style.animation = 'none';
+          void btn.offsetWidth; // 強制重排
+          btn.style.animation = 'shake-hover 0.6s 1';
+        });
+      }
+    </script>
   </body>
 </html>
