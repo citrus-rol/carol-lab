@@ -79,15 +79,18 @@ import "../styles/tokens.css";
       }
 
       #tally-feedback-btn:hover {
-        animation: shake-hover 0.6s 1; /* hover 再晃動一次 */
+        transform: scale(1.1);
+        animation: shake-hover 0.6s 1;
+        background: #e5af3a80;
+        transition: transform 0.2s ease;
       }
 
       @keyframes shake-hover {
-        0% { transform: rotate(0deg); }
-        25% { transform: rotate(5deg); }
-        50% { transform: rotate(-5deg); }
-        75% { transform: rotate(5deg); }
-        100% { transform: rotate(0deg); }
+        0%   { transform: rotate(0deg) scale(1.1); }
+        25%  { transform: rotate(5deg) scale(1.1); }
+        50%  { transform: rotate(-5deg) scale(1.1); }
+        75%  { transform: rotate(5deg) scale(1.1); }
+        100% { transform: rotate(0deg) scale(1.1); }
       }
 
       /* 左下角浮動表單容器 */
@@ -99,51 +102,68 @@ import "../styles/tokens.css";
         max-width: 376px;   /* 桌面維持 376px */
         height: 500px;
         z-index: 9998;
-        display: none;
-        box-shadow: 0 4px 12px #243640;
         border-radius: 12px;
         overflow: hidden;
+        box-shadow: 0 4px 12px #243640;
+        opacity: 0;
+        visibility: hidden;
+        transition: opacity 0.3s ease, visibility 0.3s ease;
       }
+
+      #tally-container.show {
+        opacity: 1;
+        visibility: visible;
+      }
+      
       /* 手機小螢幕進一步調整 */
       @media (max-width: 400px) {
         #tally-container {
-          left: 5vw !important;         /* 靠左 */
-          width: 90vw !important;       /* 寬度 90% */
-          bottom: 92px !important;      /* 底部保留空間，避免工具列蓋住 */
-          max-height: 80vh !important;  /* 高度不超過可視區 80% */
-          box-shadow: none !important;  /* 移除陰影避免擁擠 */
+          left: 5vw !important;
+          width: 90vw !important;
+          bottom: 92px !important;
+          max-height: 80vh !important;
+          box-shadow: none !important;
         }
 
         #tally-container iframe {
-          width: 100% !important;
-          height: 100% !important;      /* 滿版 iframe 但限制在 max-height */
+          width: 100%;
+          height: 100%;
         }
 
         #tally-feedback-btn {
-          bottom: 44px !important;      /* 按鈕位置保持可見 */
+          bottom: 44px !important;
           left: 20px !important;
+          font-size: var(--font-sm);
+          user-select: none; /* 按鈕文字禁止選取 */
+        }
+
+        /* 手機板隱藏文字 */
+        #tally-feedback-btn span {
+          display: none;
         }
       }
 
       /* 自訂關閉按鈕 */
       #tally-close-btn {
         position: absolute;
-        top: 8px;
-        right: 8px;
+        top: 20px;
+        right: 20px;
         width: 28px;
         height: 28px;
         border: none;
         border-radius: 50%;
-        background: #24364080;
+        background: #24364033;
         color: #d3d7d980;
-        font-size: var(--font-xxs);
+        font-size: var(--font-xs);
         cursor: pointer;
         z-index: 10;
       }
+
       #tally-close-btn:hover {
-        background: #243640;
+        background: #24364080;
         color: #d3d7d9;
       }
+
     </style>
   </head>
 
@@ -155,7 +175,7 @@ import "../styles/tokens.css";
     <slot name="footer" />
 
     <!-- 左下角浮動按鈕 -->
-    <button id="tally-feedback-btn">👋 意見回饋 & Feedback</button>
+    <button id="tally-feedback-btn">👋 <span>意見回饋 & Feedback</span></button>
 
     <!-- 左下角浮動表單容器 -->
     <div id="tally-container">
@@ -175,15 +195,15 @@ import "../styles/tokens.css";
       const closeBtn = document.getElementById('tally-close-btn');
 
       if(btn && container && closeBtn){
-        // 點擊按鈕開啟表單，按鈕消失
+        // 點擊按鈕開啟表單，淡入動畫
         btn.addEventListener('click', () => {
-          container.style.display = 'block';
+          container.classList.add('show');
           btn.style.display = 'none';
         });
 
-        // 關閉表單後按鈕再出現
+        // 關閉表單後淡出動畫
         closeBtn.addEventListener('click', () => {
-          container.style.display = 'none';
+          container.classList.remove('show');
           btn.style.display = 'flex';
         });
 
