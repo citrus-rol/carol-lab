@@ -107,9 +107,21 @@ import "../styles/tokens.css";
       /* 手機小螢幕進一步調整 */
       @media (max-width: 400px) {
         #tally-container {
-          left: 5vw !important;        /* 靠左一些 */
-          width: 90vw !important;      /* 寬度 90% */
-          bottom: 52px !important;  /* 強制覆蓋 */
+          left: 5vw !important;         /* 靠左 */
+          width: 90vw !important;       /* 寬度 90% */
+          bottom: 70px !important;      /* 底部保留空間，避免工具列蓋住 */
+          max-height: 80vh !important;  /* 高度不超過可視區 80% */
+          box-shadow: none !important;  /* 移除陰影避免擁擠 */
+        }
+
+        #tally-container iframe {
+          width: 100% !important;
+          height: 100% !important;      /* 滿版 iframe 但限制在 max-height */
+        }
+
+        #tally-feedback-btn {
+          bottom: 20px !important;      /* 按鈕位置保持可見 */
+          left: 20px !important;
         }
       }
 
